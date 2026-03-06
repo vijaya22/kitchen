@@ -13,60 +13,124 @@ export async function getStaticPaths() {
 const { recipe } = Astro.props;
 const { Content } = await render(recipe);
 const { title, description, time, servings, tags } = recipe.data;
+
+const emoji =
+  (tags ?? []).includes('salad') ? '🥗' :
+  (tags ?? []).includes('soup') ? '🍲' :
+  (tags ?? []).includes('indian') ? '🍛' :
+  (tags ?? []).includes('chicken') ? '🍗' :
+  (tags ?? []).includes('vegan') ? '🌱' : '🍴';
 ---
 
 <Layout title={title} description={description}>
   <style>
     .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
       font-size: 0.85rem;
       color: var(--muted);
-      display: inline-block;
+      font-weight: 500;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
       margin-bottom: 2rem;
+      transition: all 0.2s;
+    }
+
+    .back:hover {
+      background: var(--accent-light);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .recipe-header {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+
+    .recipe-emoji {
+      font-size: 3rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+      display: block;
     }
 
     h1 {
       font-family: var(--font-serif);
-      font-size: 2rem;
-      font-weight: normal;
-      margin-bottom: 0.5rem;
-    }
-
-    .meta {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .tags {
-      display: flex;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-
-    .tag {
-      font-size: 0.75rem;
-      color: var(--muted);
-      background: var(--border);
-      border-radius: 3px;
-      padding: 0.1rem 0.4rem;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
     }
 
     .description {
       color: var(--muted);
       font-size: 0.95rem;
-      margin-bottom: 2rem;
-      border-left: 3px solid var(--border);
-      padding-left: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
     }
 
-    /* Recipe markdown content */
+    .meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      background: var(--accent-light);
+      color: var(--accent);
+      border: 1px solid #f0c8b0;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      background: var(--green-light);
+      color: var(--green);
+    }
+
+    /* Markdown content */
+    .content {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+
     .content h2 {
       font-family: var(--font-serif);
-      font-size: 1.2rem;
-      font-weight: normal;
-      margin: 2rem 0 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 600;
       color: var(--accent);
+      margin: 0 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px dashed var(--border);
+    }
+
+    .content h2:not(:first-child) {
+      margin-top: 2rem;
     }
 
     .content ul, .content ol {
@@ -75,41 +139,57 @@ const { title, description, time, servings, tags } = recipe.data;
     }
 
     .content li {
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
       font-size: 0.95rem;
+      line-height: 1.6;
     }
 
     .content p {
       margin-bottom: 1rem;
       font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .content strong {
+      color: var(--text);
+      font-weight: 600;
     }
 
     .content hr {
       border: none;
-      border-top: 1px solid var(--border);
+      border-top: 2px dashed var(--border);
       margin: 2rem 0;
+    }
+
+    .content blockquote {
+      border-left: 3px solid var(--accent);
+      padding-left: 1rem;
+      color: var(--muted);
+      font-style: italic;
+      margin: 1rem 0;
     }
   </style>
 
-  <a class="back" href="/">&larr; All recipes</a>
+  <a class="back" href="/">← All recipes</a>
 
-  <h1>{title}</h1>
+  <div class="recipe-header">
+    <span class="recipe-emoji">{emoji}</span>
+    <h1>{title}</h1>
+    <p class="description">{description}</p>
 
-  {(time || servings) && (
-    <p class="meta">
-      {time && <span>{time}</span>}
-      {time && servings && <span> · </span>}
-      {servings && <span>serves {servings}</span>}
-    </p>
-  )}
+    {(time || servings) && (
+      <div class="meta-pills">
+        {time && <span class="pill">⏱ {time}</span>}
+        {servings && <span class="pill">👤 serves {servings}</span>}
+      </div>
+    )}
 
-  {tags && (
-    <div class="tags">
-      {tags.map((tag) => <span class="tag">{tag}</span>)}
-    </div>
-  )}
-
-  <p class="description">{description}</p>
+    {tags && (
+      <div class="tags">
+        {tags.map((tag) => <span class="tag">{tag}</span>)}
+      </div>
+    )}
+  </div>
 
   <div class="content">
     <Content />

@@ -5,92 +5,225 @@ import Layout from '../layouts/Layout.astro';
 const recipes = (await getCollection('recipes')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
+
+const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))].sort();
 ---
 
 <Layout title="Kitchen">
   <style>
-    h1 {
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem 2.5rem;
+    }
+
+    .hero h1 {
       font-family: var(--font-serif);
-      font-size: 2rem;
-      font-weight: normal;
-      margin-bottom: 0.25rem;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
     }
 
-    .subtitle {
+    .hero h1 em {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hero p {
       color: var(--muted);
-      font-size: 0.9rem;
-      margin-bottom: 2.5rem;
+      font-size: 1rem;
+      max-width: 400px;
+      margin: 0 auto;
     }
 
-    ul {
-      list-style: none;
+    /* Tag filter */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin: 2rem 0 2.5rem;
+    }
+
+    .filter-btn {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Recipe grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
       display: flex;
       flex-direction: column;
-      gap: 1.75rem;
+      gap: 0.6rem;
     }
 
-    li {
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1.75rem;
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(180, 100, 50, 0.15);
     }
 
-    li:last-child {
-      border-bottom: none;
+    .card.hidden {
+      display: none;
     }
 
-    .recipe-title {
+    .card-emoji {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .card-title {
       font-family: var(--font-serif);
-      font-size: 1.2rem;
-      font-weight: normal;
-    }
-
-    .recipe-meta {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-top: 0.2rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .recipe-desc {
-      font-size: 0.9rem;
+      font-size: 1.15rem;
+      font-weight: 600;
       color: var(--text);
+      line-height: 1.3;
+      transition: color 0.2s;
     }
 
-    .tags {
-      margin-top: 0.5rem;
+    .card:hover .card-title {
+      color: var(--accent);
+    }
+
+    .card-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
       display: flex;
-      gap: 0.4rem;
+      gap: 0.75rem;
+    }
+
+    .card-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .card-tags {
+      display: flex;
       flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.25rem;
     }
 
     .tag {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: var(--green-light);
+      color: var(--green);
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
       color: var(--muted);
-      background: var(--border);
-      border-radius: 3px;
-      padding: 0.1rem 0.4rem;
+      padding: 3rem;
+      font-size: 0.95rem;
     }
   </style>
 
-  <h1>Vijaya's Kitchen</h1>
-  <p class="subtitle">{recipes.length} recipe{recipes.length !== 1 ? 's' : ''}</p>
+  <div class="hero">
+    <h1>Vijaya's <em>Kitchen</em></h1>
+    <p>{recipes.length} recipe{recipes.length !== 1 ? 's' : ''} and counting</p>
+  </div>
 
-  <ul>
+  {allTags.length > 0 && (
+    <div class="filters">
+      <button class="filter-btn active" data-tag="all">All</button>
+      {allTags.map((tag) => (
+        <button class="filter-btn" data-tag={tag}>{tag}</button>
+      ))}
+    </div>
+  )}
+
+  <div class="grid" id="recipe-grid">
     {recipes.map((recipe) => (
-      <li>
-        <a class="recipe-title" href={`/recipes/${recipe.id.replace(/\.md$/, '')}/`}>{recipe.data.title}</a>
-        <p class="recipe-meta">
-          {recipe.data.time && <span>{recipe.data.time}</span>}
-          {recipe.data.time && recipe.data.servings && <span> · </span>}
-          {recipe.data.servings && <span>serves {recipe.data.servings}</span>}
-        </p>
-        <p class="recipe-desc">{recipe.data.description}</p>
+      <a
+        class="card"
+        href={`/recipes/${recipe.id.replace(/\.md$/, '')}/`}
+        data-tags={JSON.stringify(recipe.data.tags ?? [])}
+      >
+        <div class="card-emoji">
+          {(recipe.data.tags ?? []).includes('salad') ? '🥗' :
+           (recipe.data.tags ?? []).includes('soup') ? '🍲' :
+           (recipe.data.tags ?? []).includes('indian') ? '🍛' :
+           (recipe.data.tags ?? []).includes('chicken') ? '🍗' :
+           (recipe.data.tags ?? []).includes('vegan') ? '🌱' : '🍴'}
+        </div>
+        <div class="card-title">{recipe.data.title}</div>
+        {(recipe.data.time || recipe.data.servings) && (
+          <div class="card-meta">
+            {recipe.data.time && <span>⏱ {recipe.data.time}</span>}
+            {recipe.data.servings && <span>👤 serves {recipe.data.servings}</span>}
+          </div>
+        )}
+        <div class="card-desc">{recipe.data.description}</div>
         {recipe.data.tags && (
-          <div class="tags">
+          <div class="card-tags">
             {recipe.data.tags.map((tag) => <span class="tag">{tag}</span>)}
           </div>
         )}
-      </li>
+      </a>
     ))}
-  </ul>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const cards = document.querySelectorAll<HTMLElement>('.card');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tag = btn.dataset.tag!;
+
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        cards.forEach((card) => {
+          const tags: string[] = JSON.parse(card.dataset.tags || '[]');
+          const show = tag === 'all' || tags.includes(tag);
+          card.classList.toggle('hidden', !show);
+        });
+      });
+    });
+  </script>
 </Layout>
