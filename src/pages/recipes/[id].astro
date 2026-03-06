@@ -1,0 +1,117 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const recipes = await getCollection('recipes');
+  return recipes.map((recipe) => ({
+    params: { id: recipe.id.replace(/\.md$/, '') },
+    props: { recipe },
+  }));
+}
+
+const { recipe } = Astro.props;
+const { Content } = await render(recipe);
+const { title, description, time, servings, tags } = recipe.data;
+---
+
+<Layout title={title} description={description}>
+  <style>
+    .back {
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: normal;
+      margin-bottom: 0.5rem;
+    }
+
+    .meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: var(--border);
+      border-radius: 3px;
+      padding: 0.1rem 0.4rem;
+    }
+
+    .description {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      border-left: 3px solid var(--border);
+      padding-left: 1rem;
+    }
+
+    /* Recipe markdown content */
+    .content h2 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: normal;
+      margin: 2rem 0 0.75rem;
+      color: var(--accent);
+    }
+
+    .content ul, .content ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .content li {
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .content p {
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+  </style>
+
+  <a class="back" href="/">&larr; All recipes</a>
+
+  <h1>{title}</h1>
+
+  {(time || servings) && (
+    <p class="meta">
+      {time && <span>{time}</span>}
+      {time && servings && <span> · </span>}
+      {servings && <span>serves {servings}</span>}
+    </p>
+  )}
+
+  {tags && (
+    <div class="tags">
+      {tags.map((tag) => <span class="tag">{tag}</span>)}
+    </div>
+  )}
+
+  <p class="description">{description}</p>
+
+  <div class="content">
+    <Content />
+  </div>
+</Layout>

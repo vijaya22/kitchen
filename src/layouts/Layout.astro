@@ -1,0 +1,82 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Vijaya's kitchen — a collection of recipes." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} — Kitchen</title>
+    <style>
+      :root {
+        --bg: #fdfaf6;
+        --text: #1a1a1a;
+        --muted: #666;
+        --accent: #b45309;
+        --border: #e5ddd3;
+        --max-width: 680px;
+        --font-serif: Georgia, 'Times New Roman', serif;
+        --font-sans: system-ui, -apple-system, sans-serif;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        line-height: 1.6;
+        padding: 2rem 1.25rem;
+      }
+
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      header {
+        max-width: var(--max-width);
+        margin: 0 auto 3rem;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 1rem;
+      }
+
+      header a.site-name {
+        font-family: var(--font-serif);
+        font-size: 1.4rem;
+        font-weight: normal;
+        color: var(--text);
+      }
+
+      header nav a {
+        font-size: 0.875rem;
+        color: var(--muted);
+      }
+
+      main {
+        max-width: var(--max-width);
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a class="site-name" href="/">Kitchen</a>
+      <nav>
+        <a href="/">All recipes</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

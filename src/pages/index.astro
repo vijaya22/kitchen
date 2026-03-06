@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const recipes = (await getCollection('recipes')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<Layout title="Kitchen">
+  <style>
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: normal;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 2.5rem;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    li {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.75rem;
+    }
+
+    li:last-child {
+      border-bottom: none;
+    }
+
+    .recipe-title {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: normal;
+    }
+
+    .recipe-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .recipe-desc {
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .tags {
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: var(--border);
+      border-radius: 3px;
+      padding: 0.1rem 0.4rem;
+    }
+  </style>
+
+  <h1>Vijaya's Kitchen</h1>
+  <p class="subtitle">{recipes.length} recipe{recipes.length !== 1 ? 's' : ''}</p>
+
+  <ul>
+    {recipes.map((recipe) => (
+      <li>
+        <a class="recipe-title" href={`/recipes/${recipe.id.replace(/\.md$/, '')}/`}>{recipe.data.title}</a>
+        <p class="recipe-meta">
+          {recipe.data.time && <span>{recipe.data.time}</span>}
+          {recipe.data.time && recipe.data.servings && <span> · </span>}
+          {recipe.data.servings && <span>serves {recipe.data.servings}</span>}
+        </p>
+        <p class="recipe-desc">{recipe.data.description}</p>
+        {recipe.data.tags && (
+          <div class="tags">
+            {recipe.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+          </div>
+        )}
+      </li>
+    ))}
+  </ul>
+</Layout>
