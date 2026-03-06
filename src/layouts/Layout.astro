@@ -17,84 +17,155 @@ const { title, description = "Vijaya's kitchen — a collection of recipes." } =
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;700&family=Rye&family=Special+Elite&display=swap" rel="stylesheet" />
 
     <style>
       :root {
-        --bg: #fff8f0;
-        --card: #ffffff;
-        --text: #2c1810;
-        --muted: #8b6f5e;
-        --accent: #c9552a;
-        --accent-light: #fff0e6;
-        --green: #5a7a45;
-        --green-light: #eef5e8;
-        --border: #ede0d4;
-        --shadow: rgba(180, 100, 50, 0.08);
-        --font-serif: 'Playfair Display', Georgia, serif;
-        --font-sans: 'DM Sans', system-ui, sans-serif;
-        --radius: 16px;
+        --scene-bg: #e2e3de;
+        --orange-400: #f44b14;
+        --orange-500: #e8400d;
+        --orange-600: #cd3002;
+        --paper: #f6f1df;
+        --paper-strong: #ece3c8;
+        --paper-edge: #d4c49d;
+        --ink: #204f49;
+        --ink-soft: #487067;
+        --ink-muted: #6f857d;
+        --accent: #ef7b3f;
+        --gold: #c79f2d;
+        --shadow: rgba(40, 21, 9, 0.22);
+        --font-display: 'Rye', Georgia, serif;
+        --font-body: 'Alegreya Sans', 'Trebuchet MS', sans-serif;
+        --font-mono: 'Special Elite', 'Courier New', monospace;
+        --radius-lg: 24px;
+        --radius-md: 14px;
       }
 
       * { box-sizing: border-box; margin: 0; padding: 0; }
 
       body {
-        background: var(--bg);
-        color: var(--text);
-        font-family: var(--font-sans);
-        font-size: 1rem;
-        line-height: 1.6;
+        background: radial-gradient(circle at top, #f7f7f3 0%, var(--scene-bg) 56%, #d7d8d2 100%);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 1.125rem;
+        line-height: 1.45;
         min-height: 100vh;
       }
 
       a { color: inherit; text-decoration: none; }
 
       header {
-        background: var(--card);
-        border-bottom: 1px solid var(--border);
-        padding: 1rem 2rem;
+        width: min(1260px, calc(100% - 2.4rem));
+        margin: 1rem auto 0.8rem;
+        background: rgba(248, 246, 239, 0.95);
+        border: 1px solid #ded8c3;
+        border-radius: 999px;
+        padding: 0.75rem 1rem 0.75rem 1.35rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        box-shadow: 0 2px 12px var(--shadow);
+        gap: 1rem;
+        box-shadow: 0 8px 24px rgba(58, 39, 14, 0.1);
       }
 
       .site-name {
-        font-family: var(--font-serif);
-        font-size: 1.5rem;
-        color: var(--accent);
+        font-family: var(--font-display);
+        font-size: clamp(1.05rem, 2vw, 1.35rem);
+        letter-spacing: 0.04em;
+        color: var(--ink);
         display: flex;
         align-items: center;
-        gap: 0.4rem;
+        gap: 0.6rem;
       }
 
       .site-name span {
-        font-size: 1.4rem;
+        font-size: 1.25rem;
+        transform: rotate(-6deg);
       }
 
       header nav a {
-        font-size: 0.875rem;
-        color: var(--muted);
-        font-weight: 500;
-        padding: 0.4rem 0.9rem;
+        font-size: 0.82rem;
+        color: var(--ink-soft);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 700;
+        padding: 0.46rem 1.05rem;
         border-radius: 999px;
-        border: 1px solid var(--border);
-        transition: all 0.2s;
+        border: 1px solid #c9b98f;
+        transition: all 0.25s ease;
       }
 
       header nav a:hover {
-        background: var(--accent-light);
-        border-color: var(--accent);
-        color: var(--accent);
+        background: var(--ink);
+        border-color: var(--ink);
+        color: #fdf8eb;
       }
 
       main {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 2.5rem 1.5rem 4rem;
+        width: min(1260px, calc(100% - 2.4rem));
+        margin: 0 auto 2.4rem;
+        padding: clamp(1.2rem, 2vw, 2.2rem);
+        background: linear-gradient(145deg, var(--orange-400), var(--orange-500) 55%, var(--orange-600));
+        border-radius: var(--radius-lg);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 22px 44px var(--shadow), inset 0 0 0 1px rgba(247, 175, 140, 0.24);
+        animation: stage-enter 480ms ease-out;
+      }
+
+      main::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+          radial-gradient(circle at 18% 14%, rgba(255, 170, 139, 0.22) 0 3px, transparent 3px),
+          radial-gradient(circle at 74% 36%, rgba(255, 193, 161, 0.12) 0 2px, transparent 2px),
+          linear-gradient(35deg, rgba(190, 35, 5, 0.16), transparent 45%);
+        background-size: 240px 240px, 190px 190px, 100% 100%;
+        mix-blend-mode: soft-light;
+        pointer-events: none;
+      }
+
+      main > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      @keyframes stage-enter {
+        from {
+          transform: translateY(12px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 720px) {
+        header {
+          width: calc(100% - 1.4rem);
+          margin: 0.7rem auto;
+          border-radius: 18px;
+          padding: 0.65rem 0.8rem;
+        }
+
+        .site-name {
+          font-size: 0.92rem;
+          letter-spacing: 0.03em;
+        }
+
+        header nav a {
+          padding: 0.4rem 0.72rem;
+          font-size: 0.72rem;
+        }
+
+        main {
+          width: calc(100% - 1.4rem);
+          margin-bottom: 1rem;
+          border-radius: 20px;
+          padding: 1rem;
+        }
       }
     </style>
   </head>

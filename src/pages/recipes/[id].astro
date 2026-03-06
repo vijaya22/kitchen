@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 
 const { recipe } = Astro.props;
 const { Content } = await render(recipe);
-const { title, description, time, servings, tags, image } = recipe.data;
+const { title, description, tags, image } = recipe.data;
 
 const emoji =
   (tags ?? []).includes('salad') ? '🥗' :
@@ -28,181 +28,269 @@ const emoji =
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      font-size: 0.85rem;
-      color: var(--muted);
-      font-weight: 500;
-      padding: 0.4rem 0.9rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff3e4;
+      font-weight: 700;
+      padding: 0.44rem 0.92rem;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      margin-bottom: 2rem;
-      transition: all 0.2s;
+      border: 1px solid rgba(255, 231, 194, 0.45);
+      background: rgba(14, 58, 52, 0.32);
+      margin-bottom: 0.95rem;
+      transition: all 0.24s ease;
     }
 
     .back:hover {
-      background: var(--accent-light);
-      border-color: var(--accent);
-      color: var(--accent);
+      background: rgba(14, 58, 52, 0.78);
+      border-color: rgba(255, 234, 206, 0.8);
     }
 
-    .recipe-header {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 2px 12px var(--shadow);
+    .spread {
+      --divider-x: 54%;
+      background:
+        linear-gradient(152deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: 14px;
+      box-shadow: 0 18px 36px rgba(41, 19, 7, 0.34);
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      min-height: 70vh;
+      position: relative;
+      overflow: hidden;
+      animation: enter-spread 500ms ease-out;
+    }
+
+    .spread::after {
+      content: '';
+      position: absolute;
+      top: 1rem;
+      bottom: 1rem;
+      left: var(--divider-x);
+      width: 1px;
+      background: linear-gradient(
+        to bottom,
+        rgba(138, 121, 87, 0.2),
+        rgba(87, 74, 43, 0.55) 46%,
+        rgba(138, 121, 87, 0.2)
+      );
+      box-shadow: 0 0 11px rgba(0, 0, 0, 0.17);
+    }
+
+    .page-left,
+    .page-right {
+      padding-block: clamp(1rem, 2.3vw, 1.85rem);
+      position: relative;
+    }
+
+    .page-left {
+      padding-left: clamp(1rem, 2vw, 1.6rem);
+      padding-right: clamp(1.65rem, 3.4vw, 2.45rem);
+    }
+
+    .page-right {
+      padding-left: clamp(1.65rem, 3.4vw, 2.45rem);
+      padding-right: clamp(1rem, 2vw, 1.6rem);
+    }
+
+    .page-left::before,
+    .page-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(74, 84, 64, 0.065), rgba(74, 84, 64, 0.065) 1px, transparent 1px, transparent 4px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .page-left > *,
+    .page-right > * {
+      position: relative;
+      z-index: 1;
     }
 
     .recipe-image {
       width: 100%;
-      max-height: 320px;
+      height: clamp(250px, 43vh, 390px);
       object-fit: cover;
       border-radius: 10px;
-      margin-bottom: 1.5rem;
+      border: 1px solid rgba(97, 114, 92, 0.22);
+      margin-bottom: 1.05rem;
     }
 
     .recipe-emoji {
-      font-size: 3rem;
+      font-size: 3.2rem;
       line-height: 1;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       display: block;
     }
 
-    h1 {
-      font-family: var(--font-serif);
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
-      font-weight: 600;
-      line-height: 1.2;
+    .kicker {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
       margin-bottom: 0.75rem;
     }
 
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.85rem);
+      line-height: 1.05;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      text-wrap: balance;
+      color: var(--ink);
+      text-shadow: 2px 2px 0 rgba(250, 189, 157, 0.6);
+    }
+
     .description {
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 1.25rem;
-    }
-
-    .meta-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+      color: var(--ink-soft);
+      font-size: 1rem;
+      line-height: 1.35;
       margin-bottom: 1rem;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      padding: 0.3rem 0.85rem;
-      border-radius: 999px;
-      background: var(--accent-light);
-      color: var(--accent);
-      border: 1px solid #f0c8b0;
     }
 
     .tags {
       display: flex;
       flex-wrap: wrap;
       gap: 0.35rem;
+      margin-bottom: 0.7rem;
     }
 
     .tag {
-      font-size: 0.72rem;
-      font-weight: 500;
-      padding: 0.2rem 0.65rem;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 0.2rem 0.56rem;
       border-radius: 999px;
-      background: var(--green-light);
-      color: var(--green);
+      border: 1px solid #cbba91;
+      background: rgba(253, 239, 215, 0.62);
+      color: #315b53;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
     /* Markdown content */
     .content {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2rem;
-      box-shadow: 0 2px 12px var(--shadow);
+      font-size: 1.04rem;
+      line-height: 1.45;
+      color: #2d4a44;
     }
 
     .content h2 {
-      font-family: var(--font-serif);
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--accent);
-      margin: 0 0 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px dashed var(--border);
+      font-family: var(--font-display);
+      font-size: clamp(1.15rem, 3vw, 1.5rem);
+      color: #a0461a;
+      margin: 0 0 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      text-shadow: 1px 1px 0 rgba(253, 204, 176, 0.6);
+      border-bottom: 1px dashed rgba(110, 95, 63, 0.35);
+      padding-bottom: 0.3rem;
     }
 
     .content h2:not(:first-child) {
-      margin-top: 2rem;
+      margin-top: 1.35rem;
     }
 
     .content ul, .content ol {
-      padding-left: 1.5rem;
-      margin-bottom: 1rem;
+      padding-left: 1.3rem;
+      margin-bottom: 0.95rem;
     }
 
     .content li {
-      margin-bottom: 0.5rem;
-      font-size: 0.95rem;
-      line-height: 1.6;
+      margin-bottom: 0.42rem;
+      font-size: 1rem;
+      line-height: 1.5;
     }
 
     .content p {
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
-      line-height: 1.7;
+      margin-bottom: 0.95rem;
+      font-size: 1rem;
+      line-height: 1.48;
     }
 
     .content strong {
-      color: var(--text);
+      color: var(--ink);
       font-weight: 600;
     }
 
     .content hr {
       border: none;
-      border-top: 2px dashed var(--border);
-      margin: 2rem 0;
+      border-top: 1px dashed rgba(105, 90, 58, 0.4);
+      margin: 1.3rem 0;
     }
 
     .content blockquote {
-      border-left: 3px solid var(--accent);
-      padding-left: 1rem;
-      color: var(--muted);
-      font-style: italic;
-      margin: 1rem 0;
+      border-left: 2px solid #c06c3f;
+      padding: 0.3rem 0 0.3rem 0.8rem;
+      color: #5a726a;
+      margin: 0.8rem 0;
+    }
+
+    @keyframes enter-spread {
+      from {
+        transform: translateY(11px) scale(0.985);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 960px) {
+      .spread {
+        grid-template-columns: 1fr;
+      }
+
+      .spread::after {
+        display: none;
+      }
+
+      .page-left {
+        padding: 1rem;
+        border-bottom: 1px dashed rgba(103, 88, 58, 0.45);
+      }
+
+      .page-right {
+        padding: 1rem;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .content {
+        font-size: 0.98rem;
+      }
     }
   </style>
 
   <a class="back" href="/">← All recipes</a>
 
-  <div class="recipe-header">
-    {image
-      ? <img class="recipe-image" src={image} alt={title} />
-      : <span class="recipe-emoji">{emoji}</span>
-    }
-    <h1>{title}</h1>
-    <p class="description">{description}</p>
+  <article class="spread">
+    <section class="page-left">
+      {image
+        ? <img class="recipe-image" src={image} alt={title} />
+        : <span class="recipe-emoji">{emoji}</span>
+      }
+      <p class="kicker">Recipe Sheet</p>
+      <h1>{title}</h1>
+      <p class="description">{description}</p>
 
-    {(time || servings) && (
-      <div class="meta-pills">
-        {time && <span class="pill">⏱ {time}</span>}
-        {servings && <span class="pill">👤 serves {servings}</span>}
+      {tags && (
+        <div class="tags">
+          {tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      )}
+    </section>
+
+    <section class="page-right">
+      <div class="content">
+        <Content />
       </div>
-    )}
-
-    {tags && (
-      <div class="tags">
-        {tags.map((tag) => <span class="tag">{tag}</span>)}
-      </div>
-    )}
-  </div>
-
-  <div class="content">
-    <Content />
-  </div>
+    </section>
+  </article>
 </Layout>

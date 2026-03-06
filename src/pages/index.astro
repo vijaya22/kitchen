@@ -5,169 +5,496 @@ import Layout from '../layouts/Layout.astro';
 const recipes = (await getCollection('recipes')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
+const latest = recipes[0];
+const formatDate = (date: Date) => date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+const toRecipeUrl = (id: string) => `/recipes/${id.replace(/\.md$/, '')}/`;
+const latestNote = latest
+  ? `${latest.data.title} was added on ${formatDate(latest.data.date)}.`
+  : 'Recipe notes will appear here as you add dishes.';
 
 ---
 
 <Layout title="Kitchen">
   <style>
     .hero {
-      text-align: center;
-      padding: 3rem 1rem 2.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: 1.1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-copy {
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: var(--radius-md);
+      box-shadow: 0 18px 24px rgba(54, 25, 8, 0.25);
+      padding: clamp(1.25rem, 3vw, 2.4rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-copy::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(52, 61, 40, 0.06), rgba(52, 61, 40, 0.06) 1px, transparent 1px, transparent 5px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      color: var(--ink-soft);
+      margin-bottom: 0.85rem;
+      position: relative;
+      z-index: 1;
     }
 
     .hero h1 {
-      font-family: var(--font-serif);
-      font-size: clamp(2.2rem, 5vw, 3.2rem);
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.2;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5.5vw, 3.6rem);
+      line-height: 1.03;
+      color: var(--ink);
+      text-transform: uppercase;
       margin-bottom: 0.75rem;
+      position: relative;
+      z-index: 1;
+      max-width: 11ch;
+      text-wrap: balance;
+      text-shadow: 3px 3px 0 rgba(247, 171, 136, 0.55);
     }
 
     .hero h1 em {
       color: var(--accent);
-      font-style: italic;
+      font-style: normal;
     }
 
     .hero p {
-      color: var(--muted);
-      font-size: 1rem;
-      max-width: 400px;
-      margin: 0 auto;
+      color: var(--ink-soft);
+      font-size: 1.1rem;
+      max-width: 34ch;
+      margin-bottom: 1.2rem;
+      position: relative;
+      z-index: 1;
     }
 
-    /* Recipe grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      padding: 1.5rem;
-      box-shadow: 0 2px 12px var(--shadow);
-      transition: transform 0.2s, box-shadow 0.2s;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      text-decoration: none;
-    }
-
-    .card:visited, .card:focus {
-      text-decoration: none;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(180, 100, 50, 0.15);
-    }
-
-    .card.hidden {
-      display: none;
-    }
-
-    .card-image {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 0.25rem;
-    }
-
-    .card-emoji {
-      font-size: 2rem;
-      line-height: 1;
-    }
-
-    .card-title {
-      font-family: var(--font-serif);
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.3;
-      transition: color 0.2s;
-    }
-
-    .card:hover .card-title {
-      color: var(--accent);
-    }
-
-    .card-meta {
-      font-size: 0.78rem;
-      color: var(--muted);
-      display: flex;
-      gap: 0.75rem;
-    }
-
-    .card-meta span {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    .card-desc {
-      font-size: 0.875rem;
-      color: var(--muted);
-      line-height: 1.5;
-      flex: 1;
-    }
-
-    .card-tags {
+    .hero-footer {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-top: 0.25rem;
+      align-items: center;
+      gap: 0.6rem 0.75rem;
+      position: relative;
+      z-index: 1;
     }
 
-    .tag {
-      font-size: 0.7rem;
-      font-weight: 500;
-      padding: 0.2rem 0.6rem;
+    .hero-stamp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      border: 2px solid var(--ink);
       border-radius: 999px;
-      background: var(--green-light);
-      color: var(--green);
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      line-height: 1.1;
+      color: var(--ink);
+      background: rgba(248, 219, 196, 0.62);
+      transform: rotate(-11deg);
+    }
+
+    .hero-link {
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: #fff7e9;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      transition: transform 0.22s ease, background 0.22s ease;
+    }
+
+    .hero-link:hover {
+      transform: translateY(-2px);
+      background: #123531;
+    }
+
+    .cover-panel {
+      background: linear-gradient(140deg, #0d5a58, #165955);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(225, 243, 231, 0.18);
+      padding: 1.05rem;
+      box-shadow: 0 18px 24px rgba(42, 18, 6, 0.2);
+      display: flex;
+      align-items: stretch;
+      animation: settle 520ms ease-out;
+    }
+
+    .cover-art {
+      border: 2px solid rgba(200, 220, 192, 0.45);
+      border-radius: 10px;
+      padding: 1.1rem 1rem 1.25rem;
+      width: 100%;
+      position: relative;
+      display: grid;
+      place-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: radial-gradient(circle at 20% 10%, rgba(205, 245, 226, 0.22), transparent 60%);
+      min-height: 100%;
+    }
+
+    .cover-art::before {
+      content: '';
+      position: absolute;
+      inset: 0.45rem;
+      border: 1px solid rgba(236, 241, 228, 0.34);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .cover-art::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 12% 52%, rgba(255, 206, 164, 0.17) 0 4px, transparent 4px),
+        radial-gradient(circle at 88% 34%, rgba(211, 238, 211, 0.15) 0 3px, transparent 3px),
+        radial-gradient(circle at 74% 80%, rgba(210, 231, 204, 0.12) 0 3px, transparent 3px);
+      pointer-events: none;
+    }
+
+    .cover-art > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-kicker {
+      font-family: var(--font-mono);
+      letter-spacing: 0.11em;
+      font-size: 0.73rem;
+      margin: 0 0 0.35rem;
+      color: #f6dbc8;
+      text-transform: uppercase;
+    }
+
+    .cover-title {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      color: #f7bd95;
+      line-height: 1.03;
+      font-size: clamp(1.4rem, 4vw, 2.1rem);
+      margin: 0;
+      text-shadow: 2px 2px 0 rgba(26, 79, 74, 0.9);
+    }
+
+    .cover-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: #d8e4c7;
+      margin: 0.85rem 0 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cover-sprinkles {
+      display: flex;
+      justify-content: center;
+      gap: 0.68rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .cover-sprinkles span {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: #f5bb87;
+      box-shadow: 0 0 0 2px rgba(16, 89, 86, 0.56);
+    }
+
+    .cover-pot {
+      width: 142px;
+      height: 88px;
+      margin: 0 auto;
+      border: 5px solid #acd6c7;
+      border-top-width: 4px;
+      border-radius: 28px;
+      position: relative;
+      background: rgba(160, 218, 202, 0.16);
+      box-shadow: inset 0 -14px 0 rgba(184, 225, 207, 0.86);
+    }
+
+    .cover-pot::before {
+      content: '';
+      position: absolute;
+      width: 56px;
+      height: 11px;
+      border: 4px solid #acd6c7;
+      border-bottom: 0;
+      border-radius: 12px 12px 0 0;
+      left: calc(50% - 28px);
+      top: -16px;
+    }
+
+    .cover-vines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .cover-vines::before,
+    .cover-vines::after {
+      content: '';
+      position: absolute;
+      width: 42px;
+      height: 160px;
+      border: 2px solid rgba(193, 221, 194, 0.43);
+      border-bottom: 0;
+      border-left: 0;
+      border-radius: 0 80px 0 0;
+      top: 18%;
+    }
+
+    .cover-vines::before {
+      left: 12px;
+      transform: scaleX(-1);
+    }
+
+    .cover-vines::after {
+      right: 12px;
+    }
+
+    .notes-strip {
+      margin: 0.35rem 0 0.85rem;
+      background: rgba(20, 72, 66, 0.86);
+      border: 1px solid rgba(214, 230, 215, 0.3);
+      border-radius: 10px;
+      padding: 0.58rem 0.86rem;
+      color: #e7f0dc;
+      display: flex;
+      align-items: baseline;
+      gap: 0.55rem;
+    }
+
+    .notes-label {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: 0.84rem;
+      letter-spacing: 0.06em;
+      color: #ffc79f;
+      flex-shrink: 0;
+    }
+
+    .notes-text {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #d6e5d2;
+      margin: 0;
+    }
+
+    .contents-sheet {
+      background:
+        linear-gradient(150deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: 12px;
+      box-shadow: 0 10px 22px rgba(72, 32, 11, 0.22);
+      padding: clamp(1rem, 2.2vw, 1.7rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contents-sheet::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(66, 79, 56, 0.06), rgba(66, 79, 56, 0.06) 1px, transparent 1px, transparent 4px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .contents-sheet > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .contents-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.6rem;
+      border-bottom: 1px dashed rgba(92, 79, 53, 0.45);
+      padding-bottom: 0.5rem;
+    }
+
+    .contents-header h2 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+      color: var(--ink);
+      letter-spacing: 0.05em;
+      margin: 0;
+    }
+
+    .contents-header span {
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.68rem;
+      color: var(--ink-muted);
+    }
+
+    .contents-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 1.35rem;
+      row-gap: 0.25rem;
+    }
+
+    .contents-item {
+      margin: 0;
+    }
+
+    .contents-link {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: baseline;
+      gap: 0.5rem;
+      padding: 0.34rem 0;
+      color: var(--ink);
+      transition: color 0.2s ease;
+    }
+
+    .contents-title {
+      font-family: var(--font-display);
+      font-size: clamp(0.9rem, 1.8vw, 1.08rem);
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .contents-dots {
+      border-bottom: 1px dotted rgba(95, 78, 43, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .contents-page {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .contents-link:hover {
+      color: #a33d0f;
+    }
+
+    @keyframes settle {
+      from {
+        transform: translateY(8px) scale(0.985);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 930px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .cover-panel {
+        max-width: 340px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        gap: 0.8rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .hero-copy {
+        padding: 1rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .hero-stamp {
+        width: 62px;
+        height: 62px;
+        font-size: 0.64rem;
+      }
+
+      .notes-strip {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .contents-list {
+        grid-template-columns: 1fr;
+      }
     }
 
   </style>
 
-  <div class="hero">
-    <h1>Vijaya's <em>Kitchen</em></h1>
-    <p>{recipes.length} recipe{recipes.length !== 1 ? 's' : ''} and counting</p>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Issue 01 · Home Edition</p>
+      <h1>Vijaya's <em>Kitchen</em></h1>
+      <p>A bright little recipe zine with bold flavors, quick weeknight staples, and comfort food from my kitchen notes.</p>
+      <div class="hero-footer">
+        <span class="hero-stamp">{recipes.length}<br />Recipes</span>
+        {latest && <a class="hero-link" href={toRecipeUrl(latest.id)}>Read latest recipe</a>}
+      </div>
+    </div>
+    <div class="cover-panel" aria-hidden="true">
+    
+    </div>
+  </section>
+
+  <div class="notes-strip">
+    <span class="notes-label">Kitchen Notes</span>
+    <p class="notes-text">{latestNote}</p>
   </div>
 
-  <div class="grid">
-    {recipes.map((recipe) => (
-      <a
-        class="card"
-        href={`/recipes/${recipe.id.replace(/\.md$/, '')}/`}
-      >
-        {recipe.data.image
-          ? <img class="card-image" src={recipe.data.image} alt={recipe.data.title} />
-          : <div class="card-emoji">
-              {(recipe.data.tags ?? []).includes('salad') ? '🥗' :
-               (recipe.data.tags ?? []).includes('soup') ? '🍲' :
-               (recipe.data.tags ?? []).includes('indian') ? '🍛' :
-               (recipe.data.tags ?? []).includes('chicken') ? '🍗' :
-               (recipe.data.tags ?? []).includes('vegan') ? '🌱' : '🍴'}
-            </div>
-        }
-        <div class="card-title">{recipe.data.title}</div>
-        {(recipe.data.time || recipe.data.servings) && (
-          <div class="card-meta">
-            {recipe.data.time && <span>⏱ {recipe.data.time}</span>}
-            {recipe.data.servings && <span>👤 serves {recipe.data.servings}</span>}
-          </div>
-        )}
-        <div class="card-desc">{recipe.data.description}</div>
-        {recipe.data.tags && (
-          <div class="card-tags">
-            {recipe.data.tags.map((tag) => <span class="tag">{tag}</span>)}
-          </div>
-        )}
-      </a>
-    ))}
-  </div>
+  <section class="contents-sheet">
+    <div class="contents-header">
+      <h2>Recipe Contents</h2>
+      <span>Issue 01</span>
+    </div>
+    <ol class="contents-list">
+      {recipes.map((recipe, index) => (
+        <li class="contents-item">
+          <a class="contents-link" href={`/recipes/${recipe.id.replace(/\.md$/, '')}/`}>
+            <span class="contents-title">{recipe.data.title}</span>
+            <span class="contents-dots" aria-hidden="true"></span>
+            <span class="contents-page">{String(index + 12).padStart(2, '0')}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
 </Layout>
