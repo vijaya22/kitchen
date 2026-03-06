@@ -5,6 +5,7 @@ date: 2026-03-06
 time: 15 mins
 servings: "2"
 tags: [salad, quick, chicken]
+image: /images/cucumber-corn-salami-salad.png
 ---
 
 ## Ingredients
@@ -12,7 +13,7 @@ tags: [salad, quick, chicken]
 - 1 large cucumber, sliced
 - 1/2 cup sweet corn - boiled (fresh, frozen, or canned)
 - 1 small onion, sliced
-- 6–8 slices chicken salami, cut into semicircles or quaters
+- 6–8 slices chicken salami, cut into semi-circles or quaters
 - 3 spring onions, chopped
 - Small handful of fresh dill, roughly chopped
 

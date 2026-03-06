@@ -69,6 +69,14 @@ const recipes = (await getCollection('recipes')).sort(
       display: none;
     }
 
+    .card-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 0.25rem;
+    }
+
     .card-emoji {
       font-size: 2rem;
       line-height: 1;
@@ -136,13 +144,16 @@ const recipes = (await getCollection('recipes')).sort(
         class="card"
         href={`/recipes/${recipe.id.replace(/\.md$/, '')}/`}
       >
-        <div class="card-emoji">
-          {(recipe.data.tags ?? []).includes('salad') ? '🥗' :
-           (recipe.data.tags ?? []).includes('soup') ? '🍲' :
-           (recipe.data.tags ?? []).includes('indian') ? '🍛' :
-           (recipe.data.tags ?? []).includes('chicken') ? '🍗' :
-           (recipe.data.tags ?? []).includes('vegan') ? '🌱' : '🍴'}
-        </div>
+        {recipe.data.image
+          ? <img class="card-image" src={recipe.data.image} alt={recipe.data.title} />
+          : <div class="card-emoji">
+              {(recipe.data.tags ?? []).includes('salad') ? '🥗' :
+               (recipe.data.tags ?? []).includes('soup') ? '🍲' :
+               (recipe.data.tags ?? []).includes('indian') ? '🍛' :
+               (recipe.data.tags ?? []).includes('chicken') ? '🍗' :
+               (recipe.data.tags ?? []).includes('vegan') ? '🌱' : '🍴'}
+            </div>
+        }
         <div class="card-title">{recipe.data.title}</div>
         {(recipe.data.time || recipe.data.servings) && (
           <div class="card-meta">

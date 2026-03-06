@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 
 const { recipe } = Astro.props;
 const { Content } = await render(recipe);
-const { title, description, time, servings, tags } = recipe.data;
+const { title, description, time, servings, tags, image } = recipe.data;
 
 const emoji =
   (tags ?? []).includes('salad') ? '🥗' :
@@ -51,6 +51,14 @@ const emoji =
       padding: 2rem;
       margin-bottom: 2rem;
       box-shadow: 0 2px 12px var(--shadow);
+    }
+
+    .recipe-image {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
     }
 
     .recipe-emoji {
@@ -173,7 +181,10 @@ const emoji =
   <a class="back" href="/">← All recipes</a>
 
   <div class="recipe-header">
-    <span class="recipe-emoji">{emoji}</span>
+    {image
+      ? <img class="recipe-image" src={image} alt={title} />
+      : <span class="recipe-emoji">{emoji}</span>
+    }
     <h1>{title}</h1>
     <p class="description">{description}</p>
 
