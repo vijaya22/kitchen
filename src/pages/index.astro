@@ -6,7 +6,6 @@ const recipes = (await getCollection('recipes')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
 
-const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))].sort();
 ---
 
 <Layout title="Kitchen">
@@ -37,40 +36,6 @@ const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))].sort();
       margin: 0 auto;
     }
 
-    /* Tag filter */
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-      margin: 2rem 0 2.5rem;
-    }
-
-    .filter-btn {
-      background: var(--card);
-      border: 1.5px solid var(--border);
-      color: var(--muted);
-      border-radius: 999px;
-      padding: 0.35rem 1rem;
-      font-size: 0.8rem;
-      font-family: var(--font-sans);
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .filter-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-light);
-    }
-
-    .filter-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
-
     /* Recipe grid */
     .grid {
       display: grid;
@@ -88,6 +53,11 @@ const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))].sort();
       display: flex;
       flex-direction: column;
       gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .card:visited, .card:focus {
+      text-decoration: none;
     }
 
     .card:hover {
@@ -153,13 +123,6 @@ const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))].sort();
       color: var(--green);
     }
 
-    .empty {
-      grid-column: 1 / -1;
-      text-align: center;
-      color: var(--muted);
-      padding: 3rem;
-      font-size: 0.95rem;
-    }
   </style>
 
   <div class="hero">
@@ -167,21 +130,11 @@ const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))].sort();
     <p>{recipes.length} recipe{recipes.length !== 1 ? 's' : ''} and counting</p>
   </div>
 
-  {allTags.length > 0 && (
-    <div class="filters">
-      <button class="filter-btn active" data-tag="all">All</button>
-      {allTags.map((tag) => (
-        <button class="filter-btn" data-tag={tag}>{tag}</button>
-      ))}
-    </div>
-  )}
-
-  <div class="grid" id="recipe-grid">
+  <div class="grid">
     {recipes.map((recipe) => (
       <a
         class="card"
         href={`/recipes/${recipe.id.replace(/\.md$/, '')}/`}
-        data-tags={JSON.stringify(recipe.data.tags ?? [])}
       >
         <div class="card-emoji">
           {(recipe.data.tags ?? []).includes('salad') ? '🥗' :
@@ -206,24 +159,4 @@ const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))].sort();
       </a>
     ))}
   </div>
-
-  <script>
-    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-    const cards = document.querySelectorAll<HTMLElement>('.card');
-
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const tag = btn.dataset.tag!;
-
-        buttons.forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        cards.forEach((card) => {
-          const tags: string[] = JSON.parse(card.dataset.tags || '[]');
-          const show = tag === 'all' || tags.includes(tag);
-          card.classList.toggle('hidden', !show);
-        });
-      });
-    });
-  </script>
 </Layout>
