@@ -4,14 +4,14 @@ description: Tender-crisp blanched broccoli and creamy boiled eggs tossed in a n
 date: 2026-03-14
 time: 20 mins
 servings: "2"
-tags: [salad, vegetarian, quick]
+tags: [salad, quick]
 image: /images/broccoli-egg-salad.jpeg
 ---
 
 ## Ingredients
 
 - 1 head of broccoli, cut into bite-sized florets
-- 2 eggs, boiled and halved or quartered
+- 2 - 3 eggs, boiled and halved or quartered
 
 **Sesame Dressing**
 
