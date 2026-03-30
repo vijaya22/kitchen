@@ -266,6 +266,60 @@ const emoji =
         font-size: 0.98rem;
       }
     }
+
+    .recipe-image {
+      cursor: pointer;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.75);
+      align-items: center;
+      justify-content: center;
+      animation: fade-in 200ms ease-out;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
   </style>
 
   <a class="back" href="/">← All recipes</a>
@@ -293,4 +347,28 @@ const emoji =
       </div>
     </section>
   </article>
+
+  {image && (
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close preview">✕</button>
+      <img src={image} alt={title} />
+    </div>
+  )}
+
+  <script>
+    const img = document.querySelector('.recipe-image') as HTMLImageElement;
+    const lightbox = document.getElementById('lightbox');
+    const closeBtn = document.getElementById('lightbox-close');
+
+    if (img && lightbox && closeBtn) {
+      img.addEventListener('click', () => lightbox.classList.add('open'));
+      closeBtn.addEventListener('click', () => lightbox.classList.remove('open'));
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) lightbox.classList.remove('open');
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') lightbox.classList.remove('open');
+      });
+    }
+  </script>
 </Layout>
