@@ -234,6 +234,32 @@ const recipes = (await getCollection('recipes')).map((r) => ({
         }
       }
 
+      footer {
+        width: min(1260px, calc(100% - 2.4rem));
+        margin: 0 auto 1.6rem;
+        padding: 0.75rem 1.35rem;
+        text-align: center;
+      }
+
+      .footer-note {
+        font-family: var(--font-mono);
+        font-size: 0.76rem;
+        letter-spacing: 0.03em;
+        color: var(--ink-muted);
+      }
+
+      .footer-note a {
+        color: var(--ink);
+        font-weight: 700;
+        border-bottom: 1px dashed var(--ink-muted);
+        transition: color 0.2s ease, border-color 0.2s ease;
+      }
+
+      .footer-note a:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+
       @media (max-width: 720px) {
         header {
           width: calc(100% - 1.4rem);
@@ -257,6 +283,16 @@ const recipes = (await getCollection('recipes')).map((r) => ({
           margin-bottom: 1rem;
           border-radius: 20px;
           padding: 1rem;
+        }
+
+        footer {
+          width: calc(100% - 1.4rem);
+          margin-bottom: 1rem;
+          padding: 0.6rem 0.8rem;
+        }
+
+        .footer-note {
+          font-size: 0.68rem;
         }
       }
     </style>
@@ -329,5 +365,8 @@ const recipes = (await getCollection('recipes')).map((r) => ({
     <main>
       <slot />
     </main>
+    <footer>
+      <p class="footer-note">If you like my recipes and feel like supporting me, <a href="https://buymeacoffee.com/vijaya.laxmi" target="_blank" rel="noopener noreferrer">buy me a coffee here</a>.</p>
+    </footer>
   </body>
 </html>
