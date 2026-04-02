@@ -507,8 +507,9 @@ const heroImages = galleryData.slice(0, 4);
       }
 
       .cover-panel {
-        max-width: 340px;
+        max-width: 400px;
         margin: 0 auto;
+        min-height: 300px;
       }
 
       .gallery-grid {
@@ -550,12 +551,25 @@ const heroImages = galleryData.slice(0, 4);
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .collage-photo {
-        width: 46%;
+      .cover-panel {
+        max-width: 100%;
+        min-height: 260px;
       }
 
       .cover-collage {
-        min-height: 220px;
+        min-height: 240px;
+      }
+
+      .collage-photo {
+        width: 44%;
+      }
+
+      .collage-label {
+        display: none;
+      }
+
+      .gallery-caption {
+        opacity: 1;
       }
     }
 
