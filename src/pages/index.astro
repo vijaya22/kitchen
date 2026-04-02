@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+import galleryData from '../content/gallery.json';
 
 const recipes = (await getCollection('recipes')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -12,6 +13,7 @@ const latestNote = latest
   ? `${latest.data.title} was added on ${formatDate(latest.data.date)}.`
   : 'Recipe notes will appear here as you add dishes.';
 
+const heroImages = galleryData.slice(0, 4);
 ---
 
 <Layout title="Kitchen">
@@ -139,138 +141,57 @@ const latestNote = latest
       animation: settle 520ms ease-out;
     }
 
-    .cover-art {
-      border: 2px solid rgba(200, 220, 192, 0.45);
-      border-radius: 10px;
-      padding: 1.1rem 1rem 1.25rem;
+    .cover-collage {
       width: 100%;
+      height: 100%;
+      min-height: 280px;
       position: relative;
-      display: grid;
-      place-content: center;
-      text-align: center;
-      overflow: hidden;
-      background: radial-gradient(circle at 20% 10%, rgba(205, 245, 226, 0.22), transparent 60%);
-      min-height: 100%;
-    }
-
-    .cover-art::before {
-      content: '';
-      position: absolute;
-      inset: 0.45rem;
-      border: 1px solid rgba(236, 241, 228, 0.34);
-      border-radius: 8px;
-      pointer-events: none;
-    }
-
-    .cover-art::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 12% 52%, rgba(255, 206, 164, 0.17) 0 4px, transparent 4px),
-        radial-gradient(circle at 88% 34%, rgba(211, 238, 211, 0.15) 0 3px, transparent 3px),
-        radial-gradient(circle at 74% 80%, rgba(210, 231, 204, 0.12) 0 3px, transparent 3px);
-      pointer-events: none;
-    }
-
-    .cover-art > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .cover-kicker {
-      font-family: var(--font-mono);
-      letter-spacing: 0.11em;
-      font-size: 0.73rem;
-      margin: 0 0 0.35rem;
-      color: #f6dbc8;
-      text-transform: uppercase;
-    }
-
-    .cover-title {
-      font-family: var(--font-display);
-      text-transform: uppercase;
-      color: #f7bd95;
-      line-height: 1.03;
-      font-size: clamp(1.4rem, 4vw, 2.1rem);
-      margin: 0;
-      text-shadow: 2px 2px 0 rgba(26, 79, 74, 0.9);
-    }
-
-    .cover-subtitle {
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      color: #d8e4c7;
-      margin: 0.85rem 0 0.6rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .cover-sprinkles {
       display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 0.68rem;
-      margin-bottom: 0.6rem;
     }
 
-    .cover-sprinkles span {
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: #f5bb87;
-      box-shadow: 0 0 0 2px rgba(16, 89, 86, 0.56);
-    }
-
-    .cover-pot {
-      width: 142px;
-      height: 88px;
-      margin: 0 auto;
-      border: 5px solid #acd6c7;
-      border-top-width: 4px;
-      border-radius: 28px;
-      position: relative;
-      background: rgba(160, 218, 202, 0.16);
-      box-shadow: inset 0 -14px 0 rgba(184, 225, 207, 0.86);
-    }
-
-    .cover-pot::before {
-      content: '';
+    .collage-photo {
       position: absolute;
-      width: 56px;
-      height: 11px;
-      border: 4px solid #acd6c7;
-      border-bottom: 0;
-      border-radius: 12px 12px 0 0;
-      left: calc(50% - 28px);
-      top: -16px;
+      width: 48%;
+      aspect-ratio: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 3px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .cover-vines {
+    .collage-photo:hover {
+      z-index: 5;
+      transform: scale(1.05) rotate(0deg) !important;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+    }
+
+    .collage-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .collage-photo-1 { top: 6%; left: 4%; transform: rotate(-5deg); z-index: 2; }
+    .collage-photo-2 { top: 4%; right: 4%; transform: rotate(4deg); z-index: 3; }
+    .collage-photo-3 { bottom: 10%; left: 8%; transform: rotate(3deg); z-index: 1; }
+    .collage-photo-4 { bottom: 8%; right: 6%; transform: rotate(-4deg); z-index: 4; }
+
+    .collage-label {
       position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    .cover-vines::before,
-    .cover-vines::after {
-      content: '';
-      position: absolute;
-      width: 42px;
-      height: 160px;
-      border: 2px solid rgba(193, 221, 194, 0.43);
-      border-bottom: 0;
-      border-left: 0;
-      border-radius: 0 80px 0 0;
-      top: 18%;
-    }
-
-    .cover-vines::before {
-      left: 12px;
-      transform: scaleX(-1);
-    }
-
-    .cover-vines::after {
-      right: 12px;
+      bottom: 4%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(246, 219, 200, 0.7);
+      z-index: 10;
+      white-space: nowrap;
     }
 
     .notes-strip {
@@ -405,6 +326,170 @@ const latestNote = latest
       color: #a33d0f;
     }
 
+    /* Gallery section */
+    .gallery-sheet {
+      margin-top: 1.2rem;
+      background:
+        linear-gradient(150deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: 12px;
+      box-shadow: 0 10px 22px rgba(72, 32, 11, 0.22);
+      padding: clamp(1rem, 2.2vw, 1.7rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gallery-sheet::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(66, 79, 56, 0.06), rgba(66, 79, 56, 0.06) 1px, transparent 1px, transparent 4px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .gallery-sheet > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .gallery-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+      border-bottom: 1px dashed rgba(92, 79, 53, 0.45);
+      padding-bottom: 0.5rem;
+    }
+
+    .gallery-header h2 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+      color: var(--ink);
+      letter-spacing: 0.05em;
+      margin: 0;
+    }
+
+    .gallery-header span {
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.68rem;
+      color: var(--ink-muted);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid rgba(92, 79, 53, 0.2);
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(72, 32, 11, 0.25);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.5rem 0.6rem;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #fff;
+      text-align: left;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      opacity: 1;
+    }
+
+    /* Lightbox */
+    .gallery-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.8);
+      align-items: center;
+      justify-content: center;
+      animation: gallery-fade-in 200ms ease-out;
+    }
+
+    .gallery-lightbox.open {
+      display: flex;
+    }
+
+    .gallery-lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      z-index: 1001;
+    }
+
+    .gallery-lightbox-close:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .gallery-lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    @keyframes gallery-fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
     @keyframes settle {
       from {
         transform: translateY(8px) scale(0.985);
@@ -424,6 +509,10 @@ const latestNote = latest
       .cover-panel {
         max-width: 340px;
         margin: 0 auto;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -456,6 +545,18 @@ const latestNote = latest
       .contents-list {
         grid-template-columns: 1fr;
       }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .collage-photo {
+        width: 46%;
+      }
+
+      .cover-collage {
+        min-height: 220px;
+      }
     }
 
   </style>
@@ -470,8 +571,15 @@ const latestNote = latest
         {latest && <a class="hero-link" href={toRecipeUrl(latest.id)}>Read latest recipe</a>}
       </div>
     </div>
-    <div class="cover-panel" aria-hidden="true">
-    
+    <div class="cover-panel">
+      <div class="cover-collage">
+        {heroImages.map((img, i) => (
+          <div class={`collage-photo collage-photo-${i + 1}`}>
+            <img src={img.src} alt={img.alt} loading="eager" />
+          </div>
+        ))}
+        <span class="collage-label">From the Kitchen</span>
+      </div>
     </div>
   </section>
 
@@ -497,4 +605,54 @@ const latestNote = latest
       ))}
     </ol>
   </section>
+
+  <section class="gallery-sheet">
+    <div class="gallery-header">
+      <h2>Photo Gallery</h2>
+      <span>{galleryData.length} Photos</span>
+    </div>
+    <div class="gallery-grid">
+      {galleryData.map((img) => (
+        <button class="gallery-item" data-src={img.src} data-alt={img.alt} type="button">
+          <img src={img.src} alt={img.alt} loading="lazy" />
+          <span class="gallery-caption">{img.alt}</span>
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <div class="gallery-lightbox" id="gallery-lightbox">
+    <button class="gallery-lightbox-close" type="button" aria-label="Close">&times;</button>
+    <img src="" alt="" />
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('gallery-lightbox')!;
+    const lightboxImg = lightbox.querySelector('img')!;
+    const lightboxClose = lightbox.querySelector('.gallery-lightbox-close')!;
+
+    document.querySelectorAll('.gallery-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        const src = (item as HTMLElement).dataset.src!;
+        const alt = (item as HTMLElement).dataset.alt!;
+        lightboxImg.src = src;
+        lightboxImg.alt = alt;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  </script>
 </Layout>
