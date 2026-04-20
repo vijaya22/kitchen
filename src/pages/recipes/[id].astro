@@ -348,6 +348,44 @@ const emoji =
     }
 
 
+    .comments-sheet {
+      margin-top: 1.2rem;
+      background:
+        linear-gradient(152deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: 14px;
+      box-shadow: 0 10px 22px rgba(72, 32, 11, 0.22);
+      padding: clamp(1rem, 2.2vw, 1.7rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .comments-header {
+      margin-bottom: 0.8rem;
+      border-bottom: 1px dashed rgba(92, 79, 53, 0.45);
+      padding-bottom: 0.5rem;
+    }
+
+    .comments-header h2 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+      color: var(--ink);
+      letter-spacing: 0.05em;
+      margin: 0;
+    }
+
+    :global(html.dark) .comments-sheet {
+      background: var(--paper);
+      border-color: var(--paper-edge);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
+    }
+
+    :global(html.dark) .comments-header {
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
     .reading-progress {
       position: fixed;
       top: 0;
@@ -360,7 +398,7 @@ const emoji =
     }
 
     @media print {
-      .back, .lightbox, .print-btn, .share-btn, .reading-progress { display: none !important; }
+      .back, .lightbox, .print-btn, .share-btn, .reading-progress, .comments-sheet { display: none !important; }
 
       .spread {
         grid-template-columns: 1fr;
@@ -500,6 +538,30 @@ const emoji =
     </section>
   </article>
 
+  <section class="comments-sheet">
+    <div class="comments-header">
+      <h2>Comments</h2>
+    </div>
+    <div id="giscus-container">
+      <script
+        src="https://giscus.app/client.js"
+        data-repo="vijaya22/kitchen"
+        data-repo-id="R_kgDORgGBAQ"
+        data-category="General"
+        data-category-id="DIC_kwDORgGBAc4C7Sl4"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async
+      ></script>
+    </div>
+  </section>
+
   {image && (
     <div class="lightbox" id="lightbox">
       <button class="lightbox-close" id="lightbox-close" aria-label="Close preview">✕</button>
@@ -522,6 +584,36 @@ const emoji =
         if (e.key === 'Escape') lightbox.classList.remove('open');
       });
     }
+
+    // Sync giscus theme with dark mode
+    function setGiscusTheme(dark: boolean) {
+      const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+      if (iframe) {
+        iframe.contentWindow?.postMessage(
+          { giscus: { setConfig: { theme: dark ? 'dark' : 'light' } } },
+          'https://giscus.app'
+        );
+      }
+    }
+
+    // Set correct theme before giscus loads
+    if (document.documentElement.classList.contains('dark')) {
+      const giscusScript = document.querySelector('script[src*="giscus.app"]');
+      if (giscusScript) giscusScript.setAttribute('data-theme', 'dark');
+    }
+
+    // Sync on toggle
+    const observer = new MutationObserver(() => {
+      setGiscusTheme(document.documentElement.classList.contains('dark'));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+    // Sync when giscus iframe loads
+    window.addEventListener('message', (e) => {
+      if (e.origin !== 'https://giscus.app') return;
+      if (typeof e.data !== 'object' || !e.data.giscus) return;
+      setGiscusTheme(document.documentElement.classList.contains('dark'));
+    });
 
     // Reading progress
     const progressBar = document.getElementById('reading-progress')!;
