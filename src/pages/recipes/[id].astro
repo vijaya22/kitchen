@@ -295,19 +295,86 @@ const emoji =
       }
     }
 
+    :global(html.dark) .spread {
+      background: var(--paper);
+      border-color: var(--paper-edge);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5);
+    }
+
+    :global(html.dark) .spread::after {
+      background: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(255,255,255,0.12) 46%, rgba(255,255,255,0.05));
+    }
+
+    :global(html.dark) .page-left::before,
+    :global(html.dark) .page-right::before {
+      opacity: 0.05;
+    }
+
+    :global(html.dark) .content {
+      color: #ddd8ce;
+    }
+
+    :global(html.dark) .content h2 {
+      color: var(--accent);
+      text-shadow: none;
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+    }
+
+    :global(html.dark) .content strong {
+      color: #f0ece4;
+    }
+
+    :global(html.dark) .content blockquote {
+      color: #b0a99d;
+    }
+
+    :global(html.dark) .content hr {
+      border-top-color: rgba(255, 255, 255, 0.12);
+    }
+
+    :global(html.dark) .tag {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: #444;
+      color: #ccc5b9;
+    }
+
+    :global(html.dark) .nutrition-strip {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    :global(html.dark) .kicker {
+      color: var(--ink-muted);
+    }
+
+
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--accent, #ef7b3f);
+      width: 0%;
+      z-index: 999;
+      transition: width 80ms linear;
+    }
+
     @media print {
-      .back, .lightbox, .print-btn { display: none !important; }
+      .back, .lightbox, .print-btn, .share-btn, .reading-progress { display: none !important; }
 
       .spread {
         grid-template-columns: 1fr;
-        box-shadow: none;
+        box-shadow: none !important;
         border: none;
         border-radius: 0;
         min-height: auto;
         animation: none;
+        background: #fff !important;
       }
 
       .spread::after { display: none; }
+
+      .page-left::before, .page-right::before { display: none !important; }
 
       .page-left, .page-right {
         padding: 0;
@@ -387,9 +454,14 @@ const emoji =
     }
   </style>
 
+  <div class="reading-progress" id="reading-progress"></div>
+
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.95rem;">
     <a class="back" style="margin-bottom:0;" href="/">← All recipes</a>
-    <button class="back print-btn" type="button" onclick="window.print()" style="margin-bottom:0;cursor:pointer;">Print recipe</button>
+    <div style="display:flex;gap:0.4rem;">
+      <button class="back share-btn" type="button" style="margin-bottom:0;cursor:pointer;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:3px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="currentColor" stroke-width="2.5"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="currentColor" stroke-width="2.5"/></svg>Share</button>
+      <button class="back print-btn" type="button" onclick="window.print()" style="margin-bottom:0;cursor:pointer;">Print recipe</button>
+    </div>
   </div>
 
   <article class="spread">
@@ -448,6 +520,58 @@ const emoji =
       });
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') lightbox.classList.remove('open');
+      });
+    }
+
+    // Reading progress
+    const progressBar = document.getElementById('reading-progress')!;
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = `${Math.min(progress, 100)}%`;
+    });
+
+    // Share button
+    const shareBtn = document.querySelector('.share-btn') as HTMLButtonElement;
+    if (shareBtn) {
+      shareBtn.addEventListener('click', async () => {
+        await navigator.clipboard.writeText(window.location.href);
+        const toast = document.createElement('div');
+        toast.textContent = 'Link copied!';
+        Object.assign(toast.style, {
+          position: 'absolute',
+          top: '100%',
+          right: '0',
+          marginTop: '0.4rem',
+          background: getComputedStyle(document.documentElement).getPropertyValue('--paper').trim() || '#f6f1df',
+          color: getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || '#204f49',
+          fontFamily: "'Special Elite', 'Courier New', monospace",
+          fontSize: '0.72rem',
+          letterSpacing: '0.05em',
+          textTransform: 'uppercase',
+          padding: '0.45rem 0.8rem',
+          borderRadius: '10px',
+          border: `1px solid ${getComputedStyle(document.documentElement).getPropertyValue('--paper-edge').trim() || '#d4c49d'}`,
+          boxShadow: '0 6px 18px rgba(0, 0, 0, 0.2)',
+          zIndex: '1001',
+          opacity: '0',
+          transform: 'translateY(-4px)',
+          transition: 'opacity 0.25s ease, transform 0.25s ease',
+          pointerEvents: 'none',
+          whiteSpace: 'nowrap',
+        });
+        shareBtn.style.position = 'relative';
+        shareBtn.appendChild(toast);
+        requestAnimationFrame(() => {
+          toast.style.opacity = '1';
+          toast.style.transform = 'translateY(0)';
+        });
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(-4px)';
+          setTimeout(() => toast.remove(), 250);
+        }, 2000);
       });
     }
   </script>

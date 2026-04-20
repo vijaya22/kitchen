@@ -503,6 +503,63 @@ const recipeUrls = recipes.map((r) => toRecipeUrl(r.id));
       }
     }
 
+    :global(html.dark) .hero-copy {
+      background: var(--paper);
+      border-color: var(--paper-edge);
+      box-shadow: 0 18px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    :global(html.dark) .hero-copy::before { opacity: 0.05; }
+
+    :global(html.dark) .hero-stamp {
+      border-color: var(--ink-muted);
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    :global(html.dark) .hero-link {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #111;
+    }
+
+    :global(html.dark) .hero-link:hover {
+      background: #f0915a;
+    }
+
+    :global(html.dark) .notes-strip {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    :global(html.dark) .notes-label { color: var(--accent); }
+    :global(html.dark) .notes-text { color: var(--ink-soft); }
+
+    :global(html.dark) .contents-sheet,
+    :global(html.dark) .gallery-sheet {
+      background: var(--paper);
+      border-color: var(--paper-edge);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
+    }
+
+    :global(html.dark) .contents-sheet::before,
+    :global(html.dark) .gallery-sheet::before { opacity: 0.03; }
+
+    :global(html.dark) .contents-header,
+    :global(html.dark) .gallery-header {
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    :global(html.dark) .contents-link:hover { color: var(--accent); }
+
+    :global(html.dark) .contents-dots {
+      border-bottom-color: rgba(255, 255, 255, 0.12);
+    }
+
+    :global(html.dark) .gallery-item {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
     @media (max-width: 930px) {
       .hero {
         grid-template-columns: 1fr;
