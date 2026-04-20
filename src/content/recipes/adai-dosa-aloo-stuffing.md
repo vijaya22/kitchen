@@ -4,7 +4,9 @@ description: A wholesome, protein-rich South Indian dish made with mixed lentils
 date: 2026-03-31
 time: 60 mins
 servings: "4"
-tags: [indian, lentils, vegetarian]
+tags: [indian, lentils, vegetarian, south-indian, breakfast]
+calories: "310 kcal"
+protein: "14g"
 image: /images/adai-dosa-aloo-stuffing.png
 ---
 

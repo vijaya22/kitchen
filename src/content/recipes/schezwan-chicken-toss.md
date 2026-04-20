@@ -4,7 +4,9 @@ description: Stir-fried chicken hotdogs and crisp vegetables tossed in dark soy 
 date: 2026-03-30
 time: 20 mins
 servings: "2"
-tags: [chicken, stir-fry, quick]
+tags: [chicken, stir-fry, quick, indo-chinese]
+calories: "280 kcal"
+protein: "15g"
 image: /images/schezwan-chicken-toss.jpeg
 ---
 

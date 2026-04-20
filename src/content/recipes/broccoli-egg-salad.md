@@ -4,7 +4,9 @@ description: Tender-crisp blanched broccoli and creamy boiled eggs tossed in a n
 date: 2026-03-14
 time: 20 mins
 servings: "2"
-tags: [salad, quick]
+tags: [salad, quick, vegetarian, eggs]
+calories: "250 kcal"
+protein: "14g"
 image: /images/broccoli-egg-salad.jpeg
 ---
 

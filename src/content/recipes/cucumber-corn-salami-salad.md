@@ -4,7 +4,9 @@ description: A crisp, creamy salad with cucumber, sweet corn, and chicken salami
 date: 2026-03-06
 time: 15 mins
 servings: "2"
-tags: [salad, quick, chicken]
+tags: [salad, quick, chicken, no-cook]
+calories: "220 kcal"
+protein: "12g"
 image: /images/cucumber-corn-salami-salad.png
 ---
 

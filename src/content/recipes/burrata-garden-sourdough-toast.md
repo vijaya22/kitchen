@@ -4,7 +4,9 @@ description: Crispy sourdough layered with creamy burrata, juicy cherry tomatoes
 date: 2026-03-31
 time: 10 mins
 servings: "1-2"
-tags: [quick]
+tags: [quick, vegetarian, breakfast, no-cook]
+calories: "380 kcal"
+protein: "16g"
 image: /images/burrata-garden-sourdough-toast.png
 ---
 

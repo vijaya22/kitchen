@@ -4,7 +4,9 @@ description: Comforting yellow moong dal with fluffy basmati rice and crispy sig
 date: 2026-04-02
 time: 40 mins
 servings: "2"
-tags: [comfort, indian, dal]
+tags: [comfort, indian, dal, vegetarian]
+calories: "420 kcal"
+protein: "16g"
 image: /images/dal chawal with aloo bhujiya.png
 ---
 

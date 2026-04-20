@@ -4,7 +4,9 @@ description: Homestyle kadhi with soft chana dal pakodas soaked in warm salted w
 date: 2026-03-31
 time: 50 mins
 servings: "4"
-tags: [indian, vegetarian]
+tags: [indian, vegetarian, comfort]
+calories: "290 kcal"
+protein: "12g"
 image: /images/ghar-wali-kadhi.png
 ---
 

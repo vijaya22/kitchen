@@ -4,7 +4,9 @@ description: A quick, tangy chicken soup built from scratch without stock — sh
 date: 2026-03-31
 time: 25 mins
 servings: "2"
-tags: [chicken, soup, quick]
+tags: [chicken, soup, quick, indo-chinese]
+calories: "180 kcal"
+protein: "18g"
 image: /images/hot-sour-chicken-soup.png
 ---
 

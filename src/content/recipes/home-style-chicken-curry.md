@@ -4,7 +4,9 @@ description: A comforting everyday chicken curry with whole spices, ginger-garli
 date: 2026-03-31
 time: 45 mins
 servings: "4"
-tags: [chicken, indian]
+tags: [chicken, indian, comfort, curry]
+calories: "350 kcal"
+protein: "28g"
 image: /images/home-style-chicken-curry.jpeg
 ---
 

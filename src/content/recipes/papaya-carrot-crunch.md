@@ -4,7 +4,9 @@ description: Shredded raw papaya and carrot tossed in a crushed garlic-chili-tom
 date: 2026-03-30
 time: 15 mins
 servings: "2"
-tags: [salad, quick, vegetarian]
+tags: [salad, quick, vegetarian, vegan, no-cook]
+calories: "150 kcal"
+protein: "5g"
 image: /images/papaya-carrot-crunch.jpeg
 ---
 
