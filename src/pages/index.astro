@@ -14,6 +14,7 @@ const latestNote = latest
   : 'Recipe notes will appear here as you add dishes.';
 
 const heroImages = galleryData.slice(0, 4);
+const recipeUrls = recipes.map((r) => toRecipeUrl(r.id));
 ---
 
 <Layout title="Kitchen">
@@ -128,6 +129,10 @@ const heroImages = galleryData.slice(0, 4);
     .hero-link:hover {
       transform: translateY(-2px);
       background: #123531;
+    }
+
+    .random-btn {
+      cursor: pointer;
     }
 
     .cover-panel {
@@ -578,6 +583,7 @@ const heroImages = galleryData.slice(0, 4);
       <div class="hero-footer">
         <span class="hero-stamp">{recipes.length}<br />Recipes</span>
         {latest && <a class="hero-link" href={toRecipeUrl(latest.id)}>Read latest recipe</a>}
+        <button class="hero-link random-btn" type="button">Surprise me</button>
       </div>
     </div>
     <div class="cover-panel">
@@ -634,6 +640,13 @@ const heroImages = galleryData.slice(0, 4);
     <button class="gallery-lightbox-close" type="button" aria-label="Close">&times;</button>
     <img src="" alt="" />
   </div>
+
+  <script define:vars={{ recipeUrls }}>
+    document.querySelector('.random-btn')?.addEventListener('click', () => {
+      const url = recipeUrls[Math.floor(Math.random() * recipeUrls.length)];
+      window.location.href = url;
+    });
+  </script>
 
   <script>
     const lightbox = document.getElementById('gallery-lightbox')!;

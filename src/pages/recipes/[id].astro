@@ -295,6 +295,43 @@ const emoji =
       }
     }
 
+    @media print {
+      .back, .lightbox, .print-btn { display: none !important; }
+
+      .spread {
+        grid-template-columns: 1fr;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        min-height: auto;
+        animation: none;
+      }
+
+      .spread::after { display: none; }
+
+      .page-left, .page-right {
+        padding: 0;
+      }
+
+      .page-left {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .recipe-image {
+        max-height: 250px;
+        cursor: default;
+      }
+
+      .nutrition-strip {
+        background: none;
+        border: 1px solid #ccc;
+      }
+
+      .content { font-size: 0.95rem; }
+    }
+
     .recipe-image {
       cursor: pointer;
     }
@@ -350,7 +387,10 @@ const emoji =
     }
   </style>
 
-  <a class="back" href="/">← All recipes</a>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.95rem;">
+    <a class="back" style="margin-bottom:0;" href="/">← All recipes</a>
+    <button class="back print-btn" type="button" onclick="window.print()" style="margin-bottom:0;cursor:pointer;">Print recipe</button>
+  </div>
 
   <article class="spread">
     <section class="page-left">

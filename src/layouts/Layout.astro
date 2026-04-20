@@ -260,6 +260,28 @@ const recipes = (await getCollection('recipes')).map((r) => ({
         border-color: var(--accent);
       }
 
+      @media print {
+        header, footer { display: none !important; }
+
+        main {
+          background: none;
+          box-shadow: none;
+          padding: 1rem;
+          margin: 0;
+          width: 100%;
+          border-radius: 0;
+          animation: none;
+          border: 3px solid var(--orange-400);
+        }
+
+        main::before { display: none; }
+
+        body {
+          background: #fff;
+          color: #000;
+        }
+      }
+
       @media (max-width: 720px) {
         header {
           width: calc(100% - 1.4rem);
