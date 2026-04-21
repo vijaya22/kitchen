@@ -20,6 +20,19 @@ const emoji =
   (tags ?? []).includes('indian') ? '🍛' :
   (tags ?? []).includes('chicken') ? '🍗' :
   (tags ?? []).includes('vegan') ? '🌱' : '🍴';
+
+const allRecipes = await getCollection('recipes');
+const currentTags = tags ?? [];
+const related = allRecipes
+  .filter((r) => r.id !== recipe.id)
+  .map((r) => ({
+    recipe: r,
+    score: (r.data.tags ?? []).filter((t) => currentTags.includes(t)).length,
+  }))
+  .filter((r) => r.score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3)
+  .map((r) => r.recipe);
 ---
 
 <Layout title={title} description={description}>
@@ -348,6 +361,102 @@ const emoji =
     }
 
 
+    .related-sheet {
+      margin-top: 1.2rem;
+      background:
+        linear-gradient(152deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: 14px;
+      box-shadow: 0 10px 22px rgba(72, 32, 11, 0.22);
+      padding: clamp(1rem, 2.2vw, 1.7rem);
+    }
+
+    .related-header {
+      margin-bottom: 0.8rem;
+      border-bottom: 1px dashed rgba(92, 79, 53, 0.45);
+      padding-bottom: 0.5rem;
+    }
+
+    .related-header h2 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+      color: var(--ink);
+      letter-spacing: 0.05em;
+      margin: 0;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+
+    .related-card {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--paper-edge);
+      background: var(--paper);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .related-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(72, 32, 11, 0.2);
+    }
+
+    .related-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+
+    .related-placeholder {
+      background: rgba(92, 79, 53, 0.1);
+    }
+
+    .related-title {
+      display: block;
+      padding: 0.5rem 0.6rem 0.2rem;
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      color: var(--ink);
+      line-height: 1.15;
+    }
+
+    .related-meta {
+      display: block;
+      padding: 0 0.6rem 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-muted);
+    }
+
+    :global(html.dark) .related-sheet {
+      background: var(--paper);
+      border-color: var(--paper-edge);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
+    }
+
+    :global(html.dark) .related-header {
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    :global(html.dark) .related-card {
+      border-color: #333;
+    }
+
+    @media (max-width: 640px) {
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .comments-sheet {
       margin-top: 1.2rem;
       background:
@@ -514,7 +623,7 @@ const emoji =
 
       {tags && (
         <div class="tags">
-          {tags.map((tag) => <span class="tag">{tag}</span>)}
+          {tags.map((tag) => <a class="tag" href={`/?tag=${encodeURIComponent(tag)}`}>{tag}</a>)}
         </div>
       )}
 
@@ -537,6 +646,26 @@ const emoji =
       </div>
     </section>
   </article>
+
+  {related.length > 0 && (
+    <section class="related-sheet">
+      <div class="related-header">
+        <h2>You might also like</h2>
+      </div>
+      <div class="related-grid">
+        {related.map((r) => (
+          <a class="related-card" href={`/recipes/${r.id.replace(/\.md$/, '')}/`}>
+            {r.data.image
+              ? <img class="related-img" src={r.data.image} alt={r.data.title} loading="lazy" />
+              : <div class="related-img related-placeholder"></div>
+            }
+            <span class="related-title">{r.data.title}</span>
+            {r.data.time && <span class="related-meta">{r.data.time}</span>}
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
 
   <section class="comments-sheet">
     <div class="comments-header">

@@ -15,6 +15,11 @@ const latestNote = latest
 
 const heroImages = galleryData.slice(0, 4);
 const recipeUrls = recipes.map((r) => toRecipeUrl(r.id));
+const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))].sort();
+const recipesWithTags = recipes.map((r, i) => ({
+  index: i,
+  tags: r.data.tags ?? [],
+}));
 ---
 
 <Layout title="Kitchen">
@@ -326,6 +331,59 @@ const recipeUrls = recipes.map((r) => toRecipeUrl(r.id));
 
     .contents-link:hover {
       color: #a33d0f;
+    }
+
+    .tag-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tag-chip {
+      font-size: 0.64rem;
+      font-weight: 700;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid #cbba91;
+      background: rgba(253, 239, 215, 0.4);
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tag-chip:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+
+    .tag-chip.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fdf8eb;
+    }
+
+    .contents-item.hidden {
+      display: none;
+    }
+
+    :global(html.dark) .tag-chip {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: #444;
+      color: var(--ink-muted);
+    }
+
+    :global(html.dark) .tag-chip:hover {
+      border-color: var(--ink-soft);
+      color: var(--ink);
+    }
+
+    :global(html.dark) .tag-chip.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #111;
     }
 
     /* Gallery section */
@@ -665,9 +723,15 @@ const recipeUrls = recipes.map((r) => toRecipeUrl(r.id));
       <h2>Recipe Contents</h2>
       <span>Issue 01</span>
     </div>
-    <ol class="contents-list">
+    <div class="tag-filters" id="tag-filters">
+      <button class="tag-chip active" data-tag="all" type="button">All</button>
+      {allTags.map((tag) => (
+        <button class="tag-chip" data-tag={tag} type="button">{tag}</button>
+      ))}
+    </div>
+    <ol class="contents-list" id="contents-list">
       {recipes.map((recipe, index) => (
-        <li class="contents-item">
+        <li class="contents-item" data-tags={JSON.stringify(recipe.data.tags ?? [])}>
           <a class="contents-link" href={`/recipes/${recipe.id.replace(/\.md$/, '')}/`}>
             <span class="contents-title">{recipe.data.title}</span>
             <span class="contents-dots" aria-hidden="true"></span>
@@ -703,6 +767,33 @@ const recipeUrls = recipes.map((r) => toRecipeUrl(r.id));
       const url = recipeUrls[Math.floor(Math.random() * recipeUrls.length)];
       window.location.href = url;
     });
+
+    // Tag filters
+    const chips = document.querySelectorAll('.tag-chip');
+    const items = document.querySelectorAll('.contents-item');
+
+    function filterByTag(tag) {
+      chips.forEach((c) => c.classList.toggle('active', c.dataset.tag === tag));
+      items.forEach((item) => {
+        if (tag === 'all') {
+          item.classList.remove('hidden');
+        } else {
+          const tags = JSON.parse(item.dataset.tags || '[]');
+          item.classList.toggle('hidden', !tags.includes(tag));
+        }
+      });
+    }
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => filterByTag(chip.dataset.tag));
+    });
+
+    // Read ?tag= param on load
+    const urlTag = new URLSearchParams(window.location.search).get('tag');
+    if (urlTag) {
+      filterByTag(urlTag);
+      document.getElementById('tag-filters')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   </script>
 
   <script>
