@@ -51,7 +51,7 @@ const related = allRecipes
   .map((r) => r.recipe);
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} image={image} url={`/recipes/${recipe.id.replace(/\.md$/, '')}/`}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <style>
     .back {

@@ -4,8 +4,13 @@ import { getCollection } from 'astro:content';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  url?: string;
 }
-const { title, description = "Vijaya's kitchen — a collection of recipes." } = Astro.props;
+const siteUrl = 'https://kitchen.vijaya.io';
+const { title, description = "Vijaya's kitchen — a collection of recipes.", image, url } = Astro.props;
+const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/images/burrata-garden-sourdough-toast.png`;
+const ogUrl = url ? `${siteUrl}${url}` : siteUrl;
 
 const recipes = (await getCollection('recipes')).map((r) => ({
   title: r.data.title,
@@ -21,7 +26,22 @@ const recipes = (await getCollection('recipes')).map((r) => ({
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={ogUrl} />
     <title>{title} — Kitchen</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title} — Kitchen`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={ogUrl} />
+    <meta property="og:site_name" content="Vijaya's Kitchen" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} — Kitchen`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
