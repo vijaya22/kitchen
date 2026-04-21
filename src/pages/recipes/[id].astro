@@ -21,6 +21,22 @@ const emoji =
   (tags ?? []).includes('chicken') ? '🍗' :
   (tags ?? []).includes('vegan') ? '🌱' : '🍴';
 
+const siteUrl = 'https://kitchen.vijaya.io';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Recipe',
+  name: title,
+  description,
+  ...(image && { image: `${siteUrl}${image}` }),
+  ...(tags && { keywords: tags.join(', ') }),
+  ...(servings && { recipeYield: servings }),
+  ...(time && { totalTime: `PT${time.replace(/\s*mins?\s*/i, 'M').replace(/\s*hrs?\s*/i, 'H').replace(/\s*hours?\s*/i, 'H')}` }),
+  ...(calories && { nutrition: { '@type': 'NutritionInformation', calories, ...(protein && { proteinContent: protein }) } }),
+  datePublished: recipe.data.date.toISOString().split('T')[0],
+  author: { '@type': 'Person', name: 'Vijaya' },
+  url: `${siteUrl}/recipes/${recipe.id.replace(/\.md$/, '')}/`,
+};
+
 const allRecipes = await getCollection('recipes');
 const currentTags = tags ?? [];
 const related = allRecipes
@@ -36,6 +52,7 @@ const related = allRecipes
 ---
 
 <Layout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <style>
     .back {
       display: inline-flex;
