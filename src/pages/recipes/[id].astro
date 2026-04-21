@@ -89,7 +89,7 @@ const related = allRecipes
       min-height: 70vh;
       position: relative;
       overflow: hidden;
-      animation: enter-spread 500ms ease-out;
+      animation: none;
     }
 
     .spread::after {
@@ -659,7 +659,7 @@ const related = allRecipes
   <article class="spread">
     <section class="page-left">
       {image
-        ? <img class="recipe-image" src={image} alt={title} />
+        ? <img class="recipe-image" src={image} alt={title} loading="eager" />
         : <span class="recipe-emoji">{emoji}</span>
       }
       <p class="kicker">Recipe Sheet</p>

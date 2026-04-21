@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -29,6 +30,7 @@ const recipes = (await getCollection('recipes')).map((r) => ({
     <link rel="canonical" href={ogUrl} />
     <link rel="alternate" type="application/rss+xml" title="Vijaya's Kitchen" href="/rss.xml" />
     <title>{title} — Kitchen</title>
+    <ViewTransitions />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -488,7 +490,7 @@ const recipes = (await getCollection('recipes')).map((r) => ({
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
       });
     </script>
-    <main>
+    <main transition:animate="fade">
       <slot />
     </main>
     <footer>
