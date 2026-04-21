@@ -495,6 +495,33 @@ const related = allRecipes
       border-bottom-color: rgba(255, 255, 255, 0.1);
     }
 
+    .fav-btn.saved .fav-icon {
+      fill: #e25555;
+      stroke: #e25555;
+    }
+
+    .made-this-prompt {
+      margin-bottom: 0.75rem;
+      padding: 0.5rem 0.7rem;
+      background: rgba(20, 72, 66, 0.06);
+      border: 1px dashed rgba(92, 79, 53, 0.25);
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .made-this-text {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    :global(html.dark) .made-this-prompt {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
     .reading-progress {
       position: fixed;
       top: 0;
@@ -606,6 +633,7 @@ const related = allRecipes
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.95rem;">
     <a class="back" style="margin-bottom:0;" href="/">← All recipes</a>
     <div style="display:flex;gap:0.4rem;">
+      <button class="back fav-btn" type="button" style="margin-bottom:0;cursor:pointer;" data-recipe-id={recipe.id}><svg class="fav-icon" width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" style="vertical-align:-2px;margin-right:2px;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Save</button>
       <button class="back share-btn" type="button" style="margin-bottom:0;cursor:pointer;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:3px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="currentColor" stroke-width="2.5"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="currentColor" stroke-width="2.5"/></svg>Share</button>
       <button class="back print-btn" type="button" onclick="window.print()" style="margin-bottom:0;cursor:pointer;">Print recipe</button>
     </div>
@@ -671,6 +699,9 @@ const related = allRecipes
     <div class="comments-header">
       <h2>Comments</h2>
     </div>
+    <div class="made-this-prompt">
+      <span class="made-this-text">Made this recipe? Hit the 🍳 reaction below to let others know!</span>
+    </div>
     <div id="giscus-container">
       <script
         src="https://giscus.app/client.js"
@@ -699,6 +730,27 @@ const related = allRecipes
   )}
 
   <script>
+    // Favorites
+    const favBtn = document.querySelector('.fav-btn') as HTMLButtonElement;
+    if (favBtn) {
+      const recipeId = favBtn.dataset.recipeId!;
+      const favs: string[] = JSON.parse(localStorage.getItem('kitchen-favs') || '[]');
+
+      if (favs.includes(recipeId)) {
+        favBtn.classList.add('saved');
+        favBtn.querySelector('svg')!.nextSibling!.textContent = 'Saved';
+      }
+
+      favBtn.addEventListener('click', () => {
+        const current: string[] = JSON.parse(localStorage.getItem('kitchen-favs') || '[]');
+        const isSaved = current.includes(recipeId);
+        const updated = isSaved ? current.filter((id) => id !== recipeId) : [...current, recipeId];
+        localStorage.setItem('kitchen-favs', JSON.stringify(updated));
+        favBtn.classList.toggle('saved', !isSaved);
+        favBtn.querySelector('svg')!.nextSibling!.textContent = isSaved ? 'Save' : 'Saved';
+      });
+    }
+
     const img = document.querySelector('.recipe-image') as HTMLImageElement;
     const lightbox = document.getElementById('lightbox');
     const closeBtn = document.getElementById('lightbox-close');

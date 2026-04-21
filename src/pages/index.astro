@@ -16,6 +16,7 @@ const latestNote = latest
 const heroImages = galleryData.slice(0, 4);
 const recipeUrls = recipes.map((r) => toRecipeUrl(r.id));
 const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))].sort();
+const recipeMap = Object.fromEntries(recipes.map((r) => [r.id, { title: r.data.title, url: toRecipeUrl(r.id) }]));
 const recipesWithTags = recipes.map((r, i) => ({
   index: i,
   tags: r.data.tags ?? [],
@@ -295,11 +296,11 @@ const recipesWithTags = recipes.map((r, i) => ({
       row-gap: 0.25rem;
     }
 
-    .contents-item {
+    :global(.contents-item) {
       margin: 0;
     }
 
-    .contents-link {
+    :global(.contents-link) {
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: baseline;
@@ -309,19 +310,19 @@ const recipesWithTags = recipes.map((r, i) => ({
       transition: color 0.2s ease;
     }
 
-    .contents-title {
+    :global(.contents-title) {
       font-family: var(--font-display);
       font-size: clamp(0.9rem, 1.8vw, 1.08rem);
       line-height: 1.1;
       text-transform: uppercase;
     }
 
-    .contents-dots {
+    :global(.contents-dots) {
       border-bottom: 1px dotted rgba(95, 78, 43, 0.45);
       transform: translateY(-2px);
     }
 
-    .contents-page {
+    :global(.contents-page) {
       font-family: var(--font-mono);
       font-size: 0.74rem;
       color: var(--ink-muted);
@@ -329,7 +330,7 @@ const recipesWithTags = recipes.map((r, i) => ({
       text-transform: uppercase;
     }
 
-    .contents-link:hover {
+    :global(.contents-link:hover) {
       color: #a33d0f;
     }
 
@@ -742,6 +743,14 @@ const recipesWithTags = recipes.map((r, i) => ({
     </ol>
   </section>
 
+  <section class="contents-sheet" id="saved-sheet" style="display:none;margin-top:1.2rem;">
+    <div class="contents-header">
+      <h2>Saved Recipes</h2>
+      <span id="saved-count"></span>
+    </div>
+    <ol class="contents-list" id="saved-list"></ol>
+  </section>
+
   <section class="gallery-sheet">
     <div class="gallery-header">
       <h2>Photo Gallery</h2>
@@ -762,11 +771,31 @@ const recipesWithTags = recipes.map((r, i) => ({
     <img src="" alt="" />
   </div>
 
-  <script define:vars={{ recipeUrls }}>
+  <script define:vars={{ recipeUrls, recipeMap }}>
     document.querySelector('.random-btn')?.addEventListener('click', () => {
       const url = recipeUrls[Math.floor(Math.random() * recipeUrls.length)];
       window.location.href = url;
     });
+
+    // Saved recipes
+    const favs = JSON.parse(localStorage.getItem('kitchen-favs') || '[]');
+    const savedSheet = document.getElementById('saved-sheet');
+    const savedList = document.getElementById('saved-list');
+    const savedCount = document.getElementById('saved-count');
+
+    if (favs.length > 0 && savedSheet && savedList && savedCount) {
+      const validFavs = favs.filter((id) => recipeMap[id]);
+      if (validFavs.length > 0) {
+        savedCount.textContent = `${validFavs.length} saved`;
+        savedList.innerHTML = validFavs
+          .map((id) => {
+            const r = recipeMap[id];
+            return `<li class="contents-item"><a class="contents-link" href="${r.url}"><span class="contents-title">${r.title}</span><span class="contents-dots" aria-hidden="true"></span><span class="contents-page">♥</span></a></li>`;
+          })
+          .join('');
+        savedSheet.style.display = '';
+      }
+    }
 
     // Tag filters
     const chips = document.querySelectorAll('.tag-chip');
