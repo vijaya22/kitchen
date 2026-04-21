@@ -49,6 +49,35 @@ const related = allRecipes
   .sort((a, b) => b.score - a.score)
   .slice(0, 3)
   .map((r) => r.recipe);
+
+// Extract ingredients from recipe body for Instagram card
+const rawBody = recipe.body ?? '';
+const bodyLines = rawBody.split('\n');
+let inIngredients = false;
+const allIngredients: string[] = [];
+for (const line of bodyLines) {
+  if (line.match(/^##\s+Ingredients/i)) { inIngredients = true; continue; }
+  if (inIngredients && line.match(/^##\s/)) break;
+  if (inIngredients && line.match(/^-\s/)) {
+    allIngredients.push(line.replace(/^-\s+/, '').replace(/\*\*/g, '').trim());
+  }
+}
+const cardIngredients = allIngredients.slice(0, 6);
+const hasMoreIngredients = allIngredients.length > 6;
+
+// Extract method steps for Instagram card
+let inMethod = false;
+const methodSteps: string[] = [];
+for (const line of bodyLines) {
+  if (line.match(/^##\s+Method/i)) { inMethod = true; continue; }
+  if (inMethod && line.match(/^##\s/)) break;
+  if (inMethod && line.match(/^---/)) break;
+  if (inMethod && line.match(/^\d+\.\s/)) {
+    const step = line.replace(/^\d+\.\s+/, '').replace(/\*\*/g, '').trim();
+    methodSteps.push(step.length > 75 ? step.slice(0, 72) + '...' : step);
+  }
+}
+const cardSteps = methodSteps.slice(0, 4);
 ---
 
 <Layout title={title} description={description} image={image} url={`/recipes/${recipe.id.replace(/\.md$/, '')}/`}>
@@ -539,6 +568,14 @@ const related = allRecipes
       border-color: rgba(255, 255, 255, 0.1);
     }
 
+    .insta-card {
+      position: fixed;
+      left: -9999px;
+      top: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+
     .reading-progress {
       position: fixed;
       top: 0;
@@ -551,7 +588,7 @@ const related = allRecipes
     }
 
     @media print {
-      .back, .lightbox, .print-btn, .share-btn, .reading-progress, .comments-sheet { display: none !important; }
+      .back, .lightbox, .print-btn, .share-btn, .reading-progress, .comments-sheet, .card-btn, .insta-card { display: none !important; }
 
       .spread {
         grid-template-columns: 1fr;
@@ -652,6 +689,7 @@ const related = allRecipes
     <div style="display:flex;gap:0.4rem;">
       <button class="back fav-btn" type="button" style="margin-bottom:0;cursor:pointer;" data-recipe-id={recipe.id}><svg class="fav-icon" width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" style="vertical-align:-2px;margin-right:2px;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Save</button>
       <button class="back share-btn" type="button" style="margin-bottom:0;cursor:pointer;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:3px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="currentColor" stroke-width="2.5"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="currentColor" stroke-width="2.5"/></svg>Share</button>
+      <button class="back card-btn" type="button" style="margin-bottom:0;cursor:pointer;">Download Card</button>
       <button class="back print-btn" type="button" onclick="window.print()" style="margin-bottom:0;cursor:pointer;">Print recipe</button>
     </div>
   </div>
@@ -739,6 +777,79 @@ const related = allRecipes
     </div>
   </section>
 
+  <div class="insta-card" id="insta-card">
+    <div style="width:1080px;height:1080px;background:#e8400d;padding:30px;box-sizing:border-box;font-family:'Alegreya Sans','Trebuchet MS',sans-serif;">
+      <div style="width:100%;height:100%;background:#f6f1df;border-radius:20px;overflow:hidden;display:flex;">
+
+        {/* Left: Photo + Stats + Tags */}
+        <div style="width:420px;flex-shrink:0;display:flex;flex-direction:column;">
+          {image ? (
+            <div style="flex:1;position:relative;overflow:hidden;">
+              <img src={image} alt={title} crossorigin="anonymous" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:100%;min-height:100%;width:auto;height:auto;" />
+            </div>
+          ) : (
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;background:#ece3c8;font-size:160px;">
+              {emoji}
+            </div>
+          )}
+          <div style="padding:16px 20px;background:#ece3c8;">
+            <div style="display:flex;flex-wrap:wrap;gap:4px 16px;margin:0 0 10px 0;">
+              {time && <span style="font-family:'Special Elite','Courier New',monospace;font-size:16px;color:#204f49;letter-spacing:0.03em;">⏱ {time}</span>}
+              {servings && <span style="font-family:'Special Elite','Courier New',monospace;font-size:16px;color:#204f49;letter-spacing:0.03em;">🍽 {servings} servings</span>}
+              {calories && <span style="font-family:'Special Elite','Courier New',monospace;font-size:16px;color:#204f49;letter-spacing:0.03em;">🔥 {calories}</span>}
+              {protein && <span style="font-family:'Special Elite','Courier New',monospace;font-size:16px;color:#204f49;letter-spacing:0.03em;">💪 {protein} protein</span>}
+            </div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              {(tags ?? []).slice(0, 5).map((tag) => (
+                <span style="font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;border:2px solid #cbba91;color:#315b53;text-transform:uppercase;letter-spacing:0.04em;">{tag}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Content + Method + CTA */}
+        <div style="flex:1;padding:40px 36px;display:flex;flex-direction:column;box-sizing:border-box;">
+
+          <p style="font-family:'Special Elite','Courier New',monospace;font-size:18px;letter-spacing:0.1em;text-transform:uppercase;color:#6f857d;margin:0 0 18px 0;">🍳 Vijaya's Kitchen</p>
+
+          <h2 style="font-family:'Rye',Georgia,serif;font-size:36px;line-height:1.12;color:#204f49;text-transform:uppercase;margin:0 0 12px 0;">{title}</h2>
+
+          <div style="width:48px;height:4px;background:#e8400d;border-radius:2px;margin:0 0 12px 0;"></div>
+
+          <p style="font-size:18px;color:#487067;line-height:1.3;margin:0 0 16px 0;">{description}</p>
+
+          {/* Ingredients */}
+          {cardIngredients.length > 0 && (
+            <div style="margin:0 0 14px 0;">
+              <p style="font-family:'Special Elite','Courier New',monospace;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:#c79f2d;margin:0 0 5px 0;font-weight:bold;">Ingredients</p>
+              {cardIngredients.map((ing) => (
+                <p style="font-size:17px;color:#204f49;margin:0 0 1px 0;line-height:1.3;">▸ {ing}</p>
+              ))}
+              {hasMoreIngredients && <p style="font-size:15px;color:#6f857d;margin:3px 0 0 0;font-style:italic;">+ more on the blog</p>}
+            </div>
+          )}
+
+          {/* Method Summary */}
+          {cardSteps.length > 0 && (
+            <div style="margin:0 0 auto 0;">
+              <p style="font-family:'Special Elite','Courier New',monospace;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:#c79f2d;margin:0 0 5px 0;font-weight:bold;">Quick Steps</p>
+              {cardSteps.map((step, i) => (
+                <p style="font-size:16px;color:#204f49;margin:0 0 2px 0;line-height:1.3;">{i + 1}. {step}</p>
+              ))}
+            </div>
+          )}
+
+          {/* CTA */}
+          <div style="padding:14px 0 0 0;border-top:2px solid #ece3c8;margin-top:14px;">
+            <p style="font-family:'Special Elite','Courier New',monospace;font-size:17px;color:#204f49;margin:0;letter-spacing:0.04em;">Find the detailed recipe at</p>
+            <p style="font-family:'Rye',Georgia,serif;font-size:22px;color:#e8400d;margin:4px 0 0 0;letter-spacing:0.03em;">kitchen.vijaya.io</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   {image && (
     <div class="lightbox" id="lightbox">
       <button class="lightbox-close" id="lightbox-close" aria-label="Close preview">✕</button>
@@ -747,6 +858,33 @@ const related = allRecipes
   )}
 
   <script>
+    // Instagram card download
+    const cardBtn = document.querySelector('.card-btn') as HTMLButtonElement;
+    if (cardBtn) {
+      cardBtn.addEventListener('click', async () => {
+        cardBtn.textContent = 'Generating...';
+        try {
+          const { default: html2canvas } = await import('html2canvas');
+          const card = document.getElementById('insta-card')!;
+          const inner = card.children[0] as HTMLElement;
+          const canvas = await html2canvas(inner, {
+            width: 1080,
+            height: 1080,
+            scale: 1,
+            useCORS: true,
+            logging: false,
+          });
+          const link = document.createElement('a');
+          link.download = `${document.title.replace(/ — Kitchen$/, '').replace(/[^a-zA-Z0-9]/g, '-').toLowerCase()}-recipe-card.png`;
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+        } catch (e) {
+          console.error('Card generation failed:', e);
+        }
+        cardBtn.textContent = 'Download Card';
+      });
+    }
+
     // Favorites
     const favBtn = document.querySelector('.fav-btn') as HTMLButtonElement;
     if (favBtn) {
