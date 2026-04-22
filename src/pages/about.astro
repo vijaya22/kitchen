@@ -1,0 +1,459 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+const recipes = await getCollection('recipes');
+const totalRecipes = recipes.length;
+const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))];
+const totalTags = allTags.length;
+const cuisines = allTags.filter((t) => ['indian', 'chinese', 'italian', 'asian', 'mediterranean'].includes(t));
+---
+
+<Layout title="About" description="Meet Vijaya Laxmi — the home cook behind Kitchen. A software engineer who found joy, calm, and creativity in everyday cooking.">
+  <style>
+    .about-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.6rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-photo-wrap {
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: var(--radius-md);
+      box-shadow: 0 18px 24px rgba(54, 25, 8, 0.25);
+      padding: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(52, 61, 40, 0.06), rgba(52, 61, 40, 0.06) 1px, transparent 1px, transparent 5px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .hero-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-intro {
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: var(--radius-md);
+      box-shadow: 0 18px 24px rgba(54, 25, 8, 0.25);
+      padding: clamp(1.25rem, 3vw, 2.4rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-intro::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(52, 61, 40, 0.06), rgba(52, 61, 40, 0.06) 1px, transparent 1px, transparent 5px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .hero-intro > * { position: relative; z-index: 1; }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.1;
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-tagline {
+      font-size: 1.15rem;
+      color: var(--ink-soft);
+      line-height: 1.45;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-roles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .role-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--paper-edge);
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .story-sheet {
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: var(--radius-md);
+      box-shadow: 0 18px 24px rgba(54, 25, 8, 0.25);
+      padding: clamp(1.5rem, 3vw, 2.8rem);
+      margin-bottom: 1.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-sheet::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(52, 61, 40, 0.06), rgba(52, 61, 40, 0.06) 1px, transparent 1px, transparent 5px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .story-sheet > * { position: relative; z-index: 1; }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .section-divider {
+      width: 48px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 1.2rem;
+    }
+
+    .story-text {
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      max-width: 72ch;
+    }
+
+    .story-text p {
+      margin-bottom: 1rem;
+    }
+
+    .story-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .philosophy-card {
+      background: var(--paper-strong);
+      border: 1px solid var(--paper-edge);
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+
+    .philosophy-emoji {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .philosophy-label {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+
+    .philosophy-desc {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      line-height: 1.4;
+    }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .stat-card {
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: var(--radius-md);
+      box-shadow: 0 18px 24px rgba(54, 25, 8, 0.25);
+      padding: 1.4rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .connect-sheet {
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: var(--radius-md);
+      box-shadow: 0 18px 24px rgba(54, 25, 8, 0.25);
+      padding: clamp(1.5rem, 3vw, 2.8rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .connect-sheet::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(52, 61, 40, 0.06), rgba(52, 61, 40, 0.06) 1px, transparent 1px, transparent 5px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .connect-sheet > * { position: relative; z-index: 1; }
+
+    .connect-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.2rem;
+    }
+
+    .connect-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid var(--paper-edge);
+      color: var(--ink-soft);
+      transition: all 0.25s ease;
+    }
+
+    .connect-link:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
+    }
+
+    .connect-link svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    :global(html.dark) .hero-photo-wrap,
+    :global(html.dark) .hero-intro,
+    :global(html.dark) .story-sheet,
+    :global(html.dark) .stat-card,
+    :global(html.dark) .connect-sheet {
+      background: var(--paper);
+      border-color: var(--paper-edge);
+      box-shadow: 0 18px 24px var(--shadow);
+    }
+
+    :global(html.dark) .philosophy-card {
+      background: var(--paper-strong);
+      border-color: var(--paper-edge);
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff3e4;
+      font-weight: 700;
+      padding: 0.44rem 0.92rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 231, 194, 0.45);
+      background: rgba(14, 58, 52, 0.32);
+      transition: all 0.24s ease;
+    }
+
+    .back:hover {
+      background: rgba(14, 58, 52, 0.55);
+    }
+
+    @media (max-width: 720px) {
+      .about-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-photo-wrap {
+        max-height: 320px;
+      }
+
+      .philosophy-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-strip {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <div style="margin-bottom:0.95rem;">
+    <a class="back" href="/">← All recipes</a>
+  </div>
+
+  <!-- Hero: Photo + Intro -->
+  <div class="about-hero">
+    <div class="hero-photo-wrap">
+      <img class="hero-photo" src="/images/vijaya.png" alt="Vijaya Laxmi" />
+    </div>
+    <div class="hero-intro">
+      <p class="eyebrow">The cook behind the kitchen</p>
+      <h1 class="hero-name">Vijaya Laxmi</h1>
+      <p class="hero-tagline">Software engineer by day, home cook by heart. I believe good food should be wholesome, joyful, and never boring.</p>
+      <div class="hero-roles">
+        <span class="role-tag">Home Cook</span>
+        <span class="role-tag">Software Engineer</span>
+        <span class="role-tag">Recipe Creator</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Story -->
+  <div class="story-sheet">
+    <h2 class="section-title">My Story</h2>
+    <div class="section-divider"></div>
+    <div class="story-text">
+      <p>My journey with cooking started from a place many people will relate to — living alone and needing to feed myself. What began as a necessity slowly became something much more meaningful. Over time, cooking turned into a space of comfort, creativity, and calm. It became my way to unwind, to care for myself, and to feel grounded no matter how busy life got.</p>
+      <p>The real inspiration behind this website came when I started thinking more deeply about the people I love. I wanted my family to enjoy food that felt both nourishing and satisfying — food that was healthy, but still just as delicious, comforting, and exciting as the dishes we naturally crave. That idea stuck with me: <strong>healthy food doesn't have to feel boring, restrictive, or bland.</strong></p>
+      <p>The recipes here are simply the food I cook in my own home — honest, practical, tasty meals made for real life. Some are everyday staples, some are comfort foods, some are lighter choices, and some are experiments that worked so well they earned a permanent place in my kitchen. I'm not chasing perfection — just food that feels good to make and even better to eat.</p>
+      <p>In a life that often feels fast-paced and structured, the kitchen gives me a different kind of rhythm — one that's slower, more intuitive, and deeply personal. Through this little corner of the internet, I hope you find something that inspires you to cook, to eat a little better, and to enjoy the process as much as the plate.</p>
+    </div>
+  </div>
+
+  <!-- Philosophy -->
+  <div class="story-sheet">
+    <h2 class="section-title">What You'll Find Here</h2>
+    <div class="section-divider"></div>
+    <div class="story-text">
+      <p>Every recipe on this site is something I've actually cooked and enjoyed at home. No fuss, no impossible ingredient lists — just real food for real kitchens.</p>
+    </div>
+    <div class="philosophy-grid">
+      <div class="philosophy-card">
+        <div class="philosophy-emoji">&#x1F372;</div>
+        <p class="philosophy-label">Comfort Food</p>
+        <p class="philosophy-desc">Warm, familiar dishes that feel like home</p>
+      </div>
+      <div class="philosophy-card">
+        <div class="philosophy-emoji">&#x26A1;</div>
+        <p class="philosophy-label">Quick Meals</p>
+        <p class="philosophy-desc">Weeknight-friendly recipes under 30 minutes</p>
+      </div>
+      <div class="philosophy-card">
+        <div class="philosophy-emoji">&#x1F96C;</div>
+        <p class="philosophy-label">Healthy & Tasty</p>
+        <p class="philosophy-desc">Wholesome food that never compromises on flavor</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-strip">
+    <div class="stat-card">
+      <p class="stat-number">{totalRecipes}</p>
+      <p class="stat-label">Recipes & counting</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-number">{totalTags}</p>
+      <p class="stat-label">Tags & categories</p>
+    </div>
+    <div class="stat-card">
+      <p class="stat-number">{cuisines.length > 0 ? cuisines.length : '3'}+</p>
+      <p class="stat-label">Cuisines explored</p>
+    </div>
+  </div>
+
+  <!-- Connect -->
+  <div class="connect-sheet">
+    <h2 class="section-title">Let's Connect</h2>
+    <div class="section-divider"></div>
+    <div class="story-text">
+      <p>If you try any of my recipes, I'd love to hear about it. Find me online, say hello, or if you're feeling generous, buy me a coffee.</p>
+    </div>
+    <div class="connect-links">
+      <a class="connect-link" href="https://www.instagram.com/vijaya2798?igsh=MWpseGZvcnkyYjYyMw==" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+      <a class="connect-link" href="https://x.com/vijaya2296" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        X / Twitter
+      </a>
+      <a class="connect-link" href="https://vijaya.io" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        vijaya.io
+      </a>
+      <a class="connect-link" href="https://buymeacoffee.com/vijaya.laxmi" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M18.5 3H6c-1.1 0-2 .9-2 2v5.71c0 3.83 2.95 7.18 6.78 7.29 3.96.12 7.22-3.06 7.22-7v-1h.5c1.93 0 3.5-1.57 3.5-3.5S20.43 3 18.5 3zM16 11c0 2.21-1.79 4-4 4s-4-1.79-4-4V5h8v6zm2.5-3H18V5h.5c.83 0 1.5.67 1.5 1.5S19.33 8 18.5 8zM2 21h18v2H2v-2z"/></svg>
+        Buy me a coffee
+      </a>
+    </div>
+  </div>
+</Layout>
