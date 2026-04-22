@@ -1,0 +1,321 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Request a Recipe" description="Have a dish you'd love to see on Kitchen? Send in your recipe request and I'll try to make it happen.">
+  <style>
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff3e4;
+      font-weight: 700;
+      padding: 0.44rem 0.92rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 231, 194, 0.45);
+      background: rgba(14, 58, 52, 0.32);
+      transition: all 0.24s ease;
+    }
+
+    .back:hover {
+      background: rgba(14, 58, 52, 0.55);
+    }
+
+    .request-sheet {
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: var(--radius-md);
+      box-shadow: 0 18px 24px rgba(54, 25, 8, 0.25);
+      padding: clamp(1.5rem, 3vw, 2.8rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .request-sheet::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(52, 61, 40, 0.06), rgba(52, 61, 40, 0.06) 1px, transparent 1px, transparent 5px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .request-sheet > * { position: relative; z-index: 1; }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      margin-bottom: 1.4rem;
+    }
+
+    .section-divider {
+      width: 48px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 1.2rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .form-label .required {
+      color: var(--accent);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--ink);
+      background: var(--paper-strong);
+      border: 1px solid var(--paper-edge);
+      border-radius: 10px;
+      padding: 0.7rem 0.9rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(239, 123, 63, 0.15);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--ink-muted);
+      opacity: 0.6;
+    }
+
+    .form-select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236f857d' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.9rem center;
+      padding-right: 2.4rem;
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #fff3e4;
+      background: var(--ink);
+      border: none;
+      border-radius: 999px;
+      padding: 0.75rem 2rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-top: 0.6rem;
+    }
+
+    .submit-btn:hover {
+      background: var(--accent);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .success-emoji {
+      font-size: 3rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .success-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .success-text {
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    .form-content.hidden {
+      display: none;
+    }
+
+    :global(html.dark) .request-sheet {
+      background: var(--paper);
+      border-color: var(--paper-edge);
+      box-shadow: 0 18px 24px var(--shadow);
+    }
+
+    :global(html.dark) .form-input,
+    :global(html.dark) .form-select,
+    :global(html.dark) .form-textarea {
+      background: var(--paper-strong);
+      border-color: var(--paper-edge);
+    }
+
+    @media (max-width: 720px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <div style="margin-bottom:0.95rem;">
+    <a class="back" href="/">← All recipes</a>
+  </div>
+
+  <div class="request-sheet">
+    <h1 class="section-title">Request a Recipe</h1>
+    <div class="section-divider"></div>
+    <p class="section-subtitle">Have a dish you'd love to see here? Tell me what you're craving and I'll try to make it happen.</p>
+
+    <div class="form-content" id="form-content">
+      <form id="request-form">
+        <input type="hidden" name="access_key" value="51044a4c-14b9-4150-a939-5940866cba57" />
+        <input type="hidden" name="subject" value="New Recipe Request — Kitchen" />
+        <input type="hidden" name="from_name" value="Kitchen Recipe Request" />
+        <input type="checkbox" name="botcheck" style="display:none;" />
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="name">Your Name <span class="required">*</span></label>
+            <input class="form-input" type="text" id="name" name="name" placeholder="e.g. Priya" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Email <span style="opacity:0.5;">(optional)</span></label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="In case I need to reach you" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="recipe">Recipe / Dish Name <span class="required">*</span></label>
+            <input class="form-input" type="text" id="recipe" name="recipe" placeholder="e.g. Butter Chicken, Pad Thai" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cuisine">Cuisine Type</label>
+            <select class="form-select" id="cuisine" name="cuisine">
+              <option value="">Pick one (optional)</option>
+              <option value="Indian">Indian</option>
+              <option value="Chinese">Chinese</option>
+              <option value="Italian">Italian</option>
+              <option value="Asian">Asian</option>
+              <option value="Mediterranean">Mediterranean</option>
+              <option value="Continental">Continental</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label" for="notes">Anything else?</label>
+            <textarea class="form-textarea" id="notes" name="notes" placeholder="Any preferences, dietary needs, or details about the dish you'd like..."></textarea>
+          </div>
+        </div>
+
+        <button class="submit-btn" type="submit" id="submit-btn">Send Request</button>
+      </form>
+    </div>
+
+    <div class="success-message" id="success-message">
+      <div class="success-emoji">&#x1F389;</div>
+      <p class="success-title">Request Sent!</p>
+      <p class="success-text">Thanks for the suggestion! I'll check it out and hopefully you'll see it on the site soon.</p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('request-form') as HTMLFormElement;
+    const formContent = document.getElementById('form-content')!;
+    const successMessage = document.getElementById('success-message')!;
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      try {
+        const formData = new FormData(form);
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData,
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          formContent.classList.add('hidden');
+          successMessage.classList.add('show');
+        } else {
+          submitBtn.textContent = 'Something went wrong — try again';
+          submitBtn.disabled = false;
+        }
+      } catch {
+        submitBtn.textContent = 'Something went wrong — try again';
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</Layout>
