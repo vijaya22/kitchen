@@ -69,11 +69,32 @@ const related = allRecipes
       background: rgba(14, 58, 52, 0.32);
       margin-bottom: 0.95rem;
       transition: all 0.24s ease;
+      white-space: nowrap;
     }
 
     .back:hover {
       background: rgba(14, 58, 52, 0.78);
       border-color: rgba(255, 234, 206, 0.8);
+    }
+
+    .action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.95rem;
+      gap: 0.4rem;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    @media (max-width: 720px) {
+      .back {
+        font-size: 0.62rem;
+        padding: 0.36rem 0.7rem;
+      }
     }
 
     .spread {
@@ -647,12 +668,12 @@ const related = allRecipes
 
   <div class="reading-progress" id="reading-progress"></div>
 
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.95rem;">
-    <a class="back" style="margin-bottom:0;" href="/">← All recipes</a>
-    <div style="display:flex;gap:0.4rem;">
+  <div class="action-bar">
+    <a class="back" style="margin-bottom:0;" href="/">← Recipes</a>
+    <div class="action-buttons">
       <button class="back fav-btn" type="button" style="margin-bottom:0;cursor:pointer;" data-recipe-id={recipe.id}><svg class="fav-icon" width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" style="vertical-align:-2px;margin-right:2px;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>Save</button>
       <button class="back share-btn" type="button" style="margin-bottom:0;cursor:pointer;"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:3px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" stroke="currentColor" stroke-width="2.5"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" stroke="currentColor" stroke-width="2.5"/></svg>Share</button>
-      <button class="back print-btn" type="button" onclick="window.print()" style="margin-bottom:0;cursor:pointer;">Print recipe</button>
+      <button class="back print-btn" type="button" onclick="window.print()" style="margin-bottom:0;cursor:pointer;">Print</button>
     </div>
   </div>
 
@@ -747,6 +768,7 @@ const related = allRecipes
   )}
 
   <script>
+  document.addEventListener('astro:page-load', () => {
     // Favorites
     const favBtn = document.querySelector('.fav-btn') as HTMLButtonElement;
     if (favBtn) {
@@ -864,5 +886,6 @@ const related = allRecipes
         }, 2000);
       });
     }
+  });
   </script>
 </Layout>

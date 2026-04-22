@@ -331,7 +331,7 @@ const recipesWithTags = recipes.map((r, i) => ({
     }
 
     :global(.contents-link:hover) {
-      color: #a33d0f;
+      color: var(--accent);
     }
 
     .tag-filters {
@@ -778,87 +778,90 @@ const recipesWithTags = recipes.map((r, i) => ({
     <img src="" alt="" />
   </div>
 
-  <script define:vars={{ recipeUrls, recipeMap }}>
-    document.querySelector('.random-btn')?.addEventListener('click', () => {
-      const url = recipeUrls[Math.floor(Math.random() * recipeUrls.length)];
-      window.location.href = url;
-    });
+  <script is:inline define:vars={{ recipeUrls, recipeMap }}>
+    document.addEventListener('astro:page-load', () => {
+      document.querySelector('.random-btn')?.addEventListener('click', () => {
+        const url = recipeUrls[Math.floor(Math.random() * recipeUrls.length)];
+        window.location.href = url;
+      });
 
-    // Saved recipes
-    const favs = JSON.parse(localStorage.getItem('kitchen-favs') || '[]');
-    const savedSheet = document.getElementById('saved-sheet');
-    const savedList = document.getElementById('saved-list');
-    const savedCount = document.getElementById('saved-count');
+      // Saved recipes
+      const favs = JSON.parse(localStorage.getItem('kitchen-favs') || '[]');
+      const savedSheet = document.getElementById('saved-sheet');
+      const savedList = document.getElementById('saved-list');
+      const savedCount = document.getElementById('saved-count');
 
-    if (favs.length > 0 && savedSheet && savedList && savedCount) {
-      const validFavs = favs.filter((id) => recipeMap[id]);
-      if (validFavs.length > 0) {
-        savedCount.textContent = `${validFavs.length} saved`;
-        savedList.innerHTML = validFavs
-          .map((id) => {
-            const r = recipeMap[id];
-            return `<li class="contents-item"><a class="contents-link" href="${r.url}"><span class="contents-title">${r.title}</span><span class="contents-dots" aria-hidden="true"></span><span class="contents-page">♥</span></a></li>`;
-          })
-          .join('');
-        savedSheet.style.display = '';
-      }
-    }
-
-    // Tag filters
-    const chips = document.querySelectorAll('.tag-chip');
-    const items = document.querySelectorAll('.contents-item');
-
-    function filterByTag(tag) {
-      chips.forEach((c) => c.classList.toggle('active', c.dataset.tag === tag));
-      items.forEach((item) => {
-        if (tag === 'all') {
-          item.classList.remove('hidden');
-        } else {
-          const tags = JSON.parse(item.dataset.tags || '[]');
-          item.classList.toggle('hidden', !tags.includes(tag));
+      if (favs.length > 0 && savedSheet && savedList && savedCount) {
+        const validFavs = favs.filter((id) => recipeMap[id]);
+        if (validFavs.length > 0) {
+          savedCount.textContent = `${validFavs.length} saved`;
+          savedList.innerHTML = validFavs
+            .map((id) => {
+              const r = recipeMap[id];
+              return `<li class="contents-item"><a class="contents-link" href="${r.url}"><span class="contents-title">${r.title}</span><span class="contents-dots" aria-hidden="true"></span><span class="contents-page">♥</span></a></li>`;
+            })
+            .join('');
+          savedSheet.style.display = '';
         }
+      }
+
+      // Tag filters
+      const chips = document.querySelectorAll('.tag-chip');
+      const items = document.querySelectorAll('.contents-item');
+
+      function filterByTag(tag) {
+        chips.forEach((c) => c.classList.toggle('active', c.dataset.tag === tag));
+        items.forEach((item) => {
+          if (tag === 'all') {
+            item.classList.remove('hidden');
+          } else {
+            const tags = JSON.parse(item.dataset.tags || '[]');
+            item.classList.toggle('hidden', !tags.includes(tag));
+          }
+        });
+      }
+
+      chips.forEach((chip) => {
+        chip.addEventListener('click', () => filterByTag(chip.dataset.tag));
       });
-    }
 
-    chips.forEach((chip) => {
-      chip.addEventListener('click', () => filterByTag(chip.dataset.tag));
+      // Read ?tag= param on load
+      const urlTag = new URLSearchParams(window.location.search).get('tag');
+      if (urlTag) {
+        filterByTag(urlTag);
+        document.getElementById('tag-filters')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      // Gallery lightbox
+      const lightbox = document.getElementById('gallery-lightbox');
+      if (lightbox) {
+        const lightboxImg = lightbox.querySelector('img');
+        const lightboxClose = lightbox.querySelector('.gallery-lightbox-close');
+
+        document.querySelectorAll('.gallery-item').forEach((item) => {
+          item.addEventListener('click', () => {
+            const src = item.dataset.src;
+            const alt = item.dataset.alt;
+            lightboxImg.src = src;
+            lightboxImg.alt = alt;
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+          });
+        });
+
+        function closeLightbox() {
+          lightbox.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+
+        lightboxClose?.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+          if (e.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      }
     });
-
-    // Read ?tag= param on load
-    const urlTag = new URLSearchParams(window.location.search).get('tag');
-    if (urlTag) {
-      filterByTag(urlTag);
-      document.getElementById('tag-filters')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  </script>
-
-  <script>
-    const lightbox = document.getElementById('gallery-lightbox')!;
-    const lightboxImg = lightbox.querySelector('img')!;
-    const lightboxClose = lightbox.querySelector('.gallery-lightbox-close')!;
-
-    document.querySelectorAll('.gallery-item').forEach((item) => {
-      item.addEventListener('click', () => {
-        const src = (item as HTMLElement).dataset.src!;
-        const alt = (item as HTMLElement).dataset.alt!;
-        lightboxImg.src = src;
-        lightboxImg.alt = alt;
-        lightbox.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeLightbox();
-    });
-
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      document.body.style.overflow = '';
-    }
   </script>
 </Layout>
