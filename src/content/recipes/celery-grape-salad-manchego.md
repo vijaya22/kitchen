@@ -4,7 +4,7 @@ description: A crisp, fresh salad of thinly sliced celery and halved black grape
 date: 2026-04-23
 time: 15 mins
 servings: "2"
-tags: [salad, vegetarian, quick, no-cook]
+tags: [salad, vegetarian, quick, no-cook, spanish]
 calories: "260 kcal"
 protein: "7g"
 image: /images/grapes-and celery-salad.png

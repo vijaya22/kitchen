@@ -4,7 +4,7 @@ description: Soft white bread layered with thinly sliced cucumber and a creamy s
 date: 2026-04-23
 time: 15 mins
 servings: "2"
-tags: [sandwich, vegetarian, quick, no-cook, snack]
+tags: [sandwich, vegetarian, quick, no-cook, snack, british]
 calories: "310 kcal"
 protein: "8g"
 image: /images/cucumber-sandwich.png
