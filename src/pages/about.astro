@@ -6,7 +6,7 @@ const recipes = await getCollection('recipes');
 const totalRecipes = recipes.length;
 const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))];
 const totalTags = allTags.length;
-const cuisines = allTags.filter((t) => ['indian', 'south-indian', 'chinese', 'indo-chinese', 'italian', 'asian', 'mediterranean', 'british', 'spanish', 'japanese', 'thai', 'mexican', 'french'].includes(t));
+const cuisines = allTags.filter((t) => ['indian', 'south-indian', 'chinese', 'indo-chinese', 'italian', 'asian', 'mediterranean', 'british', 'spanish', 'japanese', 'thai', 'mexican', 'french', 'american'].includes(t));
 ---
 
 <Layout title="About" description="Meet Vijaya Laxmi — the home cook behind Kitchen. A software engineer who found joy, calm, and creativity in everyday cooking.">
