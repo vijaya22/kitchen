@@ -4,7 +4,7 @@ description: Chow noodles tossed with onion, bell pepper, garlic, and ginger in 
 date: 2026-04-23
 time: 30 mins
 servings: "2"
-tags: [vegetarian, noodles, quick, indo-chinese]
+tags: [vegetarian, noodles, quick, indo-chinese, stir-fry]
 calories: "460 kcal"
 protein: "10g"
 image: /images/veg noodles.png
