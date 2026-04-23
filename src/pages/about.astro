@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import vijayaPortrait from '../assets/images/vijaya.webp';
 
 const recipes = await getCollection('recipes');
 const totalRecipes = recipes.length;
@@ -367,7 +369,7 @@ const cuisines = allTags.filter((t) => ['indian', 'south-indian', 'bengali', 'ch
   <!-- Hero: Photo + Intro -->
   <div class="about-hero">
     <div class="hero-photo-wrap">
-      <img class="hero-photo" src="/images/vijaya.png" alt="Vijaya Laxmi" />
+      <Image class="hero-photo" src={vijayaPortrait} alt="Vijaya Laxmi" widths={[360, 720]} sizes="(max-width: 720px) 100vw, 520px" loading="eager" />
     </div>
     <div class="hero-intro">
       <p class="eyebrow">The cook behind the kitchen</p>

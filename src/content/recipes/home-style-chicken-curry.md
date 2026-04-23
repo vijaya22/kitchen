@@ -7,7 +7,7 @@ servings: "4"
 tags: [chicken, indian, comfort, curry]
 calories: "350 kcal"
 protein: "28g"
-image: /images/home-style-chicken-curry.jpeg
+image: ../../assets/images/home-style-chicken-curry.jpeg
 ---
 
 ## Ingredients

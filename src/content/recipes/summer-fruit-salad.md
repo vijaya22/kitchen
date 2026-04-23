@@ -7,7 +7,7 @@ servings: "2-3"
 tags: [salad, vegetarian, vegan, quick, no-cook]
 calories: "120 kcal"
 protein: "2g"
-image: /images/summer fruit salad.png
+image: ../../assets/images/summer-fruit-salad.webp
 ---
 
 ## Ingredients

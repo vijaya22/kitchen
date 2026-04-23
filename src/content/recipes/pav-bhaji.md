@@ -7,7 +7,7 @@ servings: "4"
 tags: [indian, vegetarian, comfort]
 calories: "380 kcal"
 protein: "10g"
-image: /images/pav bhaji.png
+image: ../../assets/images/pav-bhaji.webp
 ---
 
 ## Ingredients

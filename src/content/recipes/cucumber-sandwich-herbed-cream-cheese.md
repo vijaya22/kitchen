@@ -7,7 +7,7 @@ servings: "2"
 tags: [sandwich, vegetarian, quick, no-cook, snack, british]
 calories: "310 kcal"
 protein: "8g"
-image: /images/cucumber-sandwich.png
+image: ../../assets/images/cucumber-sandwich.webp
 ---
 
 ## Ingredients

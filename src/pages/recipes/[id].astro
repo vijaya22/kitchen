@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
@@ -27,7 +28,7 @@ const jsonLd = {
   '@type': 'Recipe',
   name: title,
   description,
-  ...(image && { image: `${siteUrl}${image}` }),
+  ...(image && { image: `${siteUrl}${image.src}` }),
   ...(tags && { keywords: tags.join(', ') }),
   ...(servings && { recipeYield: servings }),
   ...(time && { totalTime: `PT${time.replace(/\s*mins?\s*/i, 'M').replace(/\s*hrs?\s*/i, 'H').replace(/\s*hours?\s*/i, 'H')}` }),
@@ -51,7 +52,7 @@ const related = allRecipes
   .map((r) => r.recipe);
 ---
 
-<Layout title={title} description={description} image={image} url={`/recipes/${recipe.id.replace(/\.md$/, '')}/`}>
+<Layout title={title} description={description} image={image?.src} url={`/recipes/${recipe.id.replace(/\.md$/, '')}/`}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <style>
     .back {
@@ -680,7 +681,7 @@ const related = allRecipes
   <article class="spread">
     <section class="page-left">
       {image
-        ? <img class="recipe-image" src={image} alt={title} loading="eager" />
+        ? <Image class="recipe-image" src={image} alt={title} widths={[480, 960]} sizes="(max-width: 720px) 100vw, 480px" loading="eager" />
         : <span class="recipe-emoji">{emoji}</span>
       }
       <p class="kicker">Recipe Sheet</p>
@@ -722,7 +723,7 @@ const related = allRecipes
         {related.map((r) => (
           <a class="related-card" href={`/recipes/${r.id.replace(/\.md$/, '')}/`}>
             {r.data.image
-              ? <img class="related-img" src={r.data.image} alt={r.data.title} loading="lazy" />
+              ? <Image class="related-img" src={r.data.image} alt={r.data.title} widths={[160, 320]} sizes="160px" loading="lazy" />
               : <div class="related-img related-placeholder"></div>
             }
             <span class="related-title">{r.data.title}</span>
@@ -763,7 +764,7 @@ const related = allRecipes
   {image && (
     <div class="lightbox" id="lightbox">
       <button class="lightbox-close" id="lightbox-close" aria-label="Close preview">✕</button>
-      <img src={image} alt={title} />
+      <Image src={image} alt={title} widths={[960, 1440]} sizes="100vw" loading="lazy" />
     </div>
   )}
 

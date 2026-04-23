@@ -7,7 +7,7 @@ servings: "2"
 tags: [chicken, soup, quick, indo-chinese]
 calories: "180 kcal"
 protein: "18g"
-image: /images/hot-sour-chicken-soup.png
+image: ../../assets/images/hot-sour-chicken-soup.webp
 ---
 
 ## Ingredients

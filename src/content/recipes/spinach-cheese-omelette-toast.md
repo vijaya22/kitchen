@@ -7,7 +7,7 @@ servings: "1"
 tags: [breakfast, quick, eggs, vegetarian]
 calories: "480 kcal"
 protein: "22g"
-image: /images/spinach omlette.png
+image: ../../assets/images/spinach-omlette.webp
 ---
 
 ## Ingredients

@@ -7,7 +7,7 @@ servings: "1"
 tags: [breakfast, quick, eggs, vegetarian, french]
 calories: "420 kcal"
 protein: "22g"
-image: /images/the bear omlette.png
+image: ../../assets/images/the-bear-omlette.webp
 ---
 
 ## Ingredients

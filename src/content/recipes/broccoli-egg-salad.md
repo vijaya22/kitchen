@@ -7,7 +7,7 @@ servings: "2"
 tags: [salad, quick, vegetarian, eggs, japanese]
 calories: "250 kcal"
 protein: "14g"
-image: /images/broccoli-egg-salad.jpeg
+image: ../../assets/images/broccoli-egg-salad.jpeg
 ---
 
 ## Ingredients

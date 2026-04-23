@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { ViewTransitions } from 'astro:transitions';
+import defaultOgImage from '../assets/images/burrata-garden-sourdough-toast.webp';
 
 interface Props {
   title: string;
@@ -10,7 +11,7 @@ interface Props {
 }
 const siteUrl = 'https://kitchen.vijaya.io';
 const { title, description = "Vijaya's kitchen — a collection of recipes.", image, url } = Astro.props;
-const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}/images/burrata-garden-sourdough-toast.png`;
+const ogImage = image ? `${siteUrl}${image}` : `${siteUrl}${defaultOgImage.src}`;
 const ogUrl = url ? `${siteUrl}${url}` : siteUrl;
 
 const recipes = (await getCollection('recipes')).map((r) => ({

@@ -7,7 +7,7 @@ servings: "2"
 tags: [chicken, stir-fry, quick, indo-chinese]
 calories: "280 kcal"
 protein: "15g"
-image: /images/schezwan-chicken-toss.jpeg
+image: ../../assets/images/schezwan-chicken-toss.jpeg
 ---
 
 ## Ingredients

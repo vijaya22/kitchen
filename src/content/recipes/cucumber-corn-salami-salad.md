@@ -7,7 +7,7 @@ servings: "2"
 tags: [salad, quick, chicken, no-cook]
 calories: "220 kcal"
 protein: "12g"
-image: /images/cucumber-corn-salami-salad.png
+image: ../../assets/images/cucumber-corn-salami-salad.webp
 ---
 
 ## Ingredients

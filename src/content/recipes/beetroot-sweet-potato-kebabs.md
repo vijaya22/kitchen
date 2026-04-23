@@ -7,7 +7,7 @@ servings: "2"
 tags: [indian, vegetarian, snack, kebab]
 calories: "290 kcal"
 protein: "12g"
-image: /images/beetroot-sweetpotato-kebabs.png
+image: ../../assets/images/beetroot-sweetpotato-kebabs.webp
 ---
 
 ## Ingredients

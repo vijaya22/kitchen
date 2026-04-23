@@ -7,7 +7,7 @@ servings: "1-2"
 tags: [quick, vegetarian, breakfast, no-cook, italian]
 calories: "380 kcal"
 protein: "16g"
-image: /images/burrata-garden-sourdough-toast.png
+image: ../../assets/images/burrata-garden-sourdough-toast.webp
 ---
 
 ## Ingredients

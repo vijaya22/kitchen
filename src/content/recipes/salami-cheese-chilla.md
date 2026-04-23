@@ -7,7 +7,7 @@ servings: "2"
 tags: [chicken, quick, snack, breakfast]
 calories: "320 kcal"
 protein: "18g"
-image: /images/salami-cheese-chilla.jpeg
+image: ../../assets/images/salami-cheese-chilla.jpeg
 ---
 
 ## Ingredients

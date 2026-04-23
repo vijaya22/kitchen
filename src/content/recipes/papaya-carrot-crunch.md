@@ -7,7 +7,7 @@ servings: "2"
 tags: [salad, quick, vegetarian, vegan, no-cook]
 calories: "150 kcal"
 protein: "5g"
-image: /images/papaya-carrot-crunch.jpeg
+image: ../../assets/images/papaya-carrot-crunch.jpeg
 ---
 
 ## Ingredients

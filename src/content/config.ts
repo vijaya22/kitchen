@@ -2,7 +2,7 @@ import { defineCollection, z } from 'astro:content';
 
 const recipes = defineCollection({
   type: 'content',
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
@@ -11,7 +11,7 @@ const recipes = defineCollection({
     time: z.string().optional(),
     calories: z.string().optional(),
     protein: z.string().optional(),
-    image: z.string().optional(),
+    image: image().optional(),
   }),
 });
 

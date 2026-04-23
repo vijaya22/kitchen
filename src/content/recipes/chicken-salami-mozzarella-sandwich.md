@@ -7,7 +7,7 @@ servings: "2"
 tags: [sandwich, chicken, quick, snack]
 calories: "520 kcal"
 protein: "25g"
-image: /images/chicken salami sandwich.png
+image: ../../assets/images/chicken-salami-sandwich.webp
 ---
 
 ## Ingredients

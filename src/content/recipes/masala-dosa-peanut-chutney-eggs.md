@@ -7,7 +7,7 @@ servings: "2"
 tags: [indian, south-indian, breakfast, dosa, vegetarian, eggs]
 calories: "520 kcal"
 protein: "20g"
-image: /images/masala-dosa with eggs.png
+image: ../../assets/images/masala-dosa-with-eggs.webp
 ---
 
 ## Ingredients

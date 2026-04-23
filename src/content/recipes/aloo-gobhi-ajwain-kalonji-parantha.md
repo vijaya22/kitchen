@@ -7,7 +7,7 @@ servings: "4"
 tags: [indian, vegetarian, comfort]
 calories: "450 kcal"
 protein: "12g"
-image: /images/aloo gobhi sabji with parantha.png
+image: ../../assets/images/aloo-gobhi-sabji-with-parantha.webp
 ---
 
 ## Ingredients

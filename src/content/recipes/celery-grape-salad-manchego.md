@@ -7,7 +7,7 @@ servings: "2"
 tags: [salad, vegetarian, quick, no-cook, spanish]
 calories: "260 kcal"
 protein: "7g"
-image: /images/grapes-and celery-salad.png
+image: ../../assets/images/grapes-and-celery-salad.webp
 ---
 
 ## Ingredients

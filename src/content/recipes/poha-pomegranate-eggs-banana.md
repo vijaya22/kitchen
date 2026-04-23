@@ -7,7 +7,7 @@ servings: "2"
 tags: [indian, breakfast, vegetarian, eggs, quick]
 calories: "440 kcal"
 protein: "15g"
-image: /images/poha.png
+image: ../../assets/images/poha.webp
 ---
 
 ## Ingredients

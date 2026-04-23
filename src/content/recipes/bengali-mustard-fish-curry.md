@@ -7,7 +7,7 @@ servings: "3-4"
 tags: [indian, bengali, fish, curry]
 calories: "310 kcal"
 protein: "22g"
-image: /images/bengali fish curry.png
+image: ../../assets/images/bengali-fish-curry.webp
 ---
 
 ## Ingredients

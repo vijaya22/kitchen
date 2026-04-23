@@ -7,7 +7,7 @@ servings: "2"
 tags: [vegetarian, noodles, quick, indo-chinese, stir-fry]
 calories: "460 kcal"
 protein: "10g"
-image: /images/veg noodles.png
+image: ../../assets/images/veg-noodles.webp
 ---
 
 ## Ingredients

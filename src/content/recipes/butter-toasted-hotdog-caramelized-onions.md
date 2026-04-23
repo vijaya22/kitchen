@@ -7,7 +7,7 @@ servings: "2"
 tags: [american, quick, snack, chicken]
 calories: "380 kcal"
 protein: "14g"
-image: /images/hotdog.png
+image: ../../assets/images/hotdog.webp
 ---
 
 ## Ingredients

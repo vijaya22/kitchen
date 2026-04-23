@@ -7,7 +7,7 @@ servings: "2"
 tags: [salad, vegetarian, quick, mediterranean]
 calories: "210 kcal"
 protein: "7g"
-image: /images/veggie salad.png
+image: ../../assets/images/veggie-salad.webp
 ---
 
 ## Ingredients

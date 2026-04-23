@@ -7,7 +7,7 @@ servings: "4"
 tags: [indian, lentils, vegetarian, south-indian, breakfast]
 calories: "310 kcal"
 protein: "14g"
-image: /images/adai-dosa-aloo-stuffing.png
+image: ../../assets/images/adai-dosa-aloo-stuffing.webp
 ---
 
 ## Ingredients

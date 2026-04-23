@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import galleryData from '../content/gallery.json';
+import { gallery as galleryData } from '../data/gallery';
 
 const recipes = (await getCollection('recipes')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -706,7 +707,7 @@ const recipesWithTags = recipes.map((r, i) => ({
       <div class="cover-collage">
         {heroImages.map((img, i) => (
           <div class={`collage-photo collage-photo-${i + 1}`}>
-            <img src={img.src} alt={img.alt} loading="eager" />
+            <Image src={img.image} alt={img.alt} widths={[240, 480]} sizes="(max-width: 720px) 45vw, 240px" loading="eager" />
           </div>
         ))}
         <span class="collage-label">From the Kitchen</span>
@@ -758,8 +759,8 @@ const recipesWithTags = recipes.map((r, i) => ({
     </div>
     <div class="gallery-grid">
       {galleryData.map((img) => (
-        <button class="gallery-item" data-src={img.src} data-alt={img.alt} type="button">
-          <img src={img.src} alt={img.alt} loading="lazy" />
+        <button class="gallery-item" data-src={img.image.src} data-alt={img.alt} type="button">
+          <Image src={img.image} alt={img.alt} widths={[240, 480]} sizes="(max-width: 720px) 40vw, 240px" loading="lazy" />
           <span class="gallery-caption">{img.alt}</span>
         </button>
       ))}

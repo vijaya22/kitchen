@@ -7,7 +7,7 @@ servings: "2"
 tags: [comfort, indian, dal, vegetarian]
 calories: "420 kcal"
 protein: "16g"
-image: /images/dal chawal with aloo bhujiya.png
+image: ../../assets/images/dal-chawal-with-aloo-bhujiya.webp
 ---
 
 ## Ingredients

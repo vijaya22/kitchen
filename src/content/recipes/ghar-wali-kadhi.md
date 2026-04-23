@@ -7,7 +7,7 @@ servings: "4"
 tags: [indian, vegetarian, comfort]
 calories: "290 kcal"
 protein: "12g"
-image: /images/ghar-wali-kadhi.png
+image: ../../assets/images/ghar-wali-kadhi.webp
 ---
 
 ## Ingredients
