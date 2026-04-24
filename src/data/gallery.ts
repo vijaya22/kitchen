@@ -32,6 +32,16 @@ const captions: Record<string, string> = {
   'aloo-gobhi-sabji-with-parantha': 'Aloo Gobhi Sabji with Ajwain-Kalonji Parantha',
   'summer-fruit-salad': 'Summer Fruit Salad',
   'chicken-salami-sandwich': 'Chicken Salami Sandwich with Mozzarella',
+  'chole-bhature': 'Chole Bhature with Paneer',
+  'aloo-curry-with-poori': 'Aloo Curry and Poori',
+  'rice-paper-dumplings': 'Rice Paper Chicken Dumplings',
+  'sunny-side-up-eggs': 'Sunny Side Up Eggs on Toast',
+  'avacado-toast': 'Avocado Egg Toast',
+  'moong-daal-khidchadi': 'Moong Dal Khichdi with Aloo Chokha',
+  'matar-paneer-with-pulao': 'Matar Paneer with Spiced Pulao',
+  'egg-mayo-toast': 'Egg Mayo Toast',
+  'sattu-parantha-with-karela': 'Sattu Parantha with Karela Bhujia',
+  'aloo-bhujiya-with-ajwain-parantha': 'Ajwain Parantha with Aloo Bhujia',
 };
 
 const order = [
@@ -61,6 +71,16 @@ const order = [
   'aloo-gobhi-sabji-with-parantha',
   'summer-fruit-salad',
   'chicken-salami-sandwich',
+  'chole-bhature',
+  'aloo-curry-with-poori',
+  'rice-paper-dumplings',
+  'sunny-side-up-eggs',
+  'avacado-toast',
+  'moong-daal-khidchadi',
+  'matar-paneer-with-pulao',
+  'egg-mayo-toast',
+  'sattu-parantha-with-karela',
+  'aloo-bhujiya-with-ajwain-parantha',
 ];
 
 const byBase: Record<string, ImageMetadata> = {};
