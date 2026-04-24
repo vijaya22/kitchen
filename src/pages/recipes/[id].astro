@@ -445,9 +445,15 @@ const related = allRecipes
       box-shadow: 0 8px 20px rgba(72, 32, 11, 0.2);
     }
 
-    .related-img {
+    .related-img-wrap {
       width: 100%;
       aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+
+    .related-img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       display: block;
     }
@@ -722,10 +728,12 @@ const related = allRecipes
       <div class="related-grid">
         {related.map((r) => (
           <a class="related-card" href={`/recipes/${r.id.replace(/\.md$/, '')}/`}>
-            {r.data.image
-              ? <Image class="related-img" src={r.data.image} alt={r.data.title} widths={[160, 320]} sizes="160px" loading="lazy" />
-              : <div class="related-img related-placeholder"></div>
-            }
+            <div class="related-img-wrap">
+              {r.data.image
+                ? <Image class="related-img" src={r.data.image} alt={r.data.title} widths={[160, 320]} sizes="160px" loading="lazy" />
+                : <div class="related-img related-placeholder"></div>
+              }
+            </div>
             <span class="related-title">{r.data.title}</span>
             {r.data.time && <span class="related-meta">{r.data.time}</span>}
           </a>
