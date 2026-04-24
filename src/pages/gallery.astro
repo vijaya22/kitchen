@@ -1,9 +1,18 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Gallery from '../components/Gallery.astro';
-import { gallery as galleryData } from '../data/gallery';
 
-const items = [...galleryData].reverse();
+const recipes = (await getCollection('recipes')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const items = recipes
+  .filter((r) => r.data.image)
+  .map((r) => ({
+    image: r.data.image!,
+    alt: r.data.title,
+    href: `/recipes/${r.id.replace(/\.md$/, '')}/`,
+  }));
 ---
 
 <Layout title="Gallery" description="Photos from Vijaya's Kitchen — every recipe in one place.">

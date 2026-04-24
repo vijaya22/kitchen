@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Gallery from '../components/Gallery.astro';
-import { gallery as galleryData } from '../data/gallery';
 
 const recipes = (await getCollection('recipes')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -15,8 +14,15 @@ const latestNote = latest
   ? `${latest.data.title} was added on ${formatDate(latest.data.date)}.`
   : 'Recipe notes will appear here as you add dishes.';
 
-const heroImages = galleryData.slice(-4).reverse();
-const galleryPreview = [...galleryData].reverse().slice(0, 12);
+const galleryItems = recipes
+  .filter((r) => r.data.image)
+  .map((r) => ({
+    image: r.data.image!,
+    alt: r.data.title,
+    href: toRecipeUrl(r.id),
+  }));
+const heroImages = galleryItems.slice(0, 4);
+const galleryPreview = galleryItems.slice(0, 12);
 const recipeUrls = recipes.map((r) => toRecipeUrl(r.id));
 const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))].sort();
 const recipeMap = Object.fromEntries(recipes.map((r) => [r.id, { title: r.data.title, url: toRecipeUrl(r.id) }]));
@@ -571,7 +577,7 @@ const recipesWithTags = recipes.map((r, i) => ({
     <ol class="contents-list" id="saved-list"></ol>
   </section>
 
-  <Gallery items={galleryPreview} totalCount={galleryData.length} viewAllHref="/gallery" />
+  <Gallery items={galleryPreview} totalCount={galleryItems.length} viewAllHref="/gallery" />
 
   <section class="contents-sheet" style="margin-top:1.2rem;text-align:center;padding:1.6rem;">
     <p style="font-size:1.6rem;margin-bottom:0.4rem;">&#x1F4E8;</p>
