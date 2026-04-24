@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Gallery from '../components/Gallery.astro';
 
@@ -22,6 +22,12 @@ const galleryItems = recipes
     href: toRecipeUrl(r.id),
   }));
 const heroImages = galleryItems.slice(0, 4);
+const heroPool = await Promise.all(
+  galleryItems.map(async (item) => {
+    const processed = await getImage({ src: item.image, width: 480, format: 'webp' });
+    return { src: processed.src, alt: item.alt };
+  })
+);
 const galleryPreview = galleryItems.slice(0, 12);
 const recipeUrls = recipes.map((r) => toRecipeUrl(r.id));
 const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))].sort();
@@ -586,12 +592,25 @@ const recipesWithTags = recipes.map((r, i) => ({
     <a href="/request" style="display:inline-block;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:0.5rem 1.3rem;border-radius:999px;background:var(--ink);color:var(--paper);transition:background 0.25s ease;">Request a Recipe</a>
   </section>
 
-  <script is:inline define:vars={{ recipeUrls, recipeMap }}>
+  <script is:inline define:vars={{ recipeUrls, recipeMap, heroPool }}>
     document.addEventListener('astro:page-load', () => {
       document.querySelector('.random-btn')?.addEventListener('click', () => {
         const url = recipeUrls[Math.floor(Math.random() * recipeUrls.length)];
         window.location.href = url;
       });
+
+      // Shuffle hero collage images on every page load
+      const slots = document.querySelectorAll('.collage-photo img');
+      if (slots.length && heroPool.length >= slots.length) {
+        const shuffled = [...heroPool].sort(() => Math.random() - 0.5);
+        slots.forEach((slot, i) => {
+          const pick = shuffled[i];
+          if (!pick) return;
+          slot.removeAttribute('srcset');
+          slot.src = pick.src;
+          slot.alt = pick.alt;
+        });
+      }
 
       // Saved recipes
       const favs = JSON.parse(localStorage.getItem('kitchen-favs') || '[]');
