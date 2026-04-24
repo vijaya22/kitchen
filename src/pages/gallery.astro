@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Gallery from '../components/Gallery.astro';
+import { gallery as galleryData } from '../data/gallery';
+
+const items = [...galleryData].reverse();
+---
+
+<Layout title="Gallery" description="Photos from Vijaya's Kitchen — every recipe in one place.">
+  <div style="margin-bottom:0.95rem;">
+    <a class="back" href="/">← All recipes</a>
+  </div>
+  <Gallery items={items} heading="Photo Gallery" />
+</Layout>
+
+<style>
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff3e4;
+    font-weight: 700;
+    padding: 0.44rem 0.92rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 231, 194, 0.45);
+    background: rgba(14, 58, 52, 0.32);
+    transition: all 0.24s ease;
+  }
+
+  .back:hover {
+    background: rgba(14, 58, 52, 0.55);
+  }
+
+  @media (max-width: 720px) {
+    .back {
+      font-size: 0.62rem;
+      padding: 0.36rem 0.7rem;
+    }
+  }
+</style>

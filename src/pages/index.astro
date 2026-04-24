@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import Gallery from '../components/Gallery.astro';
 import { gallery as galleryData } from '../data/gallery';
 
 const recipes = (await getCollection('recipes')).sort(
@@ -14,7 +15,8 @@ const latestNote = latest
   ? `${latest.data.title} was added on ${formatDate(latest.data.date)}.`
   : 'Recipe notes will appear here as you add dishes.';
 
-const heroImages = galleryData.slice(0, 4);
+const heroImages = galleryData.slice(-4).reverse();
+const galleryPreview = [...galleryData].reverse().slice(0, 12);
 const recipeUrls = recipes.map((r) => toRecipeUrl(r.id));
 const allTags = [...new Set(recipes.flatMap((r) => r.data.tags ?? []))].sort();
 const recipeMap = Object.fromEntries(recipes.map((r) => [r.id, { title: r.data.title, url: toRecipeUrl(r.id) }]));
@@ -388,170 +390,6 @@ const recipesWithTags = recipes.map((r, i) => ({
       color: #111;
     }
 
-    /* Gallery section */
-    .gallery-sheet {
-      margin-top: 1.2rem;
-      background:
-        linear-gradient(150deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0)),
-        var(--paper);
-      border: 1px solid var(--paper-edge);
-      border-radius: 12px;
-      box-shadow: 0 10px 22px rgba(72, 32, 11, 0.22);
-      padding: clamp(1rem, 2.2vw, 1.7rem);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .gallery-sheet::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        repeating-linear-gradient(0deg, rgba(66, 79, 56, 0.06), rgba(66, 79, 56, 0.06) 1px, transparent 1px, transparent 4px);
-      opacity: 0.12;
-      pointer-events: none;
-    }
-
-    .gallery-sheet > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .gallery-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 0.8rem;
-      border-bottom: 1px dashed rgba(92, 79, 53, 0.45);
-      padding-bottom: 0.5rem;
-    }
-
-    .gallery-header h2 {
-      font-family: var(--font-display);
-      text-transform: uppercase;
-      font-size: clamp(1.15rem, 2.2vw, 1.5rem);
-      color: var(--ink);
-      letter-spacing: 0.05em;
-      margin: 0;
-    }
-
-    .gallery-header span {
-      font-family: var(--font-mono);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.68rem;
-      color: var(--ink-muted);
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
-    }
-
-    .gallery-item {
-      position: relative;
-      aspect-ratio: 1;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 2px solid rgba(92, 79, 53, 0.2);
-      cursor: pointer;
-      padding: 0;
-      background: none;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .gallery-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(72, 32, 11, 0.25);
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.3s ease;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.05);
-    }
-
-    .gallery-caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 0.5rem 0.6rem;
-      background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: #fff;
-      text-align: left;
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-
-    .gallery-item:hover .gallery-caption {
-      opacity: 1;
-    }
-
-    /* Lightbox */
-    .gallery-lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(0, 0, 0, 0.8);
-      align-items: center;
-      justify-content: center;
-      animation: gallery-fade-in 200ms ease-out;
-    }
-
-    .gallery-lightbox.open {
-      display: flex;
-    }
-
-    .gallery-lightbox-close {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: rgba(0, 0, 0, 0.5);
-      border: none;
-      color: #fff;
-      font-size: 1.5rem;
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-      z-index: 1001;
-    }
-
-    .gallery-lightbox-close:hover {
-      background: rgba(0, 0, 0, 0.8);
-    }
-
-    .gallery-lightbox img {
-      max-width: 90vw;
-      max-height: 90vh;
-      object-fit: contain;
-      border-radius: 10px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    }
-
-    @keyframes gallery-fade-in {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
     @keyframes settle {
       from {
         transform: translateY(8px) scale(0.985);
@@ -595,18 +433,15 @@ const recipesWithTags = recipes.map((r, i) => ({
     :global(html.dark) .notes-label { color: var(--accent); }
     :global(html.dark) .notes-text { color: var(--ink-soft); }
 
-    :global(html.dark) .contents-sheet,
-    :global(html.dark) .gallery-sheet {
+    :global(html.dark) .contents-sheet {
       background: var(--paper);
       border-color: var(--paper-edge);
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
     }
 
-    :global(html.dark) .contents-sheet::before,
-    :global(html.dark) .gallery-sheet::before { opacity: 0.03; }
+    :global(html.dark) .contents-sheet::before { opacity: 0.03; }
 
-    :global(html.dark) .contents-header,
-    :global(html.dark) .gallery-header {
+    :global(html.dark) .contents-header {
       border-bottom-color: rgba(255, 255, 255, 0.1);
     }
 
@@ -616,10 +451,6 @@ const recipesWithTags = recipes.map((r, i) => ({
       border-bottom-color: rgba(255, 255, 255, 0.12);
     }
 
-    :global(html.dark) .gallery-item {
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-
     @media (max-width: 930px) {
       .hero {
         grid-template-columns: 1fr;
@@ -627,10 +458,6 @@ const recipesWithTags = recipes.map((r, i) => ({
 
       .cover-panel {
         min-height: 300px;
-      }
-
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -664,10 +491,6 @@ const recipesWithTags = recipes.map((r, i) => ({
         grid-template-columns: 1fr;
       }
 
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
       .cover-panel {
         max-width: 100%;
         min-height: 260px;
@@ -683,10 +506,6 @@ const recipesWithTags = recipes.map((r, i) => ({
 
       .collage-label {
         display: none;
-      }
-
-      .gallery-caption {
-        opacity: 1;
       }
     }
 
@@ -752,20 +571,7 @@ const recipesWithTags = recipes.map((r, i) => ({
     <ol class="contents-list" id="saved-list"></ol>
   </section>
 
-  <section class="gallery-sheet">
-    <div class="gallery-header">
-      <h2>Photo Gallery</h2>
-      <span>{galleryData.length} Photos</span>
-    </div>
-    <div class="gallery-grid">
-      {galleryData.map((img) => (
-        <button class="gallery-item" data-src={img.image.src} data-alt={img.alt} type="button">
-          <Image src={img.image} alt={img.alt} widths={[240, 480]} sizes="(max-width: 720px) 40vw, 240px" loading="lazy" />
-          <span class="gallery-caption">{img.alt}</span>
-        </button>
-      ))}
-    </div>
-  </section>
+  <Gallery items={galleryPreview} totalCount={galleryData.length} viewAllHref="/gallery" />
 
   <section class="contents-sheet" style="margin-top:1.2rem;text-align:center;padding:1.6rem;">
     <p style="font-size:1.6rem;margin-bottom:0.4rem;">&#x1F4E8;</p>
@@ -773,11 +579,6 @@ const recipesWithTags = recipes.map((r, i) => ({
     <p style="font-size:0.95rem;color:var(--ink-soft);margin-bottom:0.8rem;">Tell me what you'd love to see here and I'll try to make it.</p>
     <a href="/request" style="display:inline-block;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:0.5rem 1.3rem;border-radius:999px;background:var(--ink);color:var(--paper);transition:background 0.25s ease;">Request a Recipe</a>
   </section>
-
-  <div class="gallery-lightbox" id="gallery-lightbox">
-    <button class="gallery-lightbox-close" type="button" aria-label="Close">&times;</button>
-    <img src="" alt="" />
-  </div>
 
   <script is:inline define:vars={{ recipeUrls, recipeMap }}>
     document.addEventListener('astro:page-load', () => {
@@ -833,36 +634,6 @@ const recipesWithTags = recipes.map((r, i) => ({
         document.getElementById('tag-filters')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
 
-      // Gallery lightbox
-      const lightbox = document.getElementById('gallery-lightbox');
-      if (lightbox) {
-        const lightboxImg = lightbox.querySelector('img');
-        const lightboxClose = lightbox.querySelector('.gallery-lightbox-close');
-
-        document.querySelectorAll('.gallery-item').forEach((item) => {
-          item.addEventListener('click', () => {
-            const src = item.dataset.src;
-            const alt = item.dataset.alt;
-            lightboxImg.src = src;
-            lightboxImg.alt = alt;
-            lightbox.classList.add('open');
-            document.body.style.overflow = 'hidden';
-          });
-        });
-
-        function closeLightbox() {
-          lightbox.classList.remove('open');
-          document.body.style.overflow = '';
-        }
-
-        lightboxClose?.addEventListener('click', closeLightbox);
-        lightbox.addEventListener('click', (e) => {
-          if (e.target === lightbox) closeLightbox();
-        });
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') closeLightbox();
-        });
-      }
     });
   </script>
 </Layout>
