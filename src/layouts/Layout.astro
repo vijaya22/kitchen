@@ -51,6 +51,25 @@ const recipes = (await getCollection('recipes')).map((r) => ({
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;700&family=Rye&family=Special+Elite&display=swap" rel="stylesheet" />
 
+    {import.meta.env.PROD && (
+      <>
+        <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-5NSBNM8RVW"></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-5NSBNM8RVW', { send_page_view: false });
+          document.addEventListener('astro:page-load', () => {
+            gtag('event', 'page_view', {
+              page_location: window.location.href,
+              page_path: window.location.pathname,
+              page_title: document.title,
+            });
+          });
+        </script>
+      </>
+    )}
+
     <script is:inline>
       if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
       document.addEventListener('astro:after-swap', () => {
