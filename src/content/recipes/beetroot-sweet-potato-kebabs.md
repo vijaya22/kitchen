@@ -3,6 +3,8 @@ title: Beetroot and Sweet Potato Kebabs
 description: Soft, gently crisp kebabs of grated beetroot and sweet potato bound with paneer and mozzarella, pan-cooked in a little olive oil.
 date: 2026-04-23
 time: 35 mins
+prepTime: 20 mins
+cookTime: 15 mins
 servings: "2"
 tags: [indian, vegetarian, snack, kebab]
 calories: "290 kcal"

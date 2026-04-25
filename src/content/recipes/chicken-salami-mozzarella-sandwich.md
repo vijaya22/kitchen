@@ -3,6 +3,8 @@ title: Chicken Salami Sandwich with Mozzarella
 description: Toasted sourdough layered with pan-warmed chicken salami, two kinds of mozzarella, grilled onion and tomato, and a hit of schezwan sauce.
 date: 2026-04-24
 time: 20 mins
+prepTime: 10 mins
+cookTime: 10 mins
 servings: "2"
 tags: [sandwich, chicken, quick, snack]
 calories: "520 kcal"

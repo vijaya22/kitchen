@@ -3,6 +3,8 @@ title: Spinach and Cheese Omelette Toast
 description: A soft spinach and cheese omelette with a slice of sourdough pressed into the eggs and flipped through the runny side for a crisp, cohesive breakfast.
 date: 2026-04-23
 time: 20 mins
+prepTime: 10 mins
+cookTime: 10 mins
 servings: "1"
 tags: [breakfast, quick, eggs, vegetarian]
 calories: "480 kcal"

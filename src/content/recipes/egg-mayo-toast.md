@@ -3,6 +3,8 @@ title: Egg Mayo Toast
 description: Crispy sourdough toast spread with creamy mayo, topped with neatly sliced boiled eggs, a pinch of red chilli powder, and fresh coriander.
 date: 2026-04-24
 time: 10 mins
+prepTime: 5 mins
+cookTime: 5 mins
 servings: "1-2"
 tags: [breakfast, quick, eggs, vegetarian]
 calories: "340 kcal"

@@ -3,6 +3,8 @@ title: Salami Cheese Chilla
 description: Crispy besan chilla stuffed with chicken salami and melted cheese.
 date: 2026-03-30
 time: 15 mins
+prepTime: 5 mins
+cookTime: 10 mins
 servings: "2"
 tags: [chicken, quick, snack, breakfast]
 calories: "320 kcal"

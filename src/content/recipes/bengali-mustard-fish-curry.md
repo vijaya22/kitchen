@@ -3,6 +3,8 @@ title: Bengali Mustard Fish Curry
 description: Fish marinated with turmeric, fried in mustard oil, and simmered in a sharp mustard gravy, finished with a little poppy seed paste for a smoother richness.
 date: 2026-04-23
 time: 45 mins
+prepTime: 15 mins
+cookTime: 30 mins
 servings: "3-4"
 tags: [indian, bengali, fish, curry]
 calories: "310 kcal"

@@ -3,6 +3,9 @@ title: Sattu Parantha with Karela Bhujia
 description: Hearty whole wheat paranthas stuffed with a spiced sattu filling brightened by pickle masala and mustard oil, served with a simple crisp karela bhujia and pickle.
 date: 2026-04-24
 time: 45 mins
+prepTime: 20 mins
+cookTime: 25 mins
+category: Main Course
 servings: "3-4"
 tags: [indian, vegetarian, comfort]
 calories: "430 kcal"

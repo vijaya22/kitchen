@@ -3,6 +3,9 @@ title: Ajwain Parantha with Aloo Bhujia
 description: Soft, square-folded ajwain paranthas with lightly crisp edges, served alongside thinly sliced aloo bhujia tempered with mustard and cumin seeds.
 date: 2026-04-24
 time: 45 mins
+prepTime: 20 mins
+cookTime: 25 mins
+category: Main Course
 servings: "3-4"
 tags: [indian, vegetarian, comfort]
 calories: "430 kcal"

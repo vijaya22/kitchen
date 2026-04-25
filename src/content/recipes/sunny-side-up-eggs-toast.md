@@ -3,6 +3,8 @@ title: Sunny Side Up Eggs on Toast
 description: Golden toast topped with soft, runny-yolk sunny side up eggs, finished with a sprinkle of salt and black pepper.
 date: 2026-04-24
 time: 10 mins
+prepTime: 5 mins
+cookTime: 5 mins
 servings: "1-2"
 tags: [breakfast, quick, eggs, vegetarian]
 calories: "280 kcal"

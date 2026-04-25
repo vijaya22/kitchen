@@ -3,6 +3,8 @@ title: Cucumber Sandwiches with Herbed Cream Cheese Spread
 description: Soft white bread layered with thinly sliced cucumber and a creamy spread of cream cheese, mayo, lemon, and fresh coriander.
 date: 2026-04-23
 time: 15 mins
+prepTime: 15 mins
+cookTime: 0 mins
 servings: "2"
 tags: [sandwich, vegetarian, quick, no-cook, snack, british]
 calories: "310 kcal"

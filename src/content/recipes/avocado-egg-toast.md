@@ -3,6 +3,8 @@ title: Avocado Egg Toast
 description: Creamy mashed avocado mixed with chopped boiled eggs and a little cream cheese, spooned over crispy toast and topped with grated cheese.
 date: 2026-04-24
 time: 10 mins
+prepTime: 5 mins
+cookTime: 5 mins
 servings: "1-2"
 tags: [breakfast, quick, eggs, vegetarian]
 calories: "420 kcal"

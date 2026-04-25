@@ -3,6 +3,8 @@ title: Hot & Sour Chicken Soup (No Stock Version)
 description: A quick, tangy chicken soup built from scratch without stock — shredded chicken simmers into its own light broth.
 date: 2026-03-31
 time: 25 mins
+prepTime: 10 mins
+cookTime: 15 mins
 servings: "2"
 tags: [chicken, soup, quick, indo-chinese]
 calories: "180 kcal"

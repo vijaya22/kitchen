@@ -3,6 +3,9 @@ title: Pav Bhaji
 description: Mumbai-style buttery, spiced vegetable mash served with pan-toasted Iyengar's bakery buns, chopped onion, and a squeeze of lemon.
 date: 2026-04-23
 time: 45 mins
+prepTime: 15 mins
+cookTime: 30 mins
+category: Main Course
 servings: "4"
 tags: [indian, vegetarian, comfort]
 calories: "380 kcal"

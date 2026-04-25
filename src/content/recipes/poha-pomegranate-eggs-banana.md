@@ -3,6 +3,8 @@ title: Poha Bowl with Pomegranate, Eggs & Banana
 description: Soft, gently spiced poha with peanuts, peas, and curry leaves, finished with pomegranate and served alongside boiled eggs and banana for a balanced breakfast plate.
 date: 2026-04-23
 time: 25 mins
+prepTime: 10 mins
+cookTime: 15 mins
 servings: "2"
 tags: [indian, breakfast, vegetarian, eggs, quick]
 calories: "440 kcal"

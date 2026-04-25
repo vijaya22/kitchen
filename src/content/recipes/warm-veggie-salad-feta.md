@@ -3,6 +3,8 @@ title: Warm Veggie Salad with Feta
 description: Broccoli, carrots, peppers, and red cabbage lightly cooked to keep their crunch, finished with crumbled feta for a creamy, salty contrast.
 date: 2026-04-23
 time: 25 mins
+prepTime: 15 mins
+cookTime: 10 mins
 servings: "2"
 tags: [salad, vegetarian, quick, mediterranean]
 calories: "210 kcal"

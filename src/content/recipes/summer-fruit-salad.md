@@ -3,6 +3,8 @@ title: Summer Fruit Salad
 description: A fresh, naturally sweet mix of watermelon, black grapes, pomegranate, and cucumber — light, juicy, and refreshing with no extra seasoning needed.
 date: 2026-04-24
 time: 10 mins
+prepTime: 10 mins
+cookTime: 0 mins
 servings: "2-3"
 tags: [salad, vegetarian, vegan, quick, no-cook]
 calories: "120 kcal"

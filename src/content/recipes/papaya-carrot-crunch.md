@@ -3,6 +3,8 @@ title: Papaya Carrot Crunch
 description: Shredded raw papaya and carrot tossed in a crushed garlic-chili-tomato dressing with roasted peanuts.
 date: 2026-03-30
 time: 15 mins
+prepTime: 15 mins
+cookTime: 0 mins
 servings: "2"
 tags: [salad, quick, vegetarian, vegan, no-cook]
 calories: "150 kcal"

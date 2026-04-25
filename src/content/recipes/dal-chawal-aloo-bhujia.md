@@ -3,6 +3,8 @@ title: Dal Chawal with Aloo Bhujia
 description: Comforting yellow moong dal with fluffy basmati rice and crispy signature aloo bhujia on the side.
 date: 2026-04-02
 time: 40 mins
+prepTime: 15 mins
+cookTime: 25 mins
 servings: "2"
 tags: [comfort, indian, dal, vegetarian]
 calories: "420 kcal"

@@ -3,6 +3,8 @@ title: Celery & Grape Salad with Almonds and Shaved Manchego
 description: A crisp, fresh salad of thinly sliced celery and halved black grapes, tossed with almonds, olive oil, and lemon, finished with shaved Manchego.
 date: 2026-04-23
 time: 15 mins
+prepTime: 15 mins
+cookTime: 0 mins
 servings: "2"
 tags: [salad, vegetarian, quick, no-cook, spanish]
 calories: "260 kcal"

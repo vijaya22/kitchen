@@ -3,6 +3,8 @@ title: Home-Style Chicken Curry
 description: A comforting everyday chicken curry with whole spices, ginger-garlic paste, and a rich onion-based gravy.
 date: 2026-03-31
 time: 45 mins
+prepTime: 15 mins
+cookTime: 30 mins
 servings: "4"
 tags: [chicken, indian, comfort, curry]
 calories: "350 kcal"

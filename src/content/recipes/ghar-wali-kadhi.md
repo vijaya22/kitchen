@@ -3,6 +3,9 @@ title: Vijaya's Ghar Wali Kadhi
 description: Homestyle kadhi with soft chana dal pakodas soaked in warm salted water, simmered in a tangy buttermilk-curd gravy.
 date: 2026-03-31
 time: 50 mins
+prepTime: 20 mins
+cookTime: 30 mins
+category: Main Course
 servings: "4"
 tags: [indian, vegetarian, comfort]
 calories: "290 kcal"

@@ -3,6 +3,8 @@ title: Matar Paneer with Spiced Pulao
 description: Soft paneer and green peas in a rich, creamy tomato gravy, served with a fragrant basmati pulao tempered with whole spices, cashews, and a hint of turmeric.
 date: 2026-04-24
 time: 50 mins
+prepTime: 20 mins
+cookTime: 30 mins
 servings: "3-4"
 tags: [indian, vegetarian, comfort, curry]
 calories: "520 kcal"

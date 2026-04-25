@@ -3,6 +3,8 @@ title: Butter-Toasted Hot Dog with Caramelized Onions
 description: Boiled sausages pan-toasted in butter, tucked into steamed buns with soft, golden caramelized onions, ketchup, and mustard.
 date: 2026-04-23
 time: 25 mins
+prepTime: 10 mins
+cookTime: 15 mins
 servings: "2"
 tags: [american, quick, snack, chicken]
 calories: "380 kcal"

@@ -3,6 +3,8 @@ title: Broccoli & Egg Salad with Sesame Dressing
 description: Tender-crisp blanched broccoli and creamy boiled eggs tossed in a nutty, umami-rich sesame dressing.
 date: 2026-03-14
 time: 20 mins
+prepTime: 10 mins
+cookTime: 10 mins
 servings: "2"
 tags: [salad, quick, vegetarian, eggs, japanese]
 calories: "250 kcal"

@@ -3,6 +3,8 @@ title: Cucumber, Corn & Chicken Salami Salad
 description: A crisp, creamy salad with cucumber, sweet corn, and chicken salami in a tangy Greek yogurt dressing.
 date: 2026-03-06
 time: 15 mins
+prepTime: 15 mins
+cookTime: 0 mins
 servings: "2"
 tags: [salad, quick, chicken, no-cook]
 calories: "220 kcal"

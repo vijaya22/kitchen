@@ -3,6 +3,8 @@ title: Schezwan Chicken Toss
 description: Stir-fried chicken hotdogs and crisp vegetables tossed in dark soy sauce and schezwan chutney.
 date: 2026-03-30
 time: 20 mins
+prepTime: 10 mins
+cookTime: 10 mins
 servings: "2"
 tags: [chicken, stir-fry, quick, indo-chinese]
 calories: "280 kcal"

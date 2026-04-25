@@ -3,6 +3,8 @@ title: Adai Dosa with Aloo Stuffing & Peanut-Coconut Chutney
 description: A wholesome, protein-rich South Indian dish made with mixed lentils, paired with a comforting potato filling and a creamy chutney.
 date: 2026-03-31
 time: 60 mins
+prepTime: 25 mins
+cookTime: 35 mins
 servings: "4"
 tags: [indian, lentils, vegetarian, south-indian, breakfast]
 calories: "310 kcal"

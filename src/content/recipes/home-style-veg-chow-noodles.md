@@ -3,6 +3,8 @@ title: Home-Style Veg Chow Noodles
 description: Chow noodles tossed with onion, bell pepper, garlic, and ginger in a balanced mix of soy, green chilli, and schezwan sauces.
 date: 2026-04-23
 time: 30 mins
+prepTime: 15 mins
+cookTime: 15 mins
 servings: "2"
 tags: [vegetarian, noodles, quick, indo-chinese, stir-fry]
 calories: "460 kcal"

@@ -3,6 +3,8 @@ title: Moong Dal Khichdi with Aloo Chokha
 description: Soft, lightly spiced moong dal khichdi with a rustic aloo chokha on the side — onions, green chillies, garlic, and mustard oil mashed into boiled potatoes.
 date: 2026-04-24
 time: 40 mins
+prepTime: 15 mins
+cookTime: 25 mins
 servings: "3-4"
 tags: [indian, vegetarian, comfort, dal]
 calories: "380 kcal"

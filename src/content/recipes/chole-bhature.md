@@ -3,6 +3,8 @@ title: Chole Bhature
 description: Home-style chole, served with soft, puffy bhature made from a ready mix kneaded with curd for a richer, more tender dough.
 date: 2026-04-24
 time: 60 mins
+prepTime: 20 mins
+cookTime: 40 mins
 servings: "4"
 tags: [indian, vegetarian, comfort, curry]
 calories: "600 kcal"

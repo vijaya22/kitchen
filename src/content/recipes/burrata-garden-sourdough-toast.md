@@ -3,6 +3,8 @@ title: Burrata Garden Bliss Sourdough Toast
 description: Crispy sourdough layered with creamy burrata, juicy cherry tomatoes, and fresh basil — a simple yet indulgent toast that feels straight out of a brunch cafe.
 date: 2026-03-31
 time: 10 mins
+prepTime: 5 mins
+cookTime: 5 mins
 servings: "1-2"
 tags: [quick, vegetarian, breakfast, no-cook, italian]
 calories: "380 kcal"

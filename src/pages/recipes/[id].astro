@@ -15,7 +15,26 @@ export async function getStaticPaths() {
 
 const { recipe } = Astro.props;
 const { Content } = await render(recipe);
-const { title, description, tags, image, calories, protein, servings, time } = recipe.data;
+const { title, description, tags, image, calories, protein, servings, time, prepTime, cookTime, category } = recipe.data;
+
+const toIsoDuration = (t: string) =>
+  `PT${t.replace(/\s*mins?\s*/i, 'M').replace(/\s*hrs?\s*/i, 'H').replace(/\s*hours?\s*/i, 'H')}`;
+
+const categoryByTag: Record<string, string> = {
+  salad: 'Salad',
+  soup: 'Soup',
+  breakfast: 'Breakfast',
+  snack: 'Snack',
+  dosa: 'Breakfast',
+  sandwich: 'Snack',
+  curry: 'Main Course',
+  dal: 'Main Course',
+  noodles: 'Main Course',
+  'stir-fry': 'Main Course',
+  kebab: 'Appetizer',
+};
+const derivedCategory = category
+  ?? (tags ?? []).map((t) => categoryByTag[t]).find(Boolean);
 
 const emoji =
   (tags ?? []).includes('salad') ? '🥗' :
@@ -24,6 +43,62 @@ const emoji =
   (tags ?? []).includes('chicken') ? '🍗' :
   (tags ?? []).includes('vegan') ? '🌱' : '🍴';
 
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function parseRecipeBody(body: string) {
+  const ingredients: string[] = [];
+  const instructions: string[] = [];
+
+  const ingMatch = body.match(/##\s+Ingredients\s*\n([\s\S]*?)(?=\n##|$)/);
+  if (ingMatch) {
+    for (const line of ingMatch[1].split('\n')) {
+      const m = line.trim().match(/^-\s+(.+)$/);
+      if (m) ingredients.push(stripMarkdown(m[1]));
+    }
+  }
+
+  const methodMatch = body.match(/##\s+Method\s*\n([\s\S]*?)(?=\n##|\n---|$)/);
+  if (methodMatch) {
+    const paras = methodMatch[1].split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
+    let current: string[] = [];
+    const flush = () => {
+      if (current.length) {
+        instructions.push(stripMarkdown(current.join(' ')));
+        current = [];
+      }
+    };
+    for (const para of paras) {
+      const boldHeading = para.match(/^\*\*(\d+)\.\s+([^*]+?)\*\*$/);
+      const plainNumbered = para.match(/^(\d+)\.\s+([\s\S]+)$/);
+      if (boldHeading) {
+        flush();
+        current = [boldHeading[2].trim() + '.'];
+      } else if (plainNumbered) {
+        flush();
+        current = [plainNumbered[2]];
+      } else if (current.length) {
+        current.push(para);
+      }
+    }
+    flush();
+  }
+
+  return { ingredients, instructions };
+}
+
+const cuisineTags = new Set(['indian', 'south-indian', 'bengali', 'chinese', 'indo-chinese', 'italian', 'asian', 'mediterranean', 'british', 'spanish', 'japanese', 'thai', 'mexican', 'french', 'american']);
+const recipeCuisine = (tags ?? []).find((t) => cuisineTags.has(t));
+
+const { ingredients, instructions } = parseRecipeBody(recipe.body ?? '');
+
 const siteUrl = 'https://kitchen.vijaya.io';
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -31,12 +106,18 @@ const jsonLd = {
   name: title,
   description,
   ...(image && { image: `${siteUrl}${image.src}` }),
+  author: { '@type': 'Person', name: 'Vijaya' },
   ...(tags && { keywords: tags.join(', ') }),
   ...(servings && { recipeYield: servings }),
-  ...(time && { totalTime: `PT${time.replace(/\s*mins?\s*/i, 'M').replace(/\s*hrs?\s*/i, 'H').replace(/\s*hours?\s*/i, 'H')}` }),
+  ...(prepTime && { prepTime: toIsoDuration(prepTime) }),
+  ...(cookTime && { cookTime: toIsoDuration(cookTime) }),
+  ...(time && { totalTime: toIsoDuration(time) }),
+  ...(derivedCategory && { recipeCategory: derivedCategory }),
+  ...(recipeCuisine && { recipeCuisine }),
   ...(calories && { nutrition: { '@type': 'NutritionInformation', calories, ...(protein && { proteinContent: protein }) } }),
+  ...(ingredients.length && { recipeIngredient: ingredients }),
+  ...(instructions.length && { recipeInstructions: instructions.map((text) => ({ '@type': 'HowToStep', text })) }),
   datePublished: recipe.data.date.toISOString().split('T')[0],
-  author: { '@type': 'Person', name: 'Vijaya' },
   url: `${siteUrl}/recipes/${recipe.id.replace(/\.md$/, '')}/`,
 };
 

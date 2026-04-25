@@ -3,6 +3,8 @@ title: The Bear Omelette
 description: Eggs strained through a sieve and cooked low and slow in butter for an especially soft, delicate omelette, finished with cheese, spring onion, and crushed potato chips.
 date: 2026-04-23
 time: 18 mins
+prepTime: 10 mins
+cookTime: 8 mins
 servings: "1"
 tags: [breakfast, quick, eggs, vegetarian, french]
 calories: "420 kcal"

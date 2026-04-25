@@ -3,6 +3,8 @@ title: Aloo Curry and Poori
 description: Soft, lightly spiced aloo curry with fresh tomato puree for a smoother, tangy gravy, served with hot, puffed ajwain-kalonji pooris.
 date: 2026-04-24
 time: 55 mins
+prepTime: 25 mins
+cookTime: 30 mins
 servings: "4"
 tags: [indian, vegetarian, comfort, curry]
 calories: "500 kcal"

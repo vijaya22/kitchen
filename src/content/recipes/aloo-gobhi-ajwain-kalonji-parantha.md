@@ -3,6 +3,9 @@ title: Aloo Gobhi Sabji with Ajwain-Kalonji Parantha
 description: Home-style dry aloo gobhi with peas and panch phoron tadka, served with soft whole wheat paranthas flavoured with ajwain and kalonji, and a side of curd.
 date: 2026-04-24
 time: 60 mins
+prepTime: 25 mins
+cookTime: 35 mins
+category: Main Course
 servings: "4"
 tags: [indian, vegetarian, comfort]
 calories: "450 kcal"

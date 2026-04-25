@@ -3,6 +3,8 @@ title: Masala Dosa with Peanut Chutney and Boiled Eggs
 description: Crisp dosa folded around a warm aloo masala, served with a creamy tamarind-free peanut chutney and boiled eggs on the side.
 date: 2026-04-23
 time: 45 mins
+prepTime: 20 mins
+cookTime: 25 mins
 servings: "2"
 tags: [indian, south-indian, breakfast, dosa, vegetarian, eggs]
 calories: "520 kcal"

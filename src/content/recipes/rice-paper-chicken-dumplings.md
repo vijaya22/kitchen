@@ -3,6 +3,8 @@ title: Rice Paper Chicken Dumplings
 description: Crispy pan-toasted rice paper dumplings filled with cooked minced chicken, cabbage, bell peppers, a mix of sauces, and a little cheese for richness.
 date: 2026-04-24
 time: 35 mins
+prepTime: 20 mins
+cookTime: 15 mins
 servings: "3-4"
 tags: [chicken, snack, quick, asian]
 calories: "380 kcal"
