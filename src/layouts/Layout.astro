@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { ViewTransitions } from 'astro:transitions';
 import defaultOgImage from '../assets/images/burrata-garden-sourdough-toast.webp';
+import Newsletter from '../components/Newsletter.astro';
 
 interface Props {
   title: string;
@@ -558,6 +559,7 @@ const recipes = (await getCollection('recipes')).map((r) => ({
       <slot />
     </main>
     <footer>
+      <Newsletter variant="compact" description="Get new recipes in your inbox — no spam." />
       <p class="footer-note">If you like my recipes and feel like supporting me, <a href="https://buymeacoffee.com/vijaya.laxmi" target="_blank" rel="noopener noreferrer">buy me a coffee here</a>.</p>
     </footer>
   </body>

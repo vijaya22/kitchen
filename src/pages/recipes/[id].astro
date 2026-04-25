@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
+import Newsletter from '../../components/Newsletter.astro';
 
 export async function getStaticPaths() {
   const recipes = await getCollection('recipes');
@@ -741,6 +742,11 @@ const related = allRecipes
       </div>
     </section>
   )}
+
+  <Newsletter
+    heading="Liked this recipe?"
+    description="Subscribe to get new recipes straight to your inbox."
+  />
 
   <section class="comments-sheet">
     <div class="comments-header">

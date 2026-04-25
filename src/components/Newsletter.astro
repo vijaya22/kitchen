@@ -1,0 +1,205 @@
+---
+interface Props {
+  variant?: 'card' | 'compact';
+  heading?: string;
+  description?: string;
+}
+
+const {
+  variant = 'card',
+  heading = 'Get new recipes in your inbox',
+  description = "Subscribe to the newsletter — fresh dishes, no spam.",
+} = Astro.props;
+
+const action = 'https://vijayaskitchen.substack.com/api/v1/free?nojs=true';
+---
+
+<section class={`newsletter newsletter--${variant}`}>
+  {variant === 'card' && (
+    <>
+      <p class="newsletter-eyebrow">Newsletter</p>
+      <h2 class="newsletter-heading">{heading}</h2>
+      <p class="newsletter-desc">{description}</p>
+    </>
+  )}
+  {variant === 'compact' && (
+    <p class="newsletter-compact-text">{description}</p>
+  )}
+  <form class="newsletter-form" action={action} method="post" target="_blank" rel="noopener">
+    <input
+      class="newsletter-input"
+      type="email"
+      name="email"
+      required
+      placeholder="you@example.com"
+      aria-label="Email"
+    />
+    <button class="newsletter-button" type="submit">Subscribe</button>
+  </form>
+  {variant === 'card' && (
+    <p class="newsletter-fineprint">Powered by Substack. Unsubscribe anytime.</p>
+  )}
+</section>
+
+<style>
+  .newsletter {
+    background:
+      linear-gradient(150deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0)),
+      var(--paper);
+    border: 1px solid var(--paper-edge);
+    border-radius: 12px;
+    box-shadow: 0 10px 22px rgba(72, 32, 11, 0.22);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .newsletter::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, rgba(66, 79, 56, 0.06), rgba(66, 79, 56, 0.06) 1px, transparent 1px, transparent 4px);
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  .newsletter > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Card variant — used on recipe pages */
+  .newsletter--card {
+    margin-top: 1.2rem;
+    padding: clamp(1.4rem, 3vw, 2rem);
+    text-align: center;
+  }
+
+  .newsletter-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .newsletter-heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+    text-transform: uppercase;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    margin: 0 0 0.55rem;
+    text-shadow: 2px 2px 0 rgba(250, 189, 157, 0.45);
+  }
+
+  .newsletter-desc {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+    line-height: 1.45;
+  }
+
+  /* Compact variant — used in footer */
+  .newsletter--compact {
+    margin: 0 auto 0.6rem;
+    max-width: 560px;
+    padding: 0.75rem 1rem;
+    text-align: center;
+  }
+
+  .newsletter-compact-text {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    margin-bottom: 0.6rem;
+  }
+
+  /* Form */
+  .newsletter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  .newsletter-input {
+    flex: 1 1 220px;
+    min-width: 0;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--paper-edge);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.7);
+    font: inherit;
+    font-size: 0.92rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .newsletter-input::placeholder {
+    color: var(--ink-muted);
+  }
+
+  .newsletter-input:focus {
+    border-color: var(--accent);
+    background: #fff;
+  }
+
+  .newsletter-button {
+    padding: 0.55rem 1.3rem;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: #fff7e9;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.22s ease, background 0.22s ease;
+  }
+
+  .newsletter-button:hover {
+    transform: translateY(-1px);
+    background: #123531;
+  }
+
+  .newsletter-fineprint {
+    margin-top: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+  }
+
+  :global(html.dark) .newsletter {
+    background: var(--paper);
+    border-color: var(--paper-edge);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
+  }
+
+  :global(html.dark) .newsletter::before { opacity: 0.03; }
+
+  :global(html.dark) .newsletter-input {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--ink);
+  }
+
+  :global(html.dark) .newsletter-input:focus {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  :global(html.dark) .newsletter-button {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #111;
+  }
+
+  :global(html.dark) .newsletter-button:hover {
+    background: #f0915a;
+  }
+</style>
