@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kitchen.vijaya.io/sitemap-index.xml

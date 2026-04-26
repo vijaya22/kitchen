@@ -100,6 +100,17 @@ const recipeCuisine = (tags ?? []).find((t) => cuisineTags.has(t));
 const { ingredients, instructions } = parseRecipeBody(recipe.body ?? '');
 
 const siteUrl = 'https://kitchen.vijaya.io';
+const recipeUrl = `${siteUrl}/recipes/${recipe.id.replace(/\.md$/, '')}/`;
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Recipes', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: title, item: recipeUrl },
+  ],
+};
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Recipe',
@@ -118,7 +129,7 @@ const jsonLd = {
   ...(ingredients.length && { recipeIngredient: ingredients }),
   ...(instructions.length && { recipeInstructions: instructions.map((text) => ({ '@type': 'HowToStep', text })) }),
   datePublished: recipe.data.date.toISOString().split('T')[0],
-  url: `${siteUrl}/recipes/${recipe.id.replace(/\.md$/, '')}/`,
+  url: recipeUrl,
 };
 
 const allRecipes = await getCollection('recipes');
@@ -137,6 +148,7 @@ const related = allRecipes
 
 <Layout title={title} description={description} image={image?.src} url={`/recipes/${recipe.id.replace(/\.md$/, '')}/`}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
   <style>
     .back {
       display: inline-flex;
