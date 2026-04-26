@@ -815,6 +815,12 @@ const related = allRecipes
     </section>
   </article>
 
+  <TipJar />
+  <Newsletter
+    heading="Liked this recipe?"
+    description="Subscribe to get new recipes straight to your inbox."
+  />
+
   {related.length > 0 && (
     <section class="related-sheet">
       <div class="related-header">
@@ -836,12 +842,6 @@ const related = allRecipes
       </div>
     </section>
   )}
-
-  <Newsletter
-    heading="Liked this recipe?"
-    description="Subscribe to get new recipes straight to your inbox."
-  />
-  <TipJar />
 
   <section class="comments-sheet">
     <div class="comments-header">
