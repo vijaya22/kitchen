@@ -1,0 +1,190 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Privacy Policy" description="How kitchen.vijaya.io handles your data — what's collected, what isn't, and which third-party services are involved.">
+  <style>
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff3e4;
+      font-weight: 700;
+      padding: 0.44rem 0.92rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 231, 194, 0.45);
+      background: rgba(14, 58, 52, 0.32);
+      transition: all 0.24s ease;
+    }
+
+    .back:hover {
+      background: rgba(14, 58, 52, 0.55);
+    }
+
+    .legal-sheet {
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: var(--radius-md);
+      box-shadow: 0 18px 24px rgba(54, 25, 8, 0.25);
+      padding: clamp(1.5rem, 3vw, 2.8rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .legal-sheet::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(52, 61, 40, 0.06), rgba(52, 61, 40, 0.06) 1px, transparent 1px, transparent 5px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .legal-sheet > * { position: relative; z-index: 1; }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-divider {
+      width: 48px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .meta {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .legal-content {
+      font-size: 1rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      max-width: 72ch;
+    }
+
+    .legal-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin: 1.6rem 0 0.6rem;
+    }
+
+    .legal-content p {
+      margin-bottom: 0.95rem;
+    }
+
+    .legal-content ul {
+      padding-left: 1.2rem;
+      margin-bottom: 0.95rem;
+    }
+
+    .legal-content li {
+      margin-bottom: 0.45rem;
+    }
+
+    .legal-content code {
+      font-family: var(--font-mono);
+      font-size: 0.92em;
+      padding: 0.05rem 0.35rem;
+      background: rgba(20, 72, 66, 0.08);
+      border: 1px solid rgba(92, 79, 53, 0.25);
+      border-radius: 6px;
+      color: var(--ink);
+    }
+
+    .legal-content a {
+      color: var(--ink);
+      font-weight: 600;
+      border-bottom: 1px dashed var(--ink-muted);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .legal-content a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    :global(html.dark) .legal-sheet {
+      background: var(--paper);
+      border-color: var(--paper-edge);
+      box-shadow: 0 18px 24px var(--shadow);
+    }
+
+    :global(html.dark) .legal-content code {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+  </style>
+
+  <div style="margin-bottom:0.95rem;">
+    <a class="back" href="/">← Recipes</a>
+  </div>
+
+  <article class="legal-sheet">
+    <h1 class="page-title">Privacy Policy</h1>
+    <div class="section-divider"></div>
+    <p class="meta">Last updated: April 27, 2026</p>
+
+    <div class="legal-content">
+      <p>Kitchen (kitchen.vijaya.io) is a personal recipe site run by Vijaya Laxmi. This page explains what data the site handles, what it doesn't, and which third-party services are involved. The short version: nothing is collected for advertising, and there's no analytics tracking.</p>
+
+      <h2>Stored on your device</h2>
+      <p>The site uses your browser's <strong>localStorage</strong> to remember two things — both stay on your device and are never sent to a server:</p>
+      <ul>
+        <li><code>kitchen-favs</code> — list of recipe IDs you've saved with the heart button</li>
+        <li><code>theme</code> — your light / dark mode preference</li>
+      </ul>
+      <p>You can clear these any time from your browser's site-data settings.</p>
+
+      <h2>Third-party services</h2>
+      <p>Some features rely on external services. If you choose to use them, your data is handled under each service's own privacy policy:</p>
+      <ul>
+        <li><strong>Giscus</strong> — comments are powered by <a href="https://giscus.app" target="_blank" rel="noopener noreferrer">Giscus</a> and require signing in with GitHub. Your comments are stored as discussions in this site's GitHub repository.</li>
+        <li><strong>Substack</strong> — the newsletter signup is hosted by Substack. If you subscribe, Substack stores your email and handles delivery. See their <a href="https://substack.com/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>.</li>
+        <li><strong>Web3Forms</strong> — the recipe-request form submits your name, email (optional), and request to <a href="https://web3forms.com" target="_blank" rel="noopener noreferrer">Web3Forms</a>, which forwards it to me by email.</li>
+        <li><strong>Buy Me a Coffee</strong> — the tip-jar link takes you to Buy Me a Coffee, where any payment is handled entirely on their site. This site receives no payment details.</li>
+        <li><strong>GitHub Pages</strong> — the site is hosted on GitHub Pages. GitHub may collect server logs (including IP addresses) for security and reliability under their <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">privacy statement</a>.</li>
+        <li><strong>Amazon Associates</strong> — recipe pages may contain affiliate links to Amazon. Clicking one will set Amazon's own cookies on your device so they can attribute any purchase you make. This site doesn't see your purchase details — only an aggregate report of clicks and earnings. See the <a href="/disclosure">disclosure page</a> for more.</li>
+      </ul>
+
+      <h2>What's not collected</h2>
+      <ul>
+        <li>No analytics, no tracking pixels, no fingerprinting</li>
+        <li>No advertising networks</li>
+        <li>No selling or sharing of any data</li>
+      </ul>
+
+      <h2>Your rights</h2>
+      <p>If you've subscribed to the newsletter or sent a recipe request, you can email me at <a href="mailto:vijaya2798@gmail.com">vijaya2798@gmail.com</a> to ask what's stored, request a copy, or have it deleted.</p>
+
+      <h2>Children</h2>
+      <p>This site isn't directed at children under 13 and doesn't knowingly collect data from them.</p>
+
+      <h2>Changes</h2>
+      <p>If this policy changes, the "last updated" date above will change with it.</p>
+
+      <h2>Contact</h2>
+      <p>Questions? Email <a href="mailto:vijaya2798@gmail.com">vijaya2798@gmail.com</a>.</p>
+    </div>
+  </article>
+</Layout>
