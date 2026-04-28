@@ -1,0 +1,263 @@
+---
+interface Product {
+  name: string;
+  asin: string;
+  note?: string;
+}
+
+interface Props {
+  products: Product[];
+  recipeSlug: string;
+  heading?: string;
+}
+
+const { products, recipeSlug, heading = 'Shop what I used' } = Astro.props;
+const TAG = 'kitchenvijaya-21';
+
+const buildUrl = (asin: string) =>
+  `https://www.amazon.in/dp/${asin}?tag=${TAG}&ascsubtag=${recipeSlug}`;
+---
+
+<details class="shop-sheet" open>
+  <summary class="shop-header">
+    <h2>{heading}</h2>
+    <span class="shop-toggle" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </span>
+  </summary>
+  <div class="shop-body">
+    <p class="shop-disclosure">
+      As an Amazon Associate I earn from qualifying purchases — these are <a href="/disclosure">affiliate links</a>. The price you pay is the same.
+    </p>
+    <ul class="shop-list">
+      {products.map((p) => (
+        <li class="shop-item">
+          <a class="shop-link" href={buildUrl(p.asin)} target="_blank" rel="sponsored noopener">
+            <span class="shop-arrow" aria-hidden="true">→</span>
+            <span class="shop-text">
+              <span class="shop-name">{p.name}</span>
+              {p.note && <span class="shop-note">{p.note}</span>}
+            </span>
+            <span class="shop-cta" aria-hidden="true">View on Amazon</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</details>
+
+<style>
+  .shop-sheet {
+    margin-top: 1.2rem;
+    background:
+      linear-gradient(152deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0)),
+      var(--paper);
+    border: 1px solid var(--paper-edge);
+    border-radius: 14px;
+    box-shadow: 0 10px 22px rgba(72, 32, 11, 0.22);
+    padding: clamp(1rem, 2.2vw, 1.7rem);
+  }
+
+  .shop-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .shop-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .shop-header h2 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+    color: var(--ink);
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+
+  .shop-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid var(--paper-edge);
+    color: var(--ink-soft);
+    background: var(--paper-strong);
+    transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+
+  details[open] .shop-toggle {
+    transform: rotate(180deg);
+  }
+
+  .shop-header:hover .shop-toggle {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .shop-body {
+    margin-top: 0.6rem;
+    padding-top: 0.55rem;
+    border-top: 1px dashed rgba(92, 79, 53, 0.45);
+  }
+
+  .shop-disclosure {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    margin-bottom: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .shop-disclosure a {
+    color: var(--ink);
+    font-weight: 600;
+    border-bottom: 1px dashed var(--ink-muted);
+  }
+
+  .shop-disclosure a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .shop-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .shop-item {
+    margin: 0;
+  }
+
+  .shop-link {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 0.9rem;
+    background: var(--paper-strong);
+    border: 1px solid var(--paper-edge);
+    border-radius: 10px;
+    color: var(--ink);
+    transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+  }
+
+  .shop-link:hover {
+    transform: translateY(-1px);
+    border-color: var(--accent);
+    background: rgba(255, 244, 230, 0.75);
+  }
+
+  .shop-arrow {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--accent);
+    transition: transform 0.18s ease;
+  }
+
+  .shop-link:hover .shop-arrow {
+    transform: translateX(3px);
+  }
+
+  .shop-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+
+  .shop-name {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+
+  .shop-note {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    color: var(--ink-muted);
+    line-height: 1.35;
+  }
+
+  .shop-cta {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--paper-edge);
+    border-radius: 999px;
+    transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+  }
+
+  .shop-link:hover .shop-cta {
+    color: #fff3e4;
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+
+  :global(html.dark) .shop-sheet {
+    background: var(--paper);
+    border-color: var(--paper-edge);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
+  }
+
+  :global(html.dark) .shop-link {
+    background: var(--paper-strong);
+    border-color: #333;
+  }
+
+  :global(html.dark) .shop-link:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent);
+  }
+
+  :global(html.dark) .shop-cta {
+    border-color: #444;
+  }
+
+  :global(html.dark) .shop-link:hover .shop-cta {
+    color: #1e1e1e;
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  :global(html.dark) .shop-toggle {
+    background: var(--paper-strong);
+    border-color: #333;
+  }
+
+  :global(html.dark) .shop-body {
+    border-top-color: rgba(255, 255, 255, 0.12);
+  }
+
+  @media (max-width: 560px) {
+    .shop-link {
+      grid-template-columns: auto 1fr;
+    }
+
+    .shop-cta {
+      grid-column: 2 / -1;
+      justify-self: start;
+      margin-top: 0.3rem;
+    }
+  }
+</style>

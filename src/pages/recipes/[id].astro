@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import Newsletter from '../../components/Newsletter.astro';
 import TipJar from '../../components/TipJar.astro';
+import ShopIngredients from '../../components/ShopIngredients.astro';
 
 export async function getStaticPaths() {
   const recipes = await getCollection('recipes');
@@ -15,7 +16,8 @@ export async function getStaticPaths() {
 
 const { recipe } = Astro.props;
 const { Content } = await render(recipe);
-const { title, description, tags, image, calories, protein, servings, time, prepTime, cookTime, category } = recipe.data;
+const { title, description, tags, image, calories, protein, servings, time, prepTime, cookTime, category, affiliateProducts } = recipe.data;
+const recipeSlug = recipe.id.replace(/\.md$/, '');
 
 const toIsoDuration = (t: string) =>
   `PT${t.replace(/\s*mins?\s*/i, 'M').replace(/\s*hrs?\s*/i, 'H').replace(/\s*hours?\s*/i, 'H')}`;
@@ -45,6 +47,7 @@ const emoji =
 
 function stripMarkdown(text: string): string {
   return text
+    .replace(/<[^>]+>/g, '')
     .replace(/\*\*([^*]+)\*\*/g, '$1')
     .replace(/\*([^*]+)\*/g, '$1')
     .replace(/`([^`]+)`/g, '$1')
@@ -391,6 +394,22 @@ const related = allRecipes
     .content strong {
       color: var(--ink);
       font-weight: 600;
+    }
+
+    .content :global(a) {
+      color: var(--ink);
+      font-weight: 600;
+      border-bottom: 1px dashed var(--ink-muted);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .content :global(a:hover) {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    :global(html.dark) .content :global(a) {
+      border-bottom-color: rgba(255, 255, 255, 0.3);
     }
 
     .content hr {
@@ -814,6 +833,10 @@ const related = allRecipes
       </div>
     </section>
   </article>
+
+  {affiliateProducts && affiliateProducts.length > 0 && (
+    <ShopIngredients products={affiliateProducts} recipeSlug={recipeSlug} />
+  )}
 
   <TipJar />
   <Newsletter
