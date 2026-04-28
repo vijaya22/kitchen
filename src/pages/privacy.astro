@@ -146,7 +146,7 @@ import Layout from '../layouts/Layout.astro';
     <p class="meta">Last updated: April 27, 2026</p>
 
     <div class="legal-content">
-      <p>Kitchen (kitchen.vijaya.io) is a personal recipe site run by Vijaya Laxmi. This page explains what data the site handles, what it doesn't, and which third-party services are involved. The short version: nothing is collected for advertising, and there's no analytics tracking.</p>
+      <p>Kitchen (kitchen.vijaya.io) is a personal recipe site run by Vijaya Laxmi. This page explains what data the site handles, what it doesn't, and which third-party services are involved. The short version: the site uses Google Analytics for basic page-view stats (details below) and nothing is collected for advertising.</p>
 
       <h2>Stored on your device</h2>
       <p>The site uses your browser's <strong>localStorage</strong> to remember two things — both stay on your device and are never sent to a server:</p>
@@ -159,6 +159,7 @@ import Layout from '../layouts/Layout.astro';
       <h2>Third-party services</h2>
       <p>Some features rely on external services. If you choose to use them, your data is handled under each service's own privacy policy:</p>
       <ul>
+        <li><strong>Google Analytics 4</strong> — page views on the live site are logged to Google Analytics so I can see which recipes are read most. GA sets cookies (<code>_ga</code>, <code>_ga_*</code>) and collects standard data including page URL, referrer, approximate location (derived from IP at country / city level), device type, browser, and screen size. It runs only on the production site, not in local dev. See Google's <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>.</li>
         <li><strong>Giscus</strong> — comments are powered by <a href="https://giscus.app" target="_blank" rel="noopener noreferrer">Giscus</a> and require signing in with GitHub. Your comments are stored as discussions in this site's GitHub repository.</li>
         <li><strong>Substack</strong> — the newsletter signup is hosted by Substack. If you subscribe, Substack stores your email and handles delivery. See their <a href="https://substack.com/privacy" target="_blank" rel="noopener noreferrer">privacy policy</a>.</li>
         <li><strong>Web3Forms</strong> — the recipe-request form submits your name, email (optional), and request to <a href="https://web3forms.com" target="_blank" rel="noopener noreferrer">Web3Forms</a>, which forwards it to me by email.</li>
@@ -169,7 +170,7 @@ import Layout from '../layouts/Layout.astro';
 
       <h2>What's not collected</h2>
       <ul>
-        <li>No analytics, no tracking pixels, no fingerprinting</li>
+        <li>No tracking pixels, no fingerprinting</li>
         <li>No advertising networks</li>
         <li>No selling or sharing of any data</li>
       </ul>
