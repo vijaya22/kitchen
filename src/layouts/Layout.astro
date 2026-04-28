@@ -52,25 +52,6 @@ const recipes = (await getCollection('recipes')).map((r) => ({
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400;500;700&family=Rye&family=Special+Elite&display=swap" rel="stylesheet" />
 
-    {import.meta.env.PROD && (
-      <>
-        <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-5NSBNM8RVW"></script>
-        <script is:inline>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-5NSBNM8RVW', { send_page_view: false });
-          document.addEventListener('astro:page-load', () => {
-            gtag('event', 'page_view', {
-              page_location: window.location.href,
-              page_path: window.location.pathname,
-              page_title: document.title,
-            });
-          });
-        </script>
-      </>
-    )}
-
     <script is:inline>
       if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
       document.addEventListener('astro:after-swap', () => {
@@ -388,6 +369,14 @@ const recipes = (await getCollection('recipes')).map((r) => ({
         border-color: var(--accent);
       }
 
+      .footer-legal {
+        margin-top: 0.55rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        opacity: 0.85;
+      }
+
       @media print {
         header, footer { display: none !important; }
 
@@ -561,6 +550,7 @@ const recipes = (await getCollection('recipes')).map((r) => ({
     <footer>
       <Newsletter variant="compact" description="Get new recipes in your inbox — no spam." />
       <p class="footer-note">If you like my recipes and feel like supporting me, <a href="https://buymeacoffee.com/vijaya.laxmi" target="_blank" rel="noopener noreferrer">buy me a coffee here</a>.</p>
+      <p class="footer-note footer-legal"><a href="/privacy">Privacy</a> · <a href="/disclosure">Disclosure</a></p>
     </footer>
   </body>
 </html>
