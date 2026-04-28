@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { Image, getImage } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Gallery from '../components/Gallery.astro';
+import RequestCTA from '../components/RequestCTA.astro';
 
 const recipes = (await getCollection('recipes')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -585,12 +586,7 @@ const recipesWithTags = recipes.map((r, i) => ({
 
   <Gallery items={galleryPreview} totalCount={galleryItems.length} viewAllHref="/gallery" />
 
-  <section class="contents-sheet" style="margin-top:1.2rem;text-align:center;padding:1.6rem;">
-    <p style="font-size:1.6rem;margin-bottom:0.4rem;">&#x1F4E8;</p>
-    <p style="font-family:var(--font-display);font-size:clamp(0.95rem,2vw,1.15rem);text-transform:uppercase;color:var(--ink);margin-bottom:0.3rem;">Can't find what you're looking for?</p>
-    <p style="font-size:0.95rem;color:var(--ink-soft);margin-bottom:0.8rem;">Tell me what you'd love to see here and I'll try to make it.</p>
-    <a href="/request" style="display:inline-block;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:0.5rem 1.3rem;border-radius:999px;background:var(--ink);color:var(--paper);transition:background 0.25s ease;">Request a Recipe</a>
-  </section>
+  <RequestCTA />
 
   <script is:inline define:vars={{ recipeUrls, recipeMap, heroPool }}>
     document.addEventListener('astro:page-load', () => {

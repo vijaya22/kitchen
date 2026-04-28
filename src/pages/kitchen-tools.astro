@@ -1,0 +1,425 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RequestCTA from '../components/RequestCTA.astro';
+
+interface Tool {
+  name: string;
+  asin: string;
+  note?: string;
+}
+
+interface Category {
+  name: string;
+  blurb?: string;
+  items: Tool[];
+}
+
+const TAG = 'kitchenvijaya-21';
+const buildUrl = (asin: string) =>
+  `https://www.amazon.in/dp/${asin}?tag=${TAG}&ascsubtag=kitchen-tools`;
+
+const categories: Category[] = [
+  {
+    name: 'Cookware',
+    blurb: 'The pots and pans I reach for most.',
+    items: [
+      {
+        name: 'Hawkins Contura Pressure Cooker (2L)',
+        asin: 'B00SX03I5I',
+        note: 'My everyday cooker — what I make khichdi in.',
+      },
+    ],
+  },
+  {
+    name: 'Pantry Staples',
+    blurb: 'The ingredients I always keep stocked.',
+    items: [
+      {
+        name: 'Tata Sampann Moong Dal (1kg)',
+        asin: 'B075335G7N',
+        note: 'Yellow split — what I always keep stocked.',
+      },
+      {
+        name: 'Fortune Kachi Ghani Mustard Oil',
+        asin: 'B0757631XR',
+        note: 'For chokha and Bengali dishes — adds the traditional pungent flavour.',
+      },
+    ],
+  },
+];
+
+const totalItems = categories.reduce((sum, c) => sum + c.items.length, 0);
+---
+
+<Layout
+  title="Kitchen Tools"
+  description="The cookware, appliances, and pantry staples I actually use in my kitchen — with honest notes on each."
+  url="/kitchen-tools/"
+>
+  <style>
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff3e4;
+      font-weight: 700;
+      padding: 0.44rem 0.92rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 231, 194, 0.45);
+      background: rgba(14, 58, 52, 0.32);
+      transition: all 0.24s ease;
+    }
+
+    .back:hover {
+      background: rgba(14, 58, 52, 0.55);
+    }
+
+    .intro-sheet {
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: var(--radius-md);
+      box-shadow: 0 18px 24px rgba(54, 25, 8, 0.25);
+      padding: clamp(1.5rem, 3vw, 2.6rem);
+      margin-bottom: 1.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro-sheet::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(52, 61, 40, 0.06), rgba(52, 61, 40, 0.06) 1px, transparent 1px, transparent 5px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .intro-sheet > * { position: relative; z-index: 1; }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.05;
+      color: var(--ink);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      text-shadow: 3px 3px 0 rgba(247, 171, 136, 0.55);
+    }
+
+    .page-tagline {
+      font-size: 1.1rem;
+      color: var(--ink-soft);
+      max-width: 56ch;
+      margin-bottom: 1.1rem;
+    }
+
+    .stamp-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .stamp {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.32rem 0.72rem;
+      border: 1px solid var(--paper-edge);
+      border-radius: 999px;
+      color: var(--ink-soft);
+    }
+
+    .disclosure-callout {
+      margin-top: 1.2rem;
+      background: rgba(20, 72, 66, 0.07);
+      border: 1px dashed rgba(92, 79, 53, 0.35);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    .disclosure-callout strong {
+      color: var(--ink);
+    }
+
+    .disclosure-callout a {
+      color: var(--ink);
+      font-weight: 600;
+      border-bottom: 1px dashed var(--ink-muted);
+    }
+
+    .disclosure-callout a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .category-sheet {
+      background:
+        linear-gradient(152deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0)),
+        var(--paper);
+      border: 1px solid var(--paper-edge);
+      border-radius: 14px;
+      box-shadow: 0 10px 22px rgba(72, 32, 11, 0.22);
+      padding: clamp(1rem, 2.2vw, 1.7rem);
+      margin-bottom: 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-sheet::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(66, 79, 56, 0.06), rgba(66, 79, 56, 0.06) 1px, transparent 1px, transparent 4px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .category-sheet > * { position: relative; z-index: 1; }
+
+    .category-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.6rem;
+      border-bottom: 1px dashed rgba(92, 79, 53, 0.45);
+      padding-bottom: 0.5rem;
+    }
+
+    .category-header h2 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+      color: var(--ink);
+      letter-spacing: 0.05em;
+      margin: 0;
+    }
+
+    .category-count {
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.68rem;
+      color: var(--ink-muted);
+    }
+
+    .category-blurb {
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      margin-bottom: 0.95rem;
+    }
+
+    .tools-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .tool-link {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 0.9rem;
+      background: var(--paper-strong);
+      border: 1px solid var(--paper-edge);
+      border-radius: 10px;
+      color: var(--ink);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .tool-link:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      background: rgba(255, 244, 230, 0.75);
+    }
+
+    .tool-arrow {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--accent);
+      transition: transform 0.18s ease;
+    }
+
+    .tool-link:hover .tool-arrow {
+      transform: translateX(3px);
+    }
+
+    .tool-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.18rem;
+      min-width: 0;
+    }
+
+    .tool-name {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+
+    .tool-note {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.03em;
+      color: var(--ink-muted);
+      line-height: 1.4;
+    }
+
+    .tool-cta {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      white-space: nowrap;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid var(--paper-edge);
+      border-radius: 999px;
+      transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .tool-link:hover .tool-cta {
+      color: #fff3e4;
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    :global(html.dark) .intro-sheet,
+    :global(html.dark) .category-sheet {
+      background: var(--paper);
+      border-color: var(--paper-edge);
+      box-shadow: 0 18px 24px var(--shadow);
+    }
+
+    :global(html.dark) .intro-sheet::before,
+    :global(html.dark) .category-sheet::before { opacity: 0.04; }
+
+    :global(html.dark) .disclosure-callout {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    :global(html.dark) .stamp {
+      border-color: #444;
+      color: var(--ink-soft);
+    }
+
+    :global(html.dark) .category-header {
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    :global(html.dark) .tool-link {
+      background: var(--paper-strong);
+      border-color: #333;
+    }
+
+    :global(html.dark) .tool-link:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent);
+    }
+
+    :global(html.dark) .tool-cta { border-color: #444; }
+
+    :global(html.dark) .tool-link:hover .tool-cta {
+      color: #1e1e1e;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    @media (max-width: 560px) {
+      .tool-link {
+        grid-template-columns: auto 1fr;
+      }
+
+      .tool-cta {
+        grid-column: 2 / -1;
+        justify-self: start;
+        margin-top: 0.3rem;
+      }
+
+      .category-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+      }
+    }
+  </style>
+
+  <div style="margin-bottom:0.95rem;">
+    <a class="back" href="/">← Recipes</a>
+  </div>
+
+  <section class="intro-sheet">
+    <p class="eyebrow">From my kitchen to yours</p>
+    <h1 class="page-title">Kitchen Tools</h1>
+    <p class="page-tagline">
+      The cookware, appliances, and pantry staples I actually use — what I cook with day to day, with honest notes on why each one earned a spot.
+    </p>
+    <div class="stamp-row">
+      <span class="stamp">{totalItems} items</span>
+      <span class="stamp">{categories.length} categories</span>
+      <span class="stamp">All hand-picked</span>
+    </div>
+    <p class="disclosure-callout">
+      <strong>Heads up —</strong> the links below are Amazon affiliate links. If you buy through one, Amazon pays me a small commission at no extra cost to you. I only list things I actually use. <a href="/disclosure">Read the full disclosure →</a>
+    </p>
+  </section>
+
+  {categories.map((category) => (
+    <section class="category-sheet">
+      <div class="category-header">
+        <h2>{category.name}</h2>
+        <span class="category-count">{category.items.length} {category.items.length === 1 ? 'item' : 'items'}</span>
+      </div>
+      {category.blurb && <p class="category-blurb">{category.blurb}</p>}
+      <ul class="tools-list">
+        {category.items.map((item) => (
+          <li>
+            <a class="tool-link" href={buildUrl(item.asin)} target="_blank" rel="sponsored noopener">
+              <span class="tool-arrow" aria-hidden="true">→</span>
+              <span class="tool-text">
+                <span class="tool-name">{item.name}</span>
+                {item.note && <span class="tool-note">{item.note}</span>}
+              </span>
+              <span class="tool-cta" aria-hidden="true">View on Amazon</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+
+  <RequestCTA
+    heading="Missing something you'd love a recommendation for?"
+    description="Happy to share more of what I use — just ask."
+    cta="Send a Request"
+  />
+</Layout>

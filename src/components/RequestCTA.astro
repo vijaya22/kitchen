@@ -1,0 +1,108 @@
+---
+interface Props {
+  heading?: string;
+  description?: string;
+  cta?: string;
+  emoji?: string;
+}
+
+const {
+  heading = "Can't find what you're looking for?",
+  description = "Tell me what you'd love to see here and I'll try to make it.",
+  cta = 'Request a Recipe',
+  emoji = '\u{1F4E8}',
+} = Astro.props;
+---
+
+<section class="request-cta">
+  {emoji && <p class="request-emoji">{emoji}</p>}
+  <p class="request-heading">{heading}</p>
+  <p class="request-desc">{description}</p>
+  <a class="request-link" href="/request">{cta}</a>
+</section>
+
+<style>
+  .request-cta {
+    margin-top: 1.2rem;
+    text-align: center;
+    padding: 1.6rem;
+    background:
+      linear-gradient(150deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0)),
+      var(--paper);
+    border: 1px solid var(--paper-edge);
+    border-radius: 12px;
+    box-shadow: 0 10px 22px rgba(72, 32, 11, 0.22);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .request-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, rgba(66, 79, 56, 0.06), rgba(66, 79, 56, 0.06) 1px, transparent 1px, transparent 4px);
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  .request-cta > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .request-emoji {
+    font-size: 1.6rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .request-heading {
+    font-family: var(--font-display);
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .request-desc {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.8rem;
+  }
+
+  .request-link {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.3rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    transition: background 0.25s ease;
+  }
+
+  .request-link:hover {
+    background: #123531;
+  }
+
+  :global(html.dark) .request-cta {
+    background: var(--paper);
+    border-color: var(--paper-edge);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4);
+  }
+
+  :global(html.dark) .request-cta::before {
+    opacity: 0.03;
+  }
+
+  :global(html.dark) .request-link {
+    background: var(--accent);
+    color: #1e1e1e;
+  }
+
+  :global(html.dark) .request-link:hover {
+    background: #f0915a;
+  }
+</style>
