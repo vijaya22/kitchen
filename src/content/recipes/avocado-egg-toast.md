@@ -10,6 +10,16 @@ tags: [breakfast, quick, eggs, vegetarian]
 calories: "420 kcal"
 protein: "18g"
 image: ../../assets/images/avacado-toast.webp
+affiliateProducts:
+  - name: Hawkins Futura Non-Stick Fry Pan (20cm)
+    asin: B00EVQXDSU
+    note: For pan-toasting the bread.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning.
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For seasoning.
 ---
 
 ## Ingredients

@@ -10,6 +10,19 @@ tags: [chicken, stir-fry, quick, indo-chinese]
 calories: "280 kcal"
 protein: "15g"
 image: ../../assets/images/schezwan-chicken-toss.jpeg
+affiliateProducts:
+  - name: Hawkins Futura Non-Stick Fry Pan (20cm)
+    asin: B00EVQXDSU
+    note: For the stir-fry.
+  - name: Figaro Olive Oil
+    asin: B00X7RJSW4
+    note: For the stir-fry.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning.
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For seasoning.
 ---
 
 ## Ingredients

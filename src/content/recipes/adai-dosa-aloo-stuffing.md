@@ -10,6 +10,19 @@ tags: [indian, lentils, vegetarian, south-indian, breakfast]
 calories: "310 kcal"
 protein: "14g"
 image: ../../assets/images/adai-dosa-aloo-stuffing.webp
+affiliateProducts:
+  - name: Tata Sampann Moong Dal (1kg)
+    asin: B075335G7N
+    note: Yellow split — one of the dals in the adai batter.
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: For the aloo tadka and the dosa pan.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning the batter and stuffing.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the aloo stuffing.
 ---
 
 ## Ingredients

@@ -10,6 +10,10 @@ tags: [salad, vegetarian, vegan, quick, no-cook]
 calories: "120 kcal"
 protein: "2g"
 image: ../../assets/images/summer-fruit-salad.webp
+affiliateProducts:
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: A pinch, if you want a little contrast (optional).
 ---
 
 ## Ingredients

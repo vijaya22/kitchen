@@ -10,6 +10,10 @@ tags: [salad, quick, vegetarian, vegan, no-cook]
 calories: "150 kcal"
 protein: "5g"
 image: ../../assets/images/papaya-carrot-crunch.jpeg
+affiliateProducts:
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For the dressing.
 ---
 
 ## Ingredients

@@ -10,6 +10,25 @@ tags: [indian, vegetarian, comfort, curry]
 calories: "520 kcal"
 protein: "18g"
 image: ../../assets/images/matar-paneer-with-pulao.webp
+affiliateProducts:
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: For the masala and the pulao tempering.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For the curry and the pulao.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the masala and the pulao.
+  - name: Tata Sampann Coriander Powder (500g)
+    asin: B07BH4K3WT
+    note: For the masala.
+  - name: Catch Jeera Powder (100g)
+    asin: B0154VT0GY
+    note: For the masala.
+  - name: Tata Sampann Red Chilli Powder (500g)
+    asin: B07BH3LNSG
+    note: For the gravy.
 ---
 
 ## Ingredients

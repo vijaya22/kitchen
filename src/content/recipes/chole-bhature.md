@@ -10,6 +10,28 @@ tags: [indian, vegetarian, comfort, curry]
 calories: "600 kcal"
 protein: "22g"
 image: ../../assets/images/chole-bhature.webp
+affiliateProducts:
+  - name: Hawkins Contura Black Pressure Cooker (5L)
+    asin: B00OFLK9F6
+    note: For cooking the soaked chickpeas.
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: For the masala and frying the bhature.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning the chole.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the masala.
+  - name: Tata Sampann Coriander Powder (500g)
+    asin: B07BH4K3WT
+    note: For the masala.
+  - name: Catch Jeera Powder (100g)
+    asin: B0154VT0GY
+    note: For the masala.
+  - name: Tata Sampann Red Chilli Powder (500g)
+    asin: B07BH3LNSG
+    note: For the masala.
 ---
 
 ## Ingredients

@@ -10,6 +10,16 @@ tags: [indian, south-indian, breakfast, dosa, vegetarian, eggs]
 calories: "520 kcal"
 protein: "20g"
 image: ../../assets/images/masala-dosa-with-eggs.webp
+affiliateProducts:
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: For the aloo filling and the dosa pan.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the aloo masala.
 ---
 
 ## Ingredients

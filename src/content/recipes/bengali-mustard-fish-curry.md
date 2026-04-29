@@ -10,6 +10,19 @@ tags: [indian, bengali, fish, curry]
 calories: "310 kcal"
 protein: "22g"
 image: ../../assets/images/bengali-fish-curry.webp
+affiliateProducts:
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: The heart of this curry — frying the fish and cooking the mustard paste.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For marinating the fish.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning.
+  - name: Tata Sampann Whole Black Pepper
+    asin: B0FDL8BW9J
+    note: Whole peppercorns for the mustard paste.
 ---
 
 ## Ingredients

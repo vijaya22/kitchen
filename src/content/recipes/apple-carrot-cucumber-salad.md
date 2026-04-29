@@ -7,6 +7,13 @@ prepTime: 15 mins
 cookTime: 0 mins
 tags: [salad, vegetarian, quick, no-cook]
 image: ../../assets/images/apple-carrot-cucumber-salad.webp
+affiliateProducts:
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For the dressing.
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For the dressing.
 ---
 
 ## Ingredients

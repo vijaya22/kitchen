@@ -11,6 +11,16 @@ tags: [indian, vegetarian, comfort]
 calories: "430 kcal"
 protein: "14g"
 image: ../../assets/images/sattu-parantha-with-karela.webp
+affiliateProducts:
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: For the sattu filling and the karela bhujia.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For the dough and the bhujia.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the karela bhujia.
 ---
 
 ## Ingredients

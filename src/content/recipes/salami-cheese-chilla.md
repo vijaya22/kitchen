@@ -10,6 +10,22 @@ tags: [chicken, quick, snack, breakfast]
 calories: "320 kcal"
 protein: "18g"
 image: ../../assets/images/salami-cheese-chilla.jpeg
+affiliateProducts:
+  - name: Hawkins Futura Non-Stick Fry Pan (20cm)
+    asin: B00EVQXDSU
+    note: What I cook the chilla on.
+  - name: Tata Sampann Besan (1kg)
+    asin: B077X87TTS
+    note: The base of the chilla batter.
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: For greasing the pan.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning the batter.
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For the batter.
 ---
 
 ## Ingredients

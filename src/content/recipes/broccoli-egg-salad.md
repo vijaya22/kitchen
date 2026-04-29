@@ -10,6 +10,13 @@ tags: [salad, quick, vegetarian, eggs, japanese]
 calories: "250 kcal"
 protein: "14g"
 image: ../../assets/images/broccoli-egg-salad.jpeg
+affiliateProducts:
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For the dressing.
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For the dressing.
 ---
 
 ## Ingredients

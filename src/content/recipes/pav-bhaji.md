@@ -11,6 +11,19 @@ tags: [indian, vegetarian, comfort]
 calories: "380 kcal"
 protein: "10g"
 image: ../../assets/images/pav-bhaji.webp
+affiliateProducts:
+  - name: Hawkins Contura Black Pressure Cooker (5L)
+    asin: B00OFLK9F6
+    note: For pressure-cooking all the vegetables in one go.
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: For sautéing alongside the butter.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning the bhaji.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the masala.
 ---
 
 ## Ingredients

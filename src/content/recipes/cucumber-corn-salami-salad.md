@@ -10,6 +10,13 @@ tags: [salad, quick, chicken, no-cook]
 calories: "220 kcal"
 protein: "12g"
 image: ../../assets/images/cucumber-corn-salami-salad.webp
+affiliateProducts:
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For the dressing.
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For the dressing.
 ---
 
 ## Ingredients

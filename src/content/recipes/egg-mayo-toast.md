@@ -10,6 +10,19 @@ tags: [breakfast, quick, eggs, vegetarian]
 calories: "340 kcal"
 protein: "14g"
 image: ../../assets/images/egg-mayo-toast.webp
+affiliateProducts:
+  - name: Hawkins Futura Non-Stick Fry Pan (20cm)
+    asin: B00EVQXDSU
+    note: For pan-toasting the bread.
+  - name: Tata Sampann Red Chilli Powder (500g)
+    asin: B07BH3LNSG
+    note: A pinch on top for warmth and colour.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning (optional).
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For seasoning (optional).
 ---
 
 ## Ingredients

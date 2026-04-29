@@ -10,6 +10,16 @@ tags: [salad, vegetarian, quick, no-cook, spanish]
 calories: "260 kcal"
 protein: "7g"
 image: ../../assets/images/grapes-and-celery-salad.webp
+affiliateProducts:
+  - name: Figaro Olive Oil
+    asin: B00X7RJSW4
+    note: For the dressing.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For the dressing.
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For the dressing.
 ---
 
 ## Ingredients

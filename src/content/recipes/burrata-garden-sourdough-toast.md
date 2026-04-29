@@ -10,6 +10,16 @@ tags: [quick, vegetarian, breakfast, no-cook, italian]
 calories: "380 kcal"
 protein: "16g"
 image: ../../assets/images/burrata-garden-sourdough-toast.webp
+affiliateProducts:
+  - name: Figaro Olive Oil
+    asin: B00X7RJSW4
+    note: A drizzle over the burrata.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning the tomatoes.
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For seasoning.
 ---
 
 ## Ingredients

@@ -10,6 +10,16 @@ tags: [breakfast, quick, eggs, vegetarian]
 calories: "480 kcal"
 protein: "22g"
 image: ../../assets/images/spinach-omlette.webp
+affiliateProducts:
+  - name: Hawkins Futura Non-Stick Fry Pan (20cm)
+    asin: B00EVQXDSU
+    note: For the omelette.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning the eggs.
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For seasoning the eggs.
 ---
 
 ## Ingredients

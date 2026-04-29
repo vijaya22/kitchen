@@ -10,6 +10,19 @@ tags: [indian, vegetarian, snack, kebab]
 calories: "290 kcal"
 protein: "12g"
 image: ../../assets/images/beetroot-sweetpotato-kebabs.webp
+affiliateProducts:
+  - name: Hawkins Futura Non-Stick Fry Pan (20cm)
+    asin: B00EVQXDSU
+    note: For pan-cooking the kebabs.
+  - name: Figaro Olive Oil
+    asin: B00X7RJSW4
+    note: For greasing the pan.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning.
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For seasoning.
 ---
 
 ## Ingredients

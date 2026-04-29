@@ -11,6 +11,22 @@ tags: [indian, vegetarian, comfort]
 calories: "290 kcal"
 protein: "12g"
 image: ../../assets/images/ghar-wali-kadhi.webp
+affiliateProducts:
+  - name: Amul Masti Spiced Buttermilk
+    asin: B00TYGIBRU
+    note: The base of the kadhi.
+  - name: Tata Sampann Besan (1kg)
+    asin: B077X87TTS
+    note: For thickening the kadhi.
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: For frying the pakodas and the tadka.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the kadhi.
 ---
 
 ## Ingredients

@@ -11,6 +11,22 @@ tags: [indian, vegetarian, comfort]
 calories: "450 kcal"
 protein: "12g"
 image: ../../assets/images/aloo-gobhi-sabji-with-parantha.webp
+affiliateProducts:
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: For the sabji.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For the sabji and the dough.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the masala and the parantha dough.
+  - name: Tata Sampann Coriander Powder (500g)
+    asin: B07BH4K3WT
+    note: For the masala.
+  - name: Catch Jeera Powder (100g)
+    asin: B0154VT0GY
+    note: For the masala.
 ---
 
 ## Ingredients

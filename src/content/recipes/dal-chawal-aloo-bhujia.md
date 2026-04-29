@@ -10,6 +10,25 @@ tags: [comfort, indian, dal, vegetarian]
 calories: "420 kcal"
 protein: "16g"
 image: ../../assets/images/dal-chawal-with-aloo-bhujiya.webp
+affiliateProducts:
+  - name: Hawkins Contura Pressure Cooker (2L)
+    asin: B00SX03I5I
+    note: For cooking the moong dal.
+  - name: Tata Sampann Moong Dal (1kg)
+    asin: B075335G7N
+    note: Yellow split — the base of the dal.
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: For the tadka and the aloo bhujia.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning the dal and bhujia.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the dal and bhujia.
+  - name: Tata Sampann Red Chilli Powder (500g)
+    asin: B07BH3LNSG
+    note: For the bhujia heat (optional).
 ---
 
 ## Ingredients

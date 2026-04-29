@@ -11,6 +11,16 @@ tags: [indian, vegetarian, comfort]
 calories: "430 kcal"
 protein: "10g"
 image: ../../assets/images/aloo-bhujiya-with-ajwain-parantha.webp
+affiliateProducts:
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: For the aloo bhujia tempering.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For the dough and the bhujia.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the bhujia.
 ---
 
 ## Ingredients

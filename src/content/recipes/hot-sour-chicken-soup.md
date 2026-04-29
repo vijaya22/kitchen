@@ -10,6 +10,16 @@ tags: [chicken, soup, quick, indo-chinese]
 calories: "180 kcal"
 protein: "18g"
 image: ../../assets/images/hot-sour-chicken-soup.webp
+affiliateProducts:
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning the broth.
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For seasoning.
+  - name: Weikfield Cornflour
+    asin: B017LI28LC
+    note: For the slurry that thickens the soup.
 ---
 
 ## Ingredients

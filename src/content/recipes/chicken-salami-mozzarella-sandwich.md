@@ -10,6 +10,13 @@ tags: [sandwich, chicken, quick, snack]
 calories: "520 kcal"
 protein: "25g"
 image: ../../assets/images/chicken-salami-sandwich.webp
+affiliateProducts:
+  - name: Hawkins Futura Non-Stick Fry Pan (20cm)
+    asin: B00EVQXDSU
+    note: For toasting the salami, vegetables, and the assembled sandwich.
+  - name: Figaro Olive Oil
+    asin: B00X7RJSW4
+    note: For toasting (an alternative to butter).
 ---
 
 ## Ingredients

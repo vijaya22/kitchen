@@ -10,6 +10,13 @@ tags: [sandwich, vegetarian, quick, no-cook, snack, british]
 calories: "310 kcal"
 protein: "8g"
 image: ../../assets/images/cucumber-sandwich.webp
+affiliateProducts:
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For the spread.
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For the spread.
 ---
 
 ## Ingredients

@@ -10,6 +10,16 @@ tags: [indian, breakfast, vegetarian, eggs, quick]
 calories: "440 kcal"
 protein: "15g"
 image: ../../assets/images/poha.webp
+affiliateProducts:
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: For the tadka.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the poha.
 ---
 
 ## Ingredients

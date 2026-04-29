@@ -10,6 +10,10 @@ tags: [american, quick, snack, chicken]
 calories: "380 kcal"
 protein: "14g"
 image: ../../assets/images/hotdog.webp
+affiliateProducts:
+  - name: Hawkins Futura Non-Stick Fry Pan (20cm)
+    asin: B00EVQXDSU
+    note: What I caramelize the onions and toast the sausages in.
 ---
 
 ## Ingredients

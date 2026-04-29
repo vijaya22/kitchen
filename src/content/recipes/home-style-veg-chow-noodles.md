@@ -10,6 +10,16 @@ tags: [vegetarian, noodles, quick, indo-chinese, stir-fry]
 calories: "460 kcal"
 protein: "10g"
 image: ../../assets/images/veg-noodles.webp
+affiliateProducts:
+  - name: Figaro Olive Oil
+    asin: B00X7RJSW4
+    note: For the wok / stir-fry.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning.
+  - name: Everest Black Pepper
+    asin: B0152ROD8U
+    note: For seasoning.
 ---
 
 ## Ingredients

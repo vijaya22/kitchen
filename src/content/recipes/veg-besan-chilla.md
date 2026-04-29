@@ -23,6 +23,9 @@ affiliateProducts:
   - name: Himalayan Sendha Salt
     asin: B086B25X6L
     note: For seasoning the batter.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the batter.
 ---
 
 ## Ingredients

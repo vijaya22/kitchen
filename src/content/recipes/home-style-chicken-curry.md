@@ -10,6 +10,19 @@ tags: [chicken, indian, comfort, curry]
 calories: "350 kcal"
 protein: "28g"
 image: ../../assets/images/home-style-chicken-curry.jpeg
+affiliateProducts:
+  - name: Fortune Kachi Ghani Mustard Oil
+    asin: B0757631XR
+    note: For the masala base.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning the curry.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the masala.
+  - name: Tata Sampann Coriander Powder (500g)
+    asin: B07BH4K3WT
+    note: For the masala.
 ---
 
 ## Ingredients

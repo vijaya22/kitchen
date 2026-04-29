@@ -11,15 +11,21 @@ calories: "380 kcal"
 protein: "12g"
 image: ../../assets/images/moong-daal-khidchadi.webp
 affiliateProducts:
+  - name: Hawkins Contura Pressure Cooker (2L)
+    asin: B00SX03I5I
+    note: My everyday cooker — what I make khichdi in.
   - name: Tata Sampann Moong Dal (1kg)
     asin: B075335G7N
     note: Yellow split — what I always keep stocked.
   - name: Fortune Kachi Ghani Mustard Oil
     asin: B0757631XR
     note: For the chokha — adds the traditional pungent flavour.
-  - name: Hawkins Contura Pressure Cooker (2L)
-    asin: B00SX03I5I
-    note: My everyday cooker — what I make khichdi in.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning the khichdi and chokha.
+  - name: Tata Sampann Turmeric Powder (500g)
+    asin: B07BH3RMPV
+    note: For the khichdi.
 ---
 
 ## Ingredients

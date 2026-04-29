@@ -10,6 +10,13 @@ tags: [breakfast, quick, eggs, vegetarian, french]
 calories: "420 kcal"
 protein: "22g"
 image: ../../assets/images/the-bear-omlette.webp
+affiliateProducts:
+  - name: Hawkins Futura Non-Stick Fry Pan (20cm)
+    asin: B00EVQXDSU
+    note: For the gentle, low-heat omelette.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning the eggs.
 ---
 
 ## Ingredients

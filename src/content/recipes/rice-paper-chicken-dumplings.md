@@ -10,6 +10,16 @@ tags: [chicken, snack, quick, asian]
 calories: "380 kcal"
 protein: "22g"
 image: ../../assets/images/rice-paper-dumplings.webp
+affiliateProducts:
+  - name: Hawkins Futura Non-Stick Fry Pan (20cm)
+    asin: B00EVQXDSU
+    note: For pan-toasting the dumplings.
+  - name: Figaro Olive Oil
+    asin: B00X7RJSW4
+    note: For sautéing the filling and pan-toasting.
+  - name: Himalayan Sendha Salt
+    asin: B086B25X6L
+    note: For seasoning the filling.
 ---
 
 ## Ingredients
