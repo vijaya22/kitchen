@@ -33,7 +33,7 @@ affiliateProducts:
     asin: B0DTF4RSZM
     note: Keeps the basket clean and stops the coating from sticking.
   - name: Tata Sampann Red Chilli Powder
-    asin: B079H8KJNY
+    asin: B07BH3LNSG
     note: For the spiced finishing oil.
 ---
 
