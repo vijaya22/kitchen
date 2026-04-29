@@ -27,6 +27,9 @@ affiliateProducts:
   - name: Tata Sampann Turmeric Powder (500g)
     asin: B07BH3RMPV
     note: For the kadhi.
+  - name: Hawkins Contura Pressure Cooker (2L)
+    asin: B00SX03I5I
+    note: For the steamed rice on the side.
 ---
 
 ## Ingredients

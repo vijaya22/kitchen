@@ -23,6 +23,9 @@ affiliateProducts:
   - name: Tata Sampann Whole Black Pepper
     asin: B0FDL8BW9J
     note: Whole peppercorns for the mustard paste.
+  - name: Hawkins Contura Pressure Cooker (2L)
+    asin: B00SX03I5I
+    note: For the steamed rice on the side.
 ---
 
 ## Ingredients

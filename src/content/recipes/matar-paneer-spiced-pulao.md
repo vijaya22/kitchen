@@ -11,6 +11,9 @@ calories: "520 kcal"
 protein: "18g"
 image: ../../assets/images/matar-paneer-with-pulao.webp
 affiliateProducts:
+  - name: Hawkins Contura Black Pressure Cooker (5L)
+    asin: B00OFLK9F6
+    note: For cooking the basmati pulao.
   - name: Fortune Kachi Ghani Mustard Oil
     asin: B0757631XR
     note: For the masala and the pulao tempering.
