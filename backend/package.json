@@ -1,0 +1,16 @@
+{
+  "name": "@kitchen/backend",
+  "type": "module",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build-index": "bun run src/build-index.ts",
+    "dev": "bun run --hot src/dev-server.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.0"
+  }
+}

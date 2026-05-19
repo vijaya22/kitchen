@@ -1,16 +1,16 @@
 {
   "name": "kitchen",
-  "type": "module",
+  "private": true,
   "version": "0.0.1",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/rss": "^4.0.18",
-    "@astrojs/sitemap": "^3.7.2",
-    "astro": "^5.17.1"
+    "dev:frontend": "bun --filter @kitchen/frontend dev",
+    "dev:backend": "bun --filter @kitchen/backend dev",
+    "dev": "bun --filter '*' dev",
+    "build": "bun --filter @kitchen/frontend build",
+    "build-index": "bun --filter @kitchen/backend build-index"
   }
 }
