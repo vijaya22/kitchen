@@ -11,6 +11,10 @@ category: Dessert
 calories: "200 kcal"
 protein: "6g"
 image: ../../assets/images/banana-chocolate-chip-cake-almonds.webp
+affiliateProducts:
+  - name: LG Convection Microwave Oven
+    asin: B0C8J4X46Q
+    note: What I baked the cake in, using the convection mode.
 ---
 
 ## Ingredients
