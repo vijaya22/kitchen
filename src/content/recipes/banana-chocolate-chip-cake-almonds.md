@@ -5,7 +5,7 @@ date: 2026-10-28
 time: 1 hr
 prepTime: 15 mins
 cookTime: 45 mins
-servings: "10 slices"
+servings: "10"
 tags: [baking, dessert, sweet, vegetarian, eggs]
 category: Dessert
 calories: "200 kcal"
