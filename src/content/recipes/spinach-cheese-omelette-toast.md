@@ -20,6 +20,9 @@ affiliateProducts:
   - name: Everest Black Pepper
     asin: B0152ROD8U
     note: For seasoning the eggs.
+  - name: Ceramic Dinner Plate
+    asin: B08G8H37LV
+    note: The plate I served this in.
 ---
 
 ## Ingredients

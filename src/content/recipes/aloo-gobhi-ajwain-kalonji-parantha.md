@@ -27,6 +27,9 @@ affiliateProducts:
   - name: Catch Jeera Powder (100g)
     asin: B0154VT0GY
     note: For the masala.
+  - name: Ceramic Dinner Plate
+    asin: B08G8H37LV
+    note: The plate I served this in.
 ---
 
 ## Ingredients

@@ -23,6 +23,9 @@ affiliateProducts:
   - name: Tata Sampann Coriander Powder (500g)
     asin: B07BH4K3WT
     note: For the masala.
+  - name: Ceramic Dinner Plate
+    asin: B08G8H37LV
+    note: The plate I served this in.
 ---
 
 ## Ingredients

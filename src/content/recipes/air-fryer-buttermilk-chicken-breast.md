@@ -35,6 +35,9 @@ affiliateProducts:
   - name: Tata Sampann Red Chilli Powder
     asin: B07BH3LNSG
     note: For the spiced finishing oil.
+  - name: Ceramic Dinner Plate
+    asin: B08G8H37LV
+    note: The plate I served this in.
 ---
 
 ## Ingredients

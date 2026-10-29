@@ -17,6 +17,9 @@ affiliateProducts:
   - name: Figaro Olive Oil
     asin: B00X7RJSW4
     note: For toasting (an alternative to butter).
+  - name: Ceramic Dinner Plate
+    asin: B08G8H37LV
+    note: The plate I served this in.
 ---
 
 ## Ingredients

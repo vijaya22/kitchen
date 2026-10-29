@@ -41,6 +41,9 @@ affiliateProducts:
   - name: Weikfield Cornflour
     asin: B017LI28LC
     note: For the slurry that seals the samosa edges.
+  - name: Ceramic Dinner Plate
+    asin: B08G8H37LV
+    note: The plate I served this in.
 ---
 
 ## Ingredients

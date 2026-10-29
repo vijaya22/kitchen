@@ -23,6 +23,9 @@ affiliateProducts:
   - name: Tata Sampann Turmeric Powder (500g)
     asin: B07BH3RMPV
     note: For the aloo stuffing.
+  - name: Ceramic Dinner Plate
+    asin: B08G8H37LV
+    note: The plate I served this in.
 ---
 
 ## Ingredients

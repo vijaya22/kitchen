@@ -18,6 +18,9 @@ affiliateProducts:
   - name: Himalayan Sendha Salt
     asin: B086B25X6L
     note: For the topping.
+  - name: Ceramic Dinner Plate
+    asin: B08G8H37LV
+    note: The plate I served this in.
 ---
 
 ## Ingredients

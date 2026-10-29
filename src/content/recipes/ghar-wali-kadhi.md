@@ -30,6 +30,9 @@ affiliateProducts:
   - name: Hawkins Contura Pressure Cooker (2L)
     asin: B00SX03I5I
     note: For the steamed rice on the side.
+  - name: Ceramic Dinner Plate
+    asin: B08G8H37LV
+    note: The plate I served this in.
 ---
 
 ## Ingredients
