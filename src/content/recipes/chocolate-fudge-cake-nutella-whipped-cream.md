@@ -10,6 +10,12 @@ affiliateProducts:
   - name: Betty Crocker Chocolate Fudge Cake Mix
     asin: B00LJWF08A
     note: The cake mix I used as the base.
+  - name: LG Convection Microwave Oven
+    asin: B0C8J4X46Q
+    note: What I baked the cake in, using the convection mode.
+  - name: The Select Aisle Vanilla Flavour Essence
+    asin: B0BFX79VRQ
+    note: The vanilla essence I added to the batter.
 ---
 
 ## Ingredients
@@ -20,7 +26,7 @@ affiliateProducts:
 - 250 ml water
 - 3 medium eggs
 - 100 ml vegetable oil (the packet quantity — see the tips for my butter variation)
-- 1/2–1 tsp vanilla essence
+- 1/2–1 tsp [vanilla essence](https://www.amazon.in/dp/B0BFX79VRQ?tag=kitchenvijaya-21)
 - 1 tbsp unsweetened cocoa powder
 - 1/4 cup chopped chocolate
 
