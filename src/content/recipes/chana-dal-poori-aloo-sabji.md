@@ -12,6 +12,9 @@ calories: "550 kcal"
 protein: "15g"
 image: ../../assets/images/chana-dal-poori-aloo-sabji.webp
 affiliateProducts:
+  - name: Hawkins Contura Pressure Cooker (2L)
+    asin: B00SX03I5I
+    note: For cooking the chana dal.
   - name: Fortune Kachi Ghani Mustard Oil
     asin: B0757631XR
     note: For the chana dal filling tadka.
