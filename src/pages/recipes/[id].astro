@@ -5,6 +5,7 @@ import Layout from '../../layouts/Layout.astro';
 import Newsletter from '../../components/Newsletter.astro';
 import TipJar from '../../components/TipJar.astro';
 import ShopIngredients from '../../components/ShopIngredients.astro';
+import WaysToServe from '../../components/WaysToServe.astro';
 
 export async function getStaticPaths() {
   const recipes = await getCollection('recipes');
@@ -16,7 +17,7 @@ export async function getStaticPaths() {
 
 const { recipe } = Astro.props;
 const { Content } = await render(recipe);
-const { title, description, tags, image, calories, protein, servings, time, prepTime, cookTime, category, affiliateProducts } = recipe.data;
+const { title, description, tags, image, calories, protein, servings, time, prepTime, cookTime, category, affiliateProducts, waysToServe } = recipe.data;
 const recipeSlug = recipe.id.replace(/\.md$/, '');
 
 const toIsoDuration = (t: string) =>
@@ -833,6 +834,10 @@ const related = allRecipes
       </div>
     </section>
   </article>
+
+  {waysToServe && waysToServe.length > 0 && (
+    <WaysToServe items={waysToServe} />
+  )}
 
   {affiliateProducts && affiliateProducts.length > 0 && (
     <ShopIngredients products={affiliateProducts} recipeSlug={recipeSlug} />

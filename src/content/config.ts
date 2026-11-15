@@ -15,6 +15,12 @@ const recipes = defineCollection({
     calories: z.string().optional(),
     protein: z.string().optional(),
     image: image().optional(),
+    waysToServe: z.array(z.object({
+      title: z.string(),
+      note: z.string().optional(),
+      image: image().optional(),
+      recipe: z.string().optional(), // slug of an existing recipe to link to
+    })).optional(),
     affiliateProducts: z.array(z.object({
       name: z.string(),
       asin: z.string(),
