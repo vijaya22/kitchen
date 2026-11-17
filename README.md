@@ -91,6 +91,14 @@ bun run build      # production build → dist/
 bun run preview    # preview the production build
 ```
 
+## Private photo studio
+
+Run `npm run studio` to open the local cookbook photo editor at
+`http://127.0.0.1:4322`. It includes the approved before/after example, saved
+bright and dark styles, uploads, comparisons and WebP downloads. Add your OpenAI
+API key to `.env.local` to enable new edits. See [studio/README.md](studio/README.md)
+for setup and testing. The studio runs separately from the public cookbook.
+
 ## Deployment
 
 `main` is auto-deployed to GitHub Pages via `.github/workflows/deploy.yml`. The custom domain `kitchen.vijaya.io` is configured through `public/CNAME`.

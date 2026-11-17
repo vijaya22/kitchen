@@ -16,6 +16,8 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+.env.local
+.env.*.local
 
 # macOS-specific files
 .DS_Store
@@ -23,3 +25,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .vercel
+
+# private photo studio: hosted copy is its own repo; generated test images
+studio-hosted/
+output/
